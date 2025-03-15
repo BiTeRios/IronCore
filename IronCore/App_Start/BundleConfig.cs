@@ -13,7 +13,6 @@ namespace IronCore
                 "~/Content/style.css",
                 "~/Content/responsive.css",
                 "~/Content/Site.css",
-                "~/Content/style.scss",
                 "~/Content/style.css.map"));
 
             bundles.Add(new Bundle("~/bundles/jquery").Include(
