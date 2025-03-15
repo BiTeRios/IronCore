@@ -149,6 +149,7 @@
     <Content Include="Images\location-icon.png" />
     <Content Include="Images\menu.png" />
     <Content Include="Images\phone-icon.png" />
+    <Content Include="Images\privacy.png" />
     <Content Include="Images\product-1.bmp" />
     <Content Include="Images\product-2.bmp" />
     <Content Include="Images\product-3.bmp" />
