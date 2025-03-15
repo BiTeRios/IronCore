@@ -1,3 +1,43 @@
-﻿<footer class="footer_section">
+﻿<section class="info_section layout_padding2">
+    <div class="container">
+        <div class="info_items">
+            <a href="@Url.Action("Location", "Home")">
+                <div class="item">
+                    <div class="img-box box-1">
+                        <img src="@Url.Content("~/Images/location-icon.png")" alt="Location">
+                    </div>
+                    <div class="detail-box">
+                        <p>Location</p>
+                    </div>
+                </div>
+            </a>
+            <a href="tel:+37368266687">
+                <div class="item">
+                    <div class="img-box box-2">
+                        <img src="@Url.Content("~/Images/phone-icon.png")" alt="Phone">
+                    </div>
+                    <div class="detail-box">
+                        <p>
+                            +37368266687 - Samir<br>
+                            +37369283165 - Vitalii<br>
+                            +37376894716 - Constantin
+                        </p>
+                    </div>
+                </div>
+            </a>
+            <a href="mailto:samrealka@mail.ru">
+                <div class="item">
+                    <div class="img-box box-3">
+                        <img src="@Url.Content("~/Images/email-icon.png")" alt="Email">
+                    </div>
+                    <div class="detail-box">
+                        <p>samrealka@mail.ru</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+<footer class="footer_section">
     <p>&copy; @DateTime.Now.Year All Rights Reserved. Designed by sam4ch</p>
 </footer>

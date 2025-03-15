@@ -1,4 +1,5 @@
 body {
+  overflow-x: hidden;
   font-family: 'Poppins', sans-serif;
   color: #000000;
   background-color: #ffffff;
@@ -441,6 +442,10 @@ a:focus {
   background-color: #ffffff;
   border-radius: 50px;
   margin-top: -25px;
+}
+
+.trainer_section .row {
+    max-width: 100%;
 }
 
 .contact_section {
