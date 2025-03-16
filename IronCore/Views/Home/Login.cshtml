@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="login_section layout_padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="form_container">
+                    <div class="heading_container text-center">
+                        <h2>
+                            Welcome Back!
+                        </h2>
+                        <p>
+                            Log in to your IronCore account to access your membership, book classes, and more...
+                        </p>
+                    </div>
+                    <form action="">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email Address" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" required />
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberCheck">
+                            <label class="form-check-label" for="rememberCheck">Remember me</label>
+                            <a href="@Url.Action("ForgotPass", "Home")" class="float-right">Forgot Password?</a>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-block">
+                                LOGIN
+                            </button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <p>
+                            Don't have an account? <a href="register.html" class="font-weight-bold">Register here</a>
+                        </p>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

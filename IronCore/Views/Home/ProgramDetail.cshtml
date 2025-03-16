@@ -1,0 +1,279 @@
+﻿
+@{
+    ViewBag.Title = "ProgramDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading_container">
+                    <h2 id="program-title">
+                        Program Details
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-lg-6 col-md-12 mb-4">
+                <div class="img-box">
+                    <img id="program-image" src="images/program-1.jpg" alt="Program Image" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="detail-box">
+                    <h3 id="program-subtitle">Program Overview</h3>
+                    <p id="program-description">
+                        Loading program details...
+                    </p>
+                    <div class="mt-4">
+                        <h4>Suitable For:</h4>
+                        <p id="program-suitable">All fitness levels</p>
+                    </div>
+                    <div class="mt-4">
+                        <h4>Duration:</h4>
+                        <p id="program-duration">8-12 weeks</p>
+                    </div>
+                    <div class="mt-4">
+                        <h4>Led By:</h4>
+                        <p id="program-trainer">Expert trainers</p>
+                    </div>
+                    <div class="btn-box mt-5">
+                        <a href="#" class="mr-3">
+                            ENROLL NOW
+                        </a>
+                        <a href="@Url.Action("Programs", "Home")">
+                            BACK TO PROGRAMS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="program-details-tabs">
+                    <ul class="nav nav-tabs" id="programTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="schedule-tab" data-toggle="tab" href="#schedule" role="tab" aria-controls="schedule" aria-selected="true">Weekly Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="benefits-tab" data-toggle="tab" href="#benefits" role="tab" aria-controls="benefits" aria-selected="false">Benefits</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="equipment-tab" data-toggle="tab" href="#equipment" role="tab" aria-controls="equipment" aria-selected="false">Equipment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="testimonials-tab" data-toggle="tab" href="#testimonials" role="tab" aria-controls="testimonials" aria-selected="false">Testimonials</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-4" id="programTabContent">
+                        <div class="tab-pane fade show active" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Focus</th>
+                                            <th>Duration</th>
+                                            <th>Intensity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="program-schedule">
+                                        <tr>
+                                            <td>Monday</td>
+                                            <td>Upper Body Strength</td>
+                                            <td>45-60 minutes</td>
+                                            <td>Moderate-High</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tuesday</td>
+                                            <td>Cardio & Core</td>
+                                            <td>30-45 minutes</td>
+                                            <td>Moderate</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Wednesday</td>
+                                            <td>Lower Body Strength</td>
+                                            <td>45-60 minutes</td>
+                                            <td>Moderate-High</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thursday</td>
+                                            <td>Rest or Light Activity</td>
+                                            <td>15-30 minutes</td>
+                                            <td>Low</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Friday</td>
+                                            <td>Full Body Workout</td>
+                                            <td>45-60 minutes</td>
+                                            <td>High</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saturday</td>
+                                            <td>HIIT or Sports</td>
+                                            <td>30-45 minutes</td>
+                                            <td>High</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sunday</td>
+                                            <td>Rest Day</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="benefits" role="tabpanel" aria-labelledby="benefits-tab">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul id="program-benefits">
+                                        <li>Increased muscle strength and endurance</li>
+                                        <li>Improved cardiovascular health</li>
+                                        <li>Enhanced metabolism and calorie burning</li>
+                                        <li>Better posture and functional movement</li>
+                                        <li>Reduced risk of injury</li>
+                                        <li>Improved body composition</li>
+                                        <li>Increased energy levels and mood</li>
+                                        <li>Better sleep quality</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="equipment" role="tabpanel" aria-labelledby="equipment-tab">
+                            <div class="row" id="program-equipment">
+                                <div class="col-md-4 mb-4">
+                                    <div class="equipment-item">
+                                        <div class="img-box">
+                                            <img src="images/equipment-1.jpg" alt="Dumbbells" class="img-fluid">
+                                        </div>
+                                        <h5 class="mt-3">Free Weights</h5>
+                                        <p>Dumbbells, barbells, and weight plates</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="equipment-item">
+                                        <div class="img-box">
+                                            <img src="images/equipment-2.jpg" alt="Machines" class="img-fluid">
+                                        </div>
+                                        <h5 class="mt-3">Resistance Machines</h5>
+                                        <p>Cable machines, smith machine, and more</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="equipment-item">
+                                        <div class="img-box">
+                                            <img src="images/equipment-3.jpg" alt="Cardio" class="img-fluid">
+                                        </div>
+                                        <h5 class="mt-3">Cardio Equipment</h5>
+                                        <p>Treadmills, bikes, rowing machines, and ellipticals</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="testimonials" role="tabpanel" aria-labelledby="testimonials-tab">
+                            <div class="testimonial-container" id="program-testimonials">
+                                <div class="testimonial-item mb-4">
+                                    <div class="testimonial-content p-4">
+                                        <p>"This program transformed my fitness journey. I've gained strength I never thought possible and feel amazing every day."</p>
+                                        <div class="testimonial-author mt-3">
+                                            <h6>Sarah J.</h6>
+                                            <span>Program Member - 6 months</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-item mb-4">
+                                    <div class="testimonial-content p-4">
+                                        <p>"The trainers are exceptional and the program structure makes it easy to follow even with my busy schedule. Highly recommend!"</p>
+                                        <div class="testimonial-author mt-3">
+                                            <h6>Michael T.</h6>
+                                            <span>Program Member - 3 months</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end program details section -->
+<!-- related programs section -->
+<section class="layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2>
+                Related Programs
+            </h2>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="box">
+                    <div class="img-box">
+                        <img src="images/program-2.jpg" alt="Cardio Fitness">
+                    </div>
+                    <div class="detail-box">
+                        <h5>
+                            CARDIO FITNESS
+                        </h5>
+                        <p>
+                            Improve endurance, burn calories, and enhance your cardiovascular health with our targeted cardio program.
+                        </p>
+                        <div class="btn-box mt-3">
+                            <a href="@Url.Action("ProgramDetail", "Home")">
+                                VIEW DETAILS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="box">
+                    <div class="img-box">
+                        <img src="images/program-3.jpg" alt="Flexibility & Yoga">
+                    </div>
+                    <div class="detail-box">
+                        <h5>
+                            FLEXIBILITY & YOGA
+                        </h5>
+                        <p>
+                            Increase mobility, reduce stress, and improve balance with our flexibility and yoga training program.
+                        </p>
+                        <div class="btn-box mt-3">
+                            <a href="@Url.Action("ProgramDetail", "Home")">
+                                VIEW DETAILS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="box">
+                    <div class="img-box">
+                        <img src="images/program-4.jpg" alt="HIIT">
+                    </div>
+                    <div class="detail-box">
+                        <h5>
+                            HIIT WORKOUTS
+                        </h5>
+                        <p>
+                            Maximize fat loss and improve conditioning with our high-intensity interval training program.
+                        </p>
+                        <div class="btn-box mt-3">
+                            <a href="@Url.Action("ProgramDetail", "Home")">
+                                VIEW DETAILS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

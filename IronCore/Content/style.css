@@ -399,33 +399,33 @@ a:focus {
   margin-top: 35px;
 }
 
-.heathy_section .btn-box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-top: 45px;
+.us_container .btn-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 45px;
 }
 
-.heathy_section .btn-box a {
-  display: inline-block;
-  padding: 8px 35px;
-  background-color: transparent;
-  border: 1.5px solid #ffffff;
-  color: #ffffff;
-  border-radius: 0;
-  -webkit-transition: -webkit-transform 0.3s;
-  transition: -webkit-transform 0.3s;
-  transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
-  text-transform: uppercase;
+.us_container .btn-box a {
+    display: inline-block;
+    padding: 8px 35px;
+    background-color: transparent;
+    border: 1.5px solid #ffffff;
+    color: #ffffff;
+    border-radius: 0;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+    text-transform: uppercase;
 }
 
-.heathy_section .btn-box a:hover {
-  background-color: #ffffff;
-  color: #000000;
+.us_container .btn-box a:hover {
+    background-color: #ffffff;
+    color: #000000;
 }
 
 .happy_clients_section {

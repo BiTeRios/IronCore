@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "ForgotPass";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="login_section layout_padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="form_container">
+                    <div class="heading_container text-center">
+                        <h2>
+                            Reset Your Password
+                        </h2>
+                        <p>
+                            Enter your email address and we'll send you a link to reset your password.
+                        </p>
+                    </div>
+                    <form action="">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email Address" required />
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-block">
+                                SEND RESET LINK
+                            </button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <p>
+                            Remember your password? <a href="@Url.Action("Login", "Home")" class="font-weight-bold">Back to Login</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
