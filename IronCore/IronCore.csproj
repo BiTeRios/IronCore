@@ -140,6 +140,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\arni.jpg" />
     <Content Include="Images\contact-img.jpg" />
     <Content Include="Images\email-icon.png" />
     <Content Include="Images\facebook-logo.png" />
@@ -157,6 +158,7 @@
     <Content Include="Images\product-4.bmp" />
     <Content Include="Images\product-5.bmp" />
     <Content Include="Images\product-6.bmp" />
+    <Content Include="Images\ronny.png" />
     <Content Include="Images\search-icon.png" />
     <Content Include="Images\steam.png" />
     <Content Include="Images\t1.jpg" />
