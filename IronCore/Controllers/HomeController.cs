@@ -67,5 +67,13 @@ namespace IronCore.Controllers
         {
             return View();
         }
+        public ActionResult ShoppingCart()
+        {
+            return View();
+        }
+        public ActionResult Registration()
+        {
+            return View();
+        }
     }
 }
