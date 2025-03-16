@@ -37,5 +37,13 @@ namespace IronCore.Controllers
         {
             return View();
         }
+        public ActionResult Page404()
+        {
+            return View();
+        }
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
     }
 }

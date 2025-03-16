@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Page404";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="heathy_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mx-auto text-center">
+                <div class="detail-box">
+                    <h1 style="font-size: 6rem; margin-bottom: 20px;">404</h1>
+                    <h2>PAGE NOT FOUND</h2>
+                    <p>
+                        The page you're looking for doesn't exist or has been moved.
+                        Don't worry, even the strongest athletes sometimes miss a rep.
+                    </p>
+                    <div class="btn-box" style="margin-top: 30px;">
+                        <a href="@Url.Action("Index", "Home")">
+                            BACK TO HOMEPAGE
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
