@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Coach";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="hero_area">
+    <section class="slider_section position-relative">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="container">
+                        <div class="col-lg-10 col-md-11 mx-auto">
+                            <div class="detail-box">
+                                <h3>
+                                    Meet Our
+                                </h3>
+                                <h2>
+                                    Expert Trainer
+                                </h2>
+                                <h1>
+                                    Meliuh Samir
+                                </h1>
+                                <p>
+                                    Certified Fitness Trainer specializing in strength training and weight loss.
+                                </p>
+                                <div class="">
+                                    <a href="#trainer-profile">
+                                        View Profile
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<section class="trainer_profile_section layout_padding" id="trainer-profile">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="box">
+                    <div class="img-box">
+                        <img src="@Url.Content("~/Images/t1.jpg")" alt="Meliuh Samir - Fitness Trainer" class="img-fluid rounded-circle">
+                    </div>
+                    <div class="detail-box">
+                        <h5>Meliuh Samir</h5>
+                        <p>Certified Fitness Trainer</p>
+                        <div class="specialization">
+                            <h6>Specialization:</h6>
+                            <p>Strength Training, HIIT, Weight Loss</p>
+                        </div>
+                        <div class="experience">
+                            <h6>Experience:</h6>
+                            <p>5+ Years</p>
+                        </div>
+                        <div class="social_box">
+                            <a href="https://t.me/Samch0s" target="_blank">
+                                <img src="@Url.Content("~/Images/telega.png")" alt="Telegram">
+                            </a>
+                            <a href="https://steamcommunity.com/id/sam4ch/" target="_blank">
+                                <img src="@Url.Content("~/Images/steam.png")" alt="Steam">
+                            </a>
+                            <a href="https://www.instagram.com/sam_4ch/" target="_blank">
+                                <img src="@Url.Content("~/Images/instagram.png")" alt="Instagram">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-6">
+                <div class="bio-box">
+                    <h4>Bio</h4>
+                    <p>Meliuh Samir is a certified fitness trainer with over 5 years of experience in the fitness industry. He specializes in strength training, high-intensity interval training, and weight loss programs. Samir is known for his personalized approach to fitness, creating tailored workout plans that adapt to each client's unique needs and goals.</p>
+                    <p>His philosophy is centered around sustainable fitness practices that integrate seamlessly into daily life. He believes that fitness is not just about physical appearance but overall health and wellbeing.</p>
+                    <div class="testimonials">
+                        <h4>Testimonials</h4>
+                        <div class="testimonial-box">
+                            <p>"Sam changed my life! I've never felt stronger or more confident. His training methods are effective and enjoyable."</p>
+                            <h6>- Sarah Johnson, Client</h6>
+                        </div>
+                        <div class="testimonial-box">
+                            <p>"Working with Samir has been transformative. He's professional, knowledgeable, and genuinely cares about his clients' success."</p>
+                            <h6>- Michael Wilson, Client</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

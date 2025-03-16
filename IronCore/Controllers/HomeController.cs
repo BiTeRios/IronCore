@@ -45,5 +45,9 @@ namespace IronCore.Controllers
         {
             return View();
         }
+        public ActionResult Coach()
+        {
+            return View();
+        }
     }
 }
