@@ -28,26 +28,12 @@ namespace IronCore.Controllers
             ViewBag.ActivePage = "Nutritions";
             return View();
         }
-        public ActionResult Trainers()
-        {
-            ViewBag.ActivePage = "Trainers";
-            return View();
-        }
         public ActionResult Contact()
         {
             ViewBag.ActivePage = "Contact";
             return View();
         }
-        public ActionResult Login()
-        {
-            ViewBag.ActivePage = "Login";
-            return View();
-        }
         public ActionResult Page404()
-        {
-            return View();
-        }
-        public ActionResult User()
         {
             return View();
         }
@@ -59,19 +45,7 @@ namespace IronCore.Controllers
         {
             return View();
         }
-        public ActionResult Coach()
-        {
-            return View();
-        }
-        public ActionResult ForgotPass()
-        {
-            return View();
-        }
         public ActionResult ShoppingCart()
-        {
-            return View();
-        }
-        public ActionResult Registration()
         {
             return View();
         }

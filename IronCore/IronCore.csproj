@@ -112,7 +112,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TrainersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,17 +233,17 @@
     <Content Include="Views\Home\Why.cshtml" />
     <Content Include="Views\Home\Page404.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
-    <Content Include="Views\Home\Trainers.cshtml" />
+    <Content Include="Views\Trainers\Trainers.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Coach.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Home\ForgotPass.cshtml" />
+    <Content Include="Views\Trainers\Coach.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ForgotPass.cshtml" />
     <Content Include="Views\Home\Programs.cshtml" />
     <Content Include="Views\Home\ProgramDetail.cshtml" />
-    <Content Include="Views\Home\User.cshtml" />
+    <Content Include="Views\Account\User.cshtml" />
     <Content Include="Views\Home\Nutritions.cshtml" />
     <Content Include="Views\Home\ShoppingCart.cshtml" />
-    <Content Include="Views\Home\Registration.cshtml" />
+    <Content Include="Views\Account\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
