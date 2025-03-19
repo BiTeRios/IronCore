@@ -45,16 +45,13 @@
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\AdminApi.cs" />
     <Compile Include="Core\UserApi.cs" />
-<<<<<<< HEAD
     <Compile Include="Interfaces\ICart.cs" />
     <Compile Include="Interfaces\IProduct.cs" />
-=======
     <Compile Include="Interfaces\ICoach.cs" />
->>>>>>> 39abe0022ab2751fafd98d8d4761672b73184029
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionBL.cs" />
+    <Compile Include="BL\SessionBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IronCore.Domain\IronCore.Domain.csproj">
