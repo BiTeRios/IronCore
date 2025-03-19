@@ -7,7 +7,7 @@ using IronCore.Domain.Entities.Product;
 
 namespace IronCore.Domain.Entities.Cart
 {
-    public class Cart
+    public class CartItem
     {
         public List<ProductItem> ProductsInCart { get; set; }
         public int CartID { get; set; }

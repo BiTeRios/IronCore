@@ -7,7 +7,7 @@ using IronCore.Domain.Entities.Product;
 
 namespace IronCore.BusinessLogic.Interfaces
 {
-    interface IProduct
+    public interface IProduct
     {
         ProductItem GetProductById(int productId);
         IEnumerable<ProductItem> GetAllProducts();
