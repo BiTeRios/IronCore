@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Cart\Cart.cs" />
+    <Compile Include="Entities\Coach\Coach.cs" />
     <Compile Include="Entities\Product\Product.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
