@@ -259,6 +259,16 @@
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IronCore.BusinessLogic\IronCore.BusinessLogic.csproj">
+      <Project>{5215d93a-cecd-46e5-9bc2-11b968c6267d}</Project>
+      <Name>IronCore.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IronCore.Domain\IronCore.Domain.csproj">
+      <Project>{3c619b0a-4366-4615-9ed9-042c75ce2285}</Project>
+      <Name>IronCore.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
