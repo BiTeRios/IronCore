@@ -4,15 +4,16 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using IronCore.Domain.Entities;
 
 namespace IronCore.Domain.Entities.Product
 {
-    class Product
+    public class ProductItem
     {
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public string Description { get; set; }
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         public bool InCart { get; set; }
         public int Quantity { get; set; }
         public string ImagePath { get; set; }

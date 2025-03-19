@@ -9,7 +9,6 @@ namespace IronCore.Domain.Entities.Coach
 {
     class Coach
     {
-
         public int CoachID { get; set; }
         public string ImagePath { get; set; }
         public string FullName { get; set; }
