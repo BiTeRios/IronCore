@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace IronCore.Domain.Entities.Coach
 {
-    class Coach
+    public class CoachCl
     {
 
         public int CoachID { get; set; }

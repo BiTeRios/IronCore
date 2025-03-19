@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IronCore.Domain.Entities.User
 {
-    class User
+    public class UserCl
     {
         public int UserID { get; set; }
         public string UserName { get; set; }
