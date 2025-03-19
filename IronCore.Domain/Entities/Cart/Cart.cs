@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IronCore.Domain
+namespace IronCore.Domain.Entities.Cart
 {
-    public class Class1
+    class Cart
     {
     }
 }
