@@ -19,5 +19,6 @@ namespace IronCore.Domain.Entities.Coach
         public string TelegramUrl { get; set; }
         public string SteamUrl { get; set; }
         public string InstagramUrl { get; set; }
+        public DateTime RegistrationDate { get; set; }
     }
 }
