@@ -9,7 +9,8 @@ namespace IronCore.Domain.Entities.Product
     class Product
     {
         public int ProductID { get; set; }
-        public List<string> NameProduct { get; set; }
+        public string ProductName { get; set; }
         public DateTime DateOfCreation { get; set; }
+        public string Description { get; set; }
     }
 }
