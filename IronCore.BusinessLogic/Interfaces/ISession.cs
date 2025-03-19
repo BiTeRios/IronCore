@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace IronCore.BusinessLogic.Interfaces
 {
-    interface ISession
+    public interface ISession
     {
+
     }
 }

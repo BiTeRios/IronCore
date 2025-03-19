@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IronCore.BusinessLogic.Core
 {
-    class UserApi
+    public class UserApi
     {
     }
 }
