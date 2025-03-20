@@ -9,7 +9,7 @@ using IronCore.BusinessLogic.Core;
 
 namespace IronCore.BusinessLogic.BL
 {
-    class CoachBL : UserApi, ICoach
+    class CoachBL : ICoach
     {
         public void addCoach(CoachCl coach)
         {

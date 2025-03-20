@@ -9,7 +9,7 @@ using IronCore.Domain.Entities.Product;
 
 namespace IronCore.BusinessLogic.BL
 {
-    public class ProductBL : UserApi, IProduct
+    public class ProductBL : IProduct
     {
         ProductItem IProduct.GetProductById(int productId)
         {

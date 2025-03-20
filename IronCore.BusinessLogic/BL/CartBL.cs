@@ -16,27 +16,22 @@ namespace IronCore.BusinessLogic.BL
         {
             throw new NotImplementedException();
         }
-
         decimal ICart.CalculateTotal()
         {
             throw new NotImplementedException();
         }
-
         void ICart.ClearCart()
         {
             throw new NotImplementedException();
         }
-
         void ICart.DecrementQuantity(int productId)
         {
             throw new NotImplementedException();
         }
-
         IEnumerable<CartItem> ICart.GetCartItems()
         {
             throw new NotImplementedException();
         }
-
         CartItem ICart.GetCurrentCart()
         {
             throw new NotImplementedException();
@@ -46,22 +41,18 @@ namespace IronCore.BusinessLogic.BL
         {
             throw new NotImplementedException();
         }
-
         bool ICart.IsProductInCart(int productId)
         {
             throw new NotImplementedException();
         }
-
         void ICart.RemoveFromCart(int productId)
         {
             throw new NotImplementedException();
         }
-
         void ICart.SetCurrentCart(CartItem cart)
         {
             throw new NotImplementedException();
         }
-
         void ICart.UpdateQuantity(int productId, int newQuantity)
         {
             throw new NotImplementedException();
