@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\CartBL.cs" />
+    <Compile Include="BL\CoachBL.cs" />
     <Compile Include="BL\ProductBL.cs" />
+    <Compile Include="BL\UserBL.cs" />
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\AdminApi.cs" />
     <Compile Include="Core\UserApi.cs" />
