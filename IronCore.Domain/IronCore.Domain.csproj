@@ -47,6 +47,7 @@
     <Compile Include="Entities\Product\Product.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />
     <Compile Include="Entities\User\UserDbModel.cs" />
+    <Compile Include="Enums\User\URole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\Balance\" />
-    <Folder Include="Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
