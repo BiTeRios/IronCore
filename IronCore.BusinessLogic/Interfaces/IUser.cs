@@ -9,10 +9,10 @@ namespace IronCore.BusinessLogic.Interfaces
 {
     interface IUser
     {
-        UserCl GetUserById(int userId);
-        IEnumerable<UserCl> GetAllUsers();
-        bool AddUser(UserCl user);
-        bool UpdateUser(UserCl user);
+        UserDbModel GetUserById(int userId);
+        IEnumerable<UserDbModel> GetAllUsers();
+        bool AddUser(UserDbModel user);
+        bool UpdateUser(UserDbModel user);
         bool DeleteUser(int userId);
         bool UserExists(int userId);
         bool ValidateCredentials(string username, string password);

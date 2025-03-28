@@ -46,7 +46,7 @@
     <Compile Include="Entities\Coach\Coach.cs" />
     <Compile Include="Entities\Product\Product.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />
-    <Compile Include="Entities\User\UserDdModel.cs" />
+    <Compile Include="Entities\User\UserDbModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +56,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Entities\Balance\" />
     <Folder Include="Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

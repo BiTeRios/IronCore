@@ -11,7 +11,7 @@ namespace IronCore.BusinessLogic.BL
 {
     class UserBL : UserApi, IUser
     {
-        public bool AddUser(UserCl user)
+        public bool AddUser(UserDbModel user)
         {
             throw new NotImplementedException();
         }
@@ -26,17 +26,17 @@ namespace IronCore.BusinessLogic.BL
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserCl> GetAllUsers()
+        public IEnumerable<UserDbModel> GetAllUsers()
         {
             throw new NotImplementedException();
         }
 
-        public UserCl GetUserById(int userId)
+        public UserDbModel GetUserById(int userId)
         {
             throw new NotImplementedException();
         }
 
-        public bool UpdateUser(UserCl user)
+        public bool UpdateUser(UserDbModel user)
         {
             throw new NotImplementedException();
         }
