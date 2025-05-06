@@ -55,7 +55,8 @@ namespace IronCore.Controllers
             var user = _authService.Login(model.Credential, model.Password);
             if (user != null)
             {
-                FormsAuthentication.SetAuthCookie(user.Credential, model.RememberMe);
+                var viewModel = MvcApplication.MapperInstance.Map<LoginViewModel>(user);
+
                 return RedirectToAction("Index", "Home");
             }
 

@@ -12,7 +12,6 @@ namespace IronCore.BusinessLogic.DBModel
     {
         public UserContext() : base("name=IronCore") { }
 
-        // здесь DbSet для логина:
         public virtual DbSet<ULoginData> Users { get; set; }
     }
 }
