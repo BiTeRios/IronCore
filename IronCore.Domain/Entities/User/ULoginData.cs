@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace IronCore.Domain.Entities.User
 {
-    class ULoginData
+    public class ULoginData
     {
+        public int Id { get; set; }
         public string Credential { get; set; }
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
         public string LoginIp { get; set; }
         public DateTime LoginDateTime { get; set; }
     }

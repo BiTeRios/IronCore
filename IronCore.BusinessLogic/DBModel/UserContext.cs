@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace IronCore.BusinessLogic.DBModel
 {
-    class UserContext : DbContext
+    public class UserContext : DbContext
     {
-        public UserContext() :
-            base("name=IronCore")
-        {
-        }
-        public virtual DbSet<UserDbModel> Users { get; set; }
+        public UserContext() : base("name=IronCore") { }
+
+        // здесь DbSet для логина:
+        public virtual DbSet<ULoginData> Users { get; set; }
     }
 }

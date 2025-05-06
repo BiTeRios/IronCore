@@ -1,4 +1,5 @@
 ﻿using IronCore.BusinessLogic.Core;
+using IronCore.BusinessLogic.DBModel;
 using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.User;
 using System;
@@ -9,8 +10,22 @@ using System.Threading.Tasks;
 
 namespace IronCore.BusinessLogic.BL
 {
-    class UserBL : UserApi, IUser
+    public class UserBL
     {
+        private readonly UserContext _context;
+
+        public UserBL()
+        {
+            _context = new UserContext();
+        }
+
+        public ULoginData Login(string email, string password)
+        {
+            return _context.Users
+                           .FirstOrDefault(u => u.Credential == email
+                                             && u.PasswordHash == password);
+        }
+
         public bool AddUser(UserDbModel user)
         {
             throw new NotImplementedException();
