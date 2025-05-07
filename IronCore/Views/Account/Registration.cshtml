@@ -1,83 +1,39 @@
-﻿
+﻿@model IronCore.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Registration";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Регистрация";
 }
 
-<section class="register_section layout_padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="detail-box pr-md-5">
-                    <div class="heading_container">
-                        <h2>
-                            Join IronCore Today
-                        </h2>
-                    </div>
-                    <p>
-                        Become a member of IronCore and start your fitness journey today. Our membership gives you access to:
-                    </p>
-                    <ul class="mt-4">
-                        <li class="mb-2">All fitness equipment and facilities</li>
-                        <li class="mb-2">Group fitness classes</li>
-                        <li class="mb-2">Personal training sessions (additional fees may apply)</li>
-                        <li class="mb-2">Nutritional guidance</li>
-                        <li class="mb-2">Member-only events and workshops</li>
-                        <li class="mb-2">Exclusive discounts on merchandise and supplements</li>
-                    </ul>
-                    <p class="mt-4">
-                        Already have an account? <a href="@Url.Action("Login", "Account")" class="font-weight-bold">Login here</a>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form_container">
-                    <div class="heading_container">
-                        <h2>
-                            Create an Account
-                        </h2>
-                    </div>
-                    <form action="">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input type="text" class="form-control" placeholder="First Name *" required />
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="text" class="form-control" placeholder="Last Name *" required />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email Address *" required />
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" class="form-control" placeholder="Phone Number *" required />
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password *" required />
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Confirm Password *" required />
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control">
-                                <option selected disabled>Select Membership Type</option>
-                                <option>Basic Membership - $19.99/month</option>
-                                <option>Premium Membership - $39.99/month</option>
-                                <option>VIP Membership - $59.99/month</option>
-                            </select>
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="termsCheck" required>
-                            <label class="form-check-label" for="termsCheck">I agree to the <a href="@Url.Action("PrivacyPolicy", "Home")">Privacy Policy</a></label>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-block">
-                                REGISTER
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+<h2>Регистрация</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UserName)
     </div>
-</section>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword)
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+    </div>
+
+    <button class="btn btn-primary">Зарегистрироваться</button>
+}
+
+@section Scripts { @Scripts.Render("~/bundles/jqueryval") }

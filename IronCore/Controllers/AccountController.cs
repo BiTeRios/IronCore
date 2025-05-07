@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using System.Web.Security;
 using IronCore.BusinessLogic.Core;
 using IronCore.Models;
+using IronCore.BusinessLogic.DBModel;
+using IronCore.Domain.Entities.User;
+using IronCore.Domain.Enums.User;
 
 namespace IronCore.Controllers
 {
@@ -68,6 +71,53 @@ namespace IronCore.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
+        }
+
+        private readonly UserContext db = new UserContext();   // как и раньше
+
+        // GET /Account/Register
+        public ActionResult Register() => View();
+
+        // POST /Account/Register
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterViewModel m)
+        {
+            if (!ModelState.IsValid) return View(m);
+
+            // проверяем уникальность e‑mail
+            if (db.Users.Any(u => u.Email == m.Email))
+            {
+                ModelState.AddModelError("", "Такой e‑mail уже зарегистрирован");
+                return View(m);
+            }
+
+            // простой SHA‑256 (чтобы не добавлять новых пакетов)
+            var hash = Hash(m.Password);
+
+            var user = new UserDbModel
+            {
+                UserName = m.UserName,
+                Email = m.Email,
+                Password = hash,          // поле так и называется в Entity
+                LastLogin = DateTime.Now,
+                Level = URole.User,    // роль «обычный пользователь»
+                RegistrationDate = DateTime.Now
+            };
+
+            db.Users.Add(user);
+            db.SaveChanges();
+
+            FormsAuthentication.SetAuthCookie(m.Email, false);
+            return RedirectToAction("Index", "Home");
+        }
+
+        private static string Hash(string src)
+        {
+            using (var sha = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = System.Text.Encoding.UTF8.GetBytes(src);
+                return Convert.ToBase64String(sha.ComputeHash(bytes));
+            }
         }
     }
 }

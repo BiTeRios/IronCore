@@ -16,6 +16,8 @@ namespace IronCore.Domain.Entities.User
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public string Credential { get; set; }
+        public string PasswordHash { get; set; }
         [Required]
         [Display(Name = "username")]
         [StringLength(30, MinimumLength = 5, ErrorMessage = "username not valid")]

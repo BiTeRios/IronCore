@@ -17,7 +17,7 @@ namespace IronCore.BusinessLogic.Core
             _context = new UserContext();
         }
 
-        public ULoginData Login(string email, string password)
+        public UserDbModel Login(string email, string password)
         {
             return _context.Users
                            .FirstOrDefault(u => u.Credential == email

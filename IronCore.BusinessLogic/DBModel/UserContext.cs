@@ -11,7 +11,6 @@ namespace IronCore.BusinessLogic.DBModel
     public class UserContext : DbContext
     {
         public UserContext() : base("name=IronCore") { }
-
-        public virtual DbSet<ULoginData> Users { get; set; }
+        public DbSet<UserDbModel> Users { get; set; }
     }
 }
