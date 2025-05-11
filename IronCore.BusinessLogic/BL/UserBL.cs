@@ -12,18 +12,16 @@ namespace IronCore.BusinessLogic.BL
 {
     public class UserBL
     {
-        private readonly UserContext _context;
+        private readonly UserContext ctx;
 
         public UserBL()
         {
-            _context = new UserContext();
+            ctx = new UserContext();
         }
 
-        public ULoginData Login(string email, string password)
+        public UserDbModel GetUserByEmail(string email)
         {
-            return _context.Users
-                           .FirstOrDefault(u => u.Credential == email
-                                             && u.PasswordHash == password);
+            return ctx.Users.FirstOrDefault(u => u.Email == email);
         }
 
         public bool AddUser(UserDbModel user)

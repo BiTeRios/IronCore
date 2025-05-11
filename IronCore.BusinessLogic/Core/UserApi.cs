@@ -17,11 +17,11 @@ namespace IronCore.BusinessLogic.Core
             _context = new UserContext();
         }
 
-        public UserDbModel Login(string email, string password)
+        public UserDbModel Login(string email, string password, string username)
         {
             return _context.Users
-                           .FirstOrDefault(u => u.Credential == email
-                                             && u.PasswordHash == password);
+                           .FirstOrDefault(u => (u.Credential == email || u.Credential == username)
+                                             && u.Password == password);
         }
     }
 }

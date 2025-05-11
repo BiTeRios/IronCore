@@ -22,10 +22,6 @@ namespace IronCore.Controllers
             ViewBag.ActivePage = "Registration";
             return View();
         }
-        public ActionResult User()
-        {
-            return View();
-        }
         public ActionResult ForgotPass()
         {
             return View();
@@ -55,7 +51,7 @@ namespace IronCore.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = _authService.Login(model.Credential, model.Password);
+            var user = _authService.Login(model.Credential, model.Password, model.Credential);
             if (user != null)
             {
                 var viewModel = MvcApplication.MapperInstance.Map<LoginViewModel>(user);
@@ -73,7 +69,7 @@ namespace IronCore.Controllers
             return RedirectToAction("Login");
         }
 
-        private readonly UserContext db = new UserContext();   // как и раньше
+        private readonly UserContext db = new UserContext();
 
         // GET /Account/Register
         public ActionResult Register() => View();
@@ -84,23 +80,22 @@ namespace IronCore.Controllers
         {
             if (!ModelState.IsValid) return View(m);
 
-            // проверяем уникальность e‑mail
             if (db.Users.Any(u => u.Email == m.Email))
             {
                 ModelState.AddModelError("", "Такой e‑mail уже зарегистрирован");
                 return View(m);
             }
 
-            // простой SHA‑256 (чтобы не добавлять новых пакетов)
             var hash = Hash(m.Password);
 
             var user = new UserDbModel
             {
                 UserName = m.UserName,
                 Email = m.Email,
-                Password = hash,          // поле так и называется в Entity
+                Password = hash,          
                 LastLogin = DateTime.Now,
-                Level = URole.User,    // роль «обычный пользователь»
+                BirthDate = m.BirthDate,
+                Level = URole.User,    
                 RegistrationDate = DateTime.Now
             };
 
