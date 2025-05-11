@@ -16,12 +16,8 @@ namespace IronCore.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
-        public ActionResult Registration()
-        {
-            ViewBag.ActivePage = "Registration";
-            return View();
-        }
+        private readonly UserContext db = new UserContext();
+        private readonly UserApi _authService;
         public ActionResult ForgotPass()
         {
             return View();
@@ -30,9 +26,6 @@ namespace IronCore.Controllers
         {
             return View();
         }
-
-        private readonly UserApi _authService;
-
         public AccountController()
         {
             _authService = new UserApi();
@@ -43,24 +36,44 @@ namespace IronCore.Controllers
         {
             return View(new LoginViewModel());
         }
-
+        // POST: /Account/Login
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(LoginViewModel m, string returnUrl)
         {
             if (!ModelState.IsValid)
-                return View(model);
+                return View(m);
 
-            var user = _authService.Login(model.Credential, model.Password, model.Credential);
-            if (user != null)
+            // Ищем пользователя по UserName или Email
+            var user = db.Users
+                .FirstOrDefault(u =>
+                    u.UserName.Equals(m.Credential, StringComparison.OrdinalIgnoreCase)
+                    || u.Email.Equals(m.Credential, StringComparison.OrdinalIgnoreCase)
+                );
+
+            if (user == null)
             {
-                var viewModel = MvcApplication.MapperInstance.Map<LoginViewModel>(user);
-
-                return RedirectToAction("Index", "Home");
+                ModelState.AddModelError("", "Пользователь не найден");
+                return View(m);
             }
 
-            ModelState.AddModelError("", "Invalid login or password");
-            return View(model);
+            //if (!VerifyHash(m.Password, user.Password))
+            //{
+            //    ModelState.AddModelError("", "Неверный пароль");
+            //    return View(m);
+            //}
+
+            // Всё ок — ставим куку
+            FormsAuthentication.SetAuthCookie(user.Email, m.RememberMe);
+
+            // Обновляем дату последнего входа
+            user.LastLogin = DateTime.Now;
+            db.SaveChanges();
+
+            if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/"))
+                return Redirect(returnUrl);
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Logout()
@@ -69,10 +82,12 @@ namespace IronCore.Controllers
             return RedirectToAction("Login");
         }
 
-        private readonly UserContext db = new UserContext();
-
         // GET /Account/Register
-        public ActionResult Register() => View();
+        public ActionResult Register()
+        {
+            ViewBag.ActivePage = "Registration";
+            return View();
+        }
 
         // POST /Account/Register
         [HttpPost, ValidateAntiForgeryToken]
