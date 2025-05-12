@@ -105,7 +105,10 @@ namespace IronCore.Controllers
 
             var user = new UserDbModel
             {
+                FirstName = m.FirstName,
+                LastName = m.LastName,
                 UserName = m.UserName,
+                PhoneNumber = m.PhoneNumber, 
                 Email = m.Email,
                 Password = hash,          
                 LastLogin = DateTime.Now,

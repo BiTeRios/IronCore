@@ -8,6 +8,16 @@ namespace IronCore.Models
 {
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Имя")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Фамилия")]
+        public string LastName { get; set; }
+        [Required]
+        [Display(Name = "Телефон")]
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; set; }
         [Required, StringLength(30, MinimumLength = 5)]
         public string UserName { get; set; }
 
