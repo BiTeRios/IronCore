@@ -1,0 +1,29 @@
+@{
+    Layout = null;              
+    var title = ViewBag.Title ?? "Admin";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>@title – IronCore Admin</title>
+
+
+    @Styles.Render("~/Content/css")
+    @RenderSection("Styles", required: false)
+</head>
+<body class="bg-light">
+
+
+    @Html.Partial("_AdminHeader")
+
+    <div class="container-fluid pt-4">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

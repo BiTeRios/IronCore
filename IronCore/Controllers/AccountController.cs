@@ -64,13 +64,23 @@ namespace IronCore.Controllers
                 return View(m);
             }
 
-
-            FormsAuthentication.SetAuthCookie(user.Email, m.RememberMe);
-
+            var roleString = user.Level == URole.Admin ? "Admin" : "User";
+            var ticket = new FormsAuthenticationTicket(
+                1, user.UserName, DateTime.Now, DateTime.Now.AddHours(4),
+                false, roleString, FormsAuthentication.FormsCookiePath);
+            Response.Cookies.Add(new HttpCookie(
+                FormsAuthentication.FormsCookieName,
+                FormsAuthentication.Encrypt(ticket)));
 
             user.LastLogin = DateTime.Now;
             db.SaveChanges();
-
+            if (user.Level == URole.Admin)          
+            {
+                return RedirectToAction(
+                    "Index",                       
+                    "Users",                       
+                    new { area = "Admin" });       
+            }
             if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/"))
                 return Redirect(returnUrl);
             return RedirectToAction("Index", "Home");
@@ -89,8 +99,8 @@ namespace IronCore.Controllers
 
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
+            FormsAuthentication.SignOut();        
+            return RedirectToAction("Index", "Home"); 
         }
 
         // GET /Account/Register

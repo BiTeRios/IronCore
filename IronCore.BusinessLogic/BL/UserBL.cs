@@ -4,6 +4,7 @@ using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.User;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,43 +19,30 @@ namespace IronCore.BusinessLogic.BL
         {
             ctx = new UserContext();
         }
+        public IEnumerable<UserDbModel> GetAllUsers() => ctx.Users.ToList();
 
-        public UserDbModel GetUserByEmail(string email)
+        public UserDbModel GetById(int id) => ctx.Users.Find(id);
+
+        public void Update(UserDbModel u)
         {
-            return ctx.Users.FirstOrDefault(u => u.Email == email);
+            ctx.Entry(u).State = EntityState.Modified;
+            ctx.SaveChanges();
         }
 
-        public bool AddUser(UserDbModel user)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var u = ctx.Users.Find(id);
+            if (u != null)
+            {
+                ctx.Users.Remove(u);
+                ctx.SaveChanges();
+            }
         }
-
-        public void DeactivateUser(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteUser(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<UserDbModel> GetAllUsers()
+        public void DeactivateUser(int id)
         {
             throw new NotImplementedException();
         }
-
-        public UserDbModel GetUserById(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdateUser(UserDbModel user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UserExists(int userId)
+        public bool UserExists(int d)
         {
             throw new NotImplementedException();
         }

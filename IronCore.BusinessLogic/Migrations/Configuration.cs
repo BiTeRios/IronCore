@@ -1,9 +1,12 @@
 ﻿namespace IronCore.BusinessLogic.Migrations
 {
+    using IronCore.Domain.Entities.User;
+    using IronCore.Domain.Enums.User;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Web.Helpers;
 
     internal sealed class Configuration : DbMigrationsConfiguration<IronCore.BusinessLogic.DBModel.UserContext>
     {
@@ -13,12 +16,8 @@
             ContextKey = "IronCore.BusinessLogic.DBModel.UserContext";
         }
 
-        protected override void Seed(IronCore.BusinessLogic.DBModel.UserContext context)
+        protected override void Seed(IronCore.BusinessLogic.DBModel.UserContext ctx)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
         }
     }
 }
