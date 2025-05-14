@@ -58,22 +58,33 @@ namespace IronCore.Controllers
                 return View(m);
             }
 
-            //if (!VerifyHash(m.Password, user.Password))
-            //{
-            //    ModelState.AddModelError("", "Неверный пароль");
-            //    return View(m);
-            //}
+            if (!VerifyHash(m.Password, user.Password))
+            {
+                ModelState.AddModelError("", "Неверный пароль");
+                return View(m);
+            }
 
-            // Всё ок — ставим куку
+
             FormsAuthentication.SetAuthCookie(user.Email, m.RememberMe);
 
-            // Обновляем дату последнего входа
+
             user.LastLogin = DateTime.Now;
             db.SaveChanges();
 
             if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/"))
                 return Redirect(returnUrl);
             return RedirectToAction("Index", "Home");
+        }
+        private static bool VerifyHash(string inputPassword, string storedHash)
+        {
+            // Хешируем введённый пароль тем же алгоритмом
+            using (var sha = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = System.Text.Encoding.UTF8.GetBytes(inputPassword);
+                var computedHash = Convert.ToBase64String(sha.ComputeHash(bytes));
+                // Сравниваем строки
+                return String.Equals(computedHash, storedHash, StringComparison.Ordinal);
+            }
         }
 
         public ActionResult Logout()
