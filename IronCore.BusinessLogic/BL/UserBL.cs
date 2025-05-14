@@ -23,9 +23,12 @@ namespace IronCore.BusinessLogic.BL
 
         public UserDbModel GetById(int id) => ctx.Users.Find(id);
 
-        public void Update(UserDbModel u)
+        public void Update(UserDbModel incoming)
         {
-            ctx.Entry(u).State = EntityState.Modified;
+            var existing = ctx.Users.Find(incoming.Id);          
+            if (existing == null) return;
+
+            ctx.Entry(existing).CurrentValues.SetValues(incoming);
             ctx.SaveChanges();
         }
 
@@ -38,15 +41,10 @@ namespace IronCore.BusinessLogic.BL
                 ctx.SaveChanges();
             }
         }
-        public void DeactivateUser(int id)
+        public bool UserExists(int id)
         {
             throw new NotImplementedException();
         }
-        public bool UserExists(int d)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool ValidateCredentials(string username, string password)
         {
             throw new NotImplementedException();
