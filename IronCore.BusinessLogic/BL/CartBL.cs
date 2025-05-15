@@ -1,61 +1,78 @@
-﻿using IronCore.BusinessLogic.Core;
-using IronCore.BusinessLogic.Interfaces;
+﻿using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Cart;
 using IronCore.Domain.Entities.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IronCore.BusinessLogic.BL
 {
-    public class CartBL : UserApi, ICart
+    public sealed class CartBL : ICart
     {
-        void ICart.AddToCart(ProductItem product)
+        private CartItem _current;
+        public CartBL()
         {
-            throw new NotImplementedException();
+            _current = new CartItem
+            {
+                ID = Guid.NewGuid().GetHashCode(),
+                ProductsInCart = new List<ProductDbModel>(),
+                Discount = 0m
+            };
         }
-        decimal ICart.CalculateTotal()
+        public CartItem GetCurrentCart() => _current;
+        public void SetCurrentCart(CartItem c) => _current = c ?? _current;
+        public IEnumerable<CartItem> GetCartItems() => new[] { _current };
+        public bool IsProductInCart(int productId) =>
+            _current.ProductsInCart.Any(p => p.ProductID == productId);
+        public void AddToCart(ProductDbModel product)
         {
-            throw new NotImplementedException();
+            if (product == null) return;
+
+            var item = new ProductDbModel
+            {
+                ProductID = product.ProductID,
+                ProductName = product.ProductName,   
+                ImageUrl = product.ImageUrl,
+                Description = product.Description,
+                Price = product.Price,
+                Quantity = 1                     
+            };
+
+            var existing = _current.ProductsInCart
+                                   .FirstOrDefault(p => p.ProductID == item.ProductID);
+
+            if (existing == null)
+                _current.ProductsInCart.Add(item);
+            else
+                existing.Quantity++;
         }
-        void ICart.ClearCart()
+        public void RemoveFromCart(int productId) =>
+            _current.ProductsInCart.RemoveAll(p => p.ProductID == productId);
+
+        public void IncrementQuantity(int productId)
         {
-            throw new NotImplementedException();
-        }
-        void ICart.DecrementQuantity(int productId)
-        {
-            throw new NotImplementedException();
-        }
-        IEnumerable<CartItem> ICart.GetCartItems()
-        {
-            throw new NotImplementedException();
-        }
-        CartItem ICart.GetCurrentCart()
-        {
-            throw new NotImplementedException();
+            var p = _current.ProductsInCart.FirstOrDefault(x => x.ProductID == productId);
+            if (p != null) p.Quantity++;
         }
 
-        void ICart.IncrementQuantity(int productId)
+        public void DecrementQuantity(int productId)
         {
-            throw new NotImplementedException();
+            var p = _current.ProductsInCart.FirstOrDefault(x => x.ProductID == productId);
+            if (p == null) return;
+
+            if (--p.Quantity <= 0) RemoveFromCart(productId);
         }
-        bool ICart.IsProductInCart(int productId)
+
+        public void UpdateQuantity(int productId, int newQuantity)
         {
-            throw new NotImplementedException();
+            if (newQuantity <= 0) { RemoveFromCart(productId); return; }
+
+            var p = _current.ProductsInCart.FirstOrDefault(x => x.ProductID == productId);
+            if (p != null) p.Quantity = newQuantity;
         }
-        void ICart.RemoveFromCart(int productId)
-        {
-            throw new NotImplementedException();
-        }
-        void ICart.SetCurrentCart(CartItem cart)
-        {
-            throw new NotImplementedException();
-        }
-        void ICart.UpdateQuantity(int productId, int newQuantity)
-        {
-            throw new NotImplementedException();
-        }
+        public decimal CalculateTotal() =>
+            _current.ProductsInCart.Sum(p => p.Price * p.Quantity) - _current.Discount;
+
+        public void ClearCart() => _current.ProductsInCart.Clear();
     }
 }

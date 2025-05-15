@@ -43,8 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Cart\Cart.cs" />
+    <Compile Include="Entities\Cart\CartLine.cs" />
     <Compile Include="Entities\Coach\Coach.cs" />
-    <Compile Include="Entities\Product\Product.cs" />
+    <Compile Include="Entities\Order\OrderDbModel.cs" />
+    <Compile Include="Entities\Order\OrderItemDbModel.cs" />
+    <Compile Include="Entities\Product\ProductDbModel.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />
     <Compile Include="Entities\User\UserDbModel.cs" />
     <Compile Include="Enums\User\URole.cs" />

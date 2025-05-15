@@ -41,13 +41,14 @@ namespace IronCore.BusinessLogic.BL
                 ctx.SaveChanges();
             }
         }
-        public bool UserExists(int id)
+        public bool UserExists(int id) =>
+            ctx.Users.Any(u => u.Id == id);
+
+        public bool ValidateCredentials(string credential, string password)
         {
-            throw new NotImplementedException();
-        }
-        public bool ValidateCredentials(string username, string password)
-        {
-            throw new NotImplementedException();
+            return ctx.Users.Any(u =>
+                   (u.Credential == credential || u.UserName == credential)
+                   && u.Password == password);
         }
     }
 }

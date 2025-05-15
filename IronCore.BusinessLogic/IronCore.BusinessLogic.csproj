@@ -72,11 +72,14 @@
   <ItemGroup>
     <Compile Include="BL\CartBL.cs" />
     <Compile Include="BL\CoachBL.cs" />
+    <Compile Include="BL\OrderBL.cs" />
     <Compile Include="BL\ProductBL.cs" />
     <Compile Include="BL\UserBL.cs" />
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\AdminApi.cs" />
     <Compile Include="Core\UserApi.cs" />
+    <Compile Include="DBModel\CoachContext.cs" />
+    <Compile Include="DBModel\ProductContext.cs" />
     <Compile Include="DBModel\UserContext.cs" />
     <Compile Include="Interfaces\ICart.cs" />
     <Compile Include="Interfaces\IProduct.cs" />
@@ -90,6 +93,22 @@
     <Compile Include="Migrations\202505112018306_SyncUserModel.cs" />
     <Compile Include="Migrations\202505112018306_SyncUserModel.Designer.cs">
       <DependentUpon>202505112018306_SyncUserModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505151223438_InitDomain.cs" />
+    <Compile Include="Migrations\202505151223438_InitDomain.Designer.cs">
+      <DependentUpon>202505151223438_InitDomain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505151340302_InitProducts.cs" />
+    <Compile Include="Migrations\202505151340302_InitProducts.Designer.cs">
+      <DependentUpon>202505151340302_InitProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505151415215_AddProductsTable.cs" />
+    <Compile Include="Migrations\202505151415215_AddProductsTable.Designer.cs">
+      <DependentUpon>202505151415215_AddProductsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505151435479_AddOrders.cs" />
+    <Compile Include="Migrations\202505151435479_AddOrders.Designer.cs">
+      <DependentUpon>202505151435479_AddOrders.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,6 +137,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505112018306_SyncUserModel.resx">
       <DependentUpon>202505112018306_SyncUserModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505151223438_InitDomain.resx">
+      <DependentUpon>202505151223438_InitDomain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505151340302_InitProducts.resx">
+      <DependentUpon>202505151340302_InitProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505151415215_AddProductsTable.resx">
+      <DependentUpon>202505151415215_AddProductsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505151435479_AddOrders.resx">
+      <DependentUpon>202505151435479_AddOrders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

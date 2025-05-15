@@ -1,40 +1,74 @@
-<header class="header_section">
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg custom_nav-container">
-            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-                <span>IronCore</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item @(ViewBag.ActivePage == "Index" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+@using IronCore.BusinessLogic.BL
+@{
+    var active = (string)(ViewBag.ActivePage ?? "");
+}
+
+<header style="background-color:#8B0000;">
+    <nav class="navbar navbar-expand-lg navbar-dark container py-3 py-lg-4">
+        @Html.ActionLink("IronCore", "Index", "Home",
+                         routeValues: new { area = "" },        
+                         htmlAttributes: new { @class = "navbar-brand fw-bold fs-4" })
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    @Html.ActionLink("Home", "Index", "Home",
+                        new { area = "" },
+                        new { @class = $"nav-link {(active == "Index" ? "active" : "")}" })
+                </li>
+
+                <li class="nav-item">
+                    @Html.ActionLink("Why us", "Why", "Home",
+                        new { area = "" },
+                        new { @class = $"nav-link {(active == "Why" ? "active" : "")}" })
+                </li>
+
+                <li class="nav-item">
+                    @Html.ActionLink("Programs", "Programs", "Catalog",
+                        new { area = "" },
+                        new { @class = $"nav-link {(active == "Programs" ? "active" : "")}" })
+                </li>
+
+                <li class="nav-item">
+                    @Html.ActionLink("Nutritions", "Nutritions", "Catalog",
+                        new { area = "" },
+                        new { @class = $"nav-link {(active == "Nutritions" ? "active" : "")}" })
+                </li>
+
+                <li class="nav-item">
+                    @Html.ActionLink("Trainers", "Index", "Trainers",        
+                        new { area = "" },
+                        new { @class = $"nav-link {(active == "Coach" ? "active" : "")}" })
+                </li>
+
+                <li class="nav-item">
+                    @Html.ActionLink("Contact", "Contact", "Home",
+                        new { area = "" },
+                        new { @class = $"nav-link {(active == "Contact" ? "active" : "")}" })
+                </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink("Add Product", "Create", "Products",
+                            new { area = "" },
+                            new { @class = "nav-link text-warning fw-semibold" })
                     </li>
-                    <li class="nav-item @(ViewBag.ActivePage == "Why" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Why", "Home")">Why us</a>
+
+                    <li class="nav-item">
+                        @Html.ActionLink("Add Trainer", "Create", "Trainers",
+                            new { area = "" },
+                            new { @class = "nav-link text-warning fw-semibold" })
                     </li>
-                    <li class="nav-item @(ViewBag.ActivePage == "Programs" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Programs", "Catalog")">Programs</a>
-                    </li>
-                    <li class="nav-item @(ViewBag.ActivePage == "Nutritions" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Nutritions", "Catalog")">Nutritions</a>
-                    </li>
-                    <li class="nav-item @(ViewBag.ActivePage == "Trainers" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Trainers", "Trainers")">Trainers</a>
-                    </li>
-                    <li class="nav-item @(ViewBag.ActivePage == "Contact" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Contact", "Home")">Contact Us</a>
-                    </li>
-                    <li class="nav-item @(ViewBag.ActivePage == "Login" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
-                    </li>
-                    <li class="nav-item @(ViewBag.ActivePage == "Register" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Register", "Account")">Register</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+                }
+            </ul>
+
+            @Html.Partial("_CartBadge")  
+        </div>
+    </nav>
 </header>

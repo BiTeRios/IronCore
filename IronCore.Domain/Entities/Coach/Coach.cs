@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace IronCore.Domain.Entities.Coach
 {
     public class CoachCl
     {
-        public int CoachID { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
         public string ImagePath { get; set; }
         public string FullName { get; set; }
         public int ExperienceTime { get; set; }

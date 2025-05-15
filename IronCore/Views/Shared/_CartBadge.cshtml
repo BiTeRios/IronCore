@@ -1,0 +1,18 @@
+﻿@using IronCore.BusinessLogic.BL
+@{
+    var cart = Session["Cart"] as CartBL;
+    var count = cart?.GetCurrentCart().ProductsInCart.Count ?? 0;
+    var total = cart?.CalculateTotal() ?? 0m;
+}
+
+<a href="@Url.Action("Index","Cart")"
+   class="btn btn-outline-light position-relative ms-lg-2">
+    <i class="bi bi-cart" style="font-size:1.2rem"></i>
+    @if (count > 0)
+    {
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            @count
+        </span>
+    }
+    <span class="d-none d-lg-inline ms-2">@total.ToString("C")</span>
+</a>

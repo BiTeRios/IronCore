@@ -1,0 +1,74 @@
+﻿@model IronCore.BusinessLogic.BL.CartBL
+
+<h2>Корзина</h2>
+
+@if (!Model.GetCurrentCart().ProductsInCart.Any())
+{
+    <p>Корзина пуста.</p>
+}
+else
+{
+    if (TempData["OrderSuccess"] != null)
+    {
+        <div class="alert alert-success">@TempData["OrderSuccess"]</div>
+    }
+
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Товар</th>
+                <th>Цена</th>
+                <th>Кол-во</th>
+                <th>Сумма</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.GetCurrentCart().ProductsInCart)
+            {
+                <tr>
+                    <td>
+                        <img src="@line.ImageUrl"
+                             alt="img"
+                             style="height:60px;width:60px;object-fit:cover;" />
+                    </td>
+                    <td>@line.ProductName</td>
+                    <td>@String.Format("{0:C}", line.Price)</td>
+                    <td class="text-nowrap">
+                        @using (Html.BeginForm("Minus", "Cart"))
+                        {@Html.Hidden("id", line.ProductID) <button class="btn btn-sm btn-light">−</button>}
+                        <strong>@line.Quantity</strong>
+                        @using (Html.BeginForm("Plus", "Cart"))
+                        {@Html.Hidden("id", line.ProductID) <button class="btn btn-sm btn-light">+</button>}
+                    </td>
+                    <td>@String.Format("{0:C}", line.Price * line.Quantity)</td>
+                    <td>
+                        @using (Html.BeginForm("Remove", "Cart"))
+                        {
+                            @Html.Hidden("id", line.ProductID)
+                            <button class="btn btn-sm btn-danger">×</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-end"><strong>Итого:</strong></td>
+                <td colspan="2">@String.Format("{0:C}", Model.CalculateTotal())</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="d-flex gap-2">
+        @using (Html.BeginForm("Clear", "Cart"))
+        {
+            <button class="btn btn-outline-danger">Очистить корзину</button>
+        }
+        @using (Html.BeginForm("Checkout", "Cart"))
+        {
+            <button class="btn btn-success">Оформить заказ</button>
+        }
+    </div>
+}

@@ -10,7 +10,7 @@ namespace IronCore.BusinessLogic.Interfaces
 {
     interface ICart
     {
-        void AddToCart(ProductItem product);
+        void AddToCart(ProductDbModel product);
         void RemoveFromCart(int productId);
         void UpdateQuantity(int productId, int newQuantity);
         IEnumerable<CartItem> GetCartItems();

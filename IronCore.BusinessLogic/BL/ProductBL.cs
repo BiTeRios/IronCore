@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IronCore.BusinessLogic.Core;
+using IronCore.BusinessLogic.DBModel;
 using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Product;
 
@@ -11,27 +12,44 @@ namespace IronCore.BusinessLogic.BL
 {
     public class ProductBL : IProduct
     {
-        ProductItem IProduct.GetProductById(int productId)
+        private readonly ProductContext ctx = new ProductContext();
+
+        public IEnumerable<ProductDbModel> GetAll()          // каталог
         {
-            throw new NotImplementedException();
-        }
-        public void CreateProduct(ProductItem product)
-        {
-            throw new NotImplementedException();
+            var ctx = new UserContext();
+            return ctx.Products.AsNoTracking().ToList();
         }
 
-        public bool DeleteProduct(int productId)
+        public ProductDbModel GetProductById(int id)                // один товар
         {
-            throw new NotImplementedException();
+            var ctx = new UserContext();
+            return ctx.Products.AsNoTracking()
+                               .FirstOrDefault(p => p.ProductID == id);
         }
 
-        public IEnumerable<ProductItem> GetAllProducts()
+        public void CreateProduct(ProductDbModel m)                 // админ
         {
-            throw new NotImplementedException();
+            var ctx = new UserContext();
+            ctx.Products.Add(m);
+            ctx.SaveChanges();
         }
-        public void UpdateProduct(ProductItem product)
+
+        public bool DeleteProduct(int id)
         {
-            throw new NotImplementedException();
+            var p = ctx.Products.Find(id);
+            if (p is null) return false;
+            ctx.Products.Remove(p);
+            ctx.SaveChanges();
+            return true;
+        }
+
+        public void UpdateProduct(ProductDbModel product)
+        {
+            var current = ctx.Products.Find(product.ProductID);
+            if (current is null) return;
+            ctx.Entry(current).CurrentValues.SetValues(product);
+            ctx.SaveChanges();
         }
     }
+
 }

@@ -76,10 +76,10 @@ namespace IronCore.Controllers
             db.SaveChanges();
             if (user.Level == URole.Admin)          
             {
+                Session["IsAdminMode"] = true;
                 return RedirectToAction(
                     "Index",                       
-                    "Users",                       
-                    new { area = "Admin" });       
+                    "Admin");       
             }
             if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/"))
                 return Redirect(returnUrl);
