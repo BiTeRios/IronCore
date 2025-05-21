@@ -136,6 +136,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CartViewModel.cs" />
+    <Compile Include="Models\CoachViewModel.cs" />
     <Compile Include="Models\EditUserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
@@ -228,13 +229,7 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Admin\Users\Index.cshtml" />
     <Content Include="Views\Shared\_AdminHeader.cshtml" />
-    <Content Include="Views\Admin\Trainers\Index.cshtml" />
-    <Content Include="Views\Admin\Bads\Index.cshtml" />
-    <Content Include="Views\Admin\Programs\Index.cshtml" />
-    <Content Include="Views\Admin\Users\Edit.cshtml" />
-    <Content Include="Views\Admin\Users\Delete.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <None Include="Scripts\jquery-3.7.0-vsdoc.js" />
@@ -272,14 +267,14 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shared\_CartBadge.cshtml" />
-    <Content Include="Views\Admin\Trainers\Create.cshtml" />
-    <Content Include="Views\Admin\Trainers\Edit.cshtml" />
-    <Content Include="Views\Admin\Trainers\Delete.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Trainers.cshtml" />
     <Content Include="Views\Admin\Products.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Admin\Orders.cshtml" />
+    <Content Include="Views\Admin\CreateTrain.cshtml" />
+    <Content Include="Views\Admin\DeleteTrain.cshtml" />
+    <Content Include="Views\Admin\EditTrain.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -289,7 +284,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\Shared\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

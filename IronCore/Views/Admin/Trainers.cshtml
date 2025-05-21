@@ -1,9 +1,9 @@
-﻿@model IEnumerable<IronCore.Domain.Entities.Coach.CoachCl>
+﻿@model IEnumerable<IronCore.Models.CoachViewModel>
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Тренеры";
-    var trainers = Model ?? Enumerable.Empty<IronCore.Domain.Entities.Coach.CoachCl>();
+    var trainers = Model ?? Enumerable.Empty<IronCore.Models.CoachViewModel>();
     var index = 1;
 }
 
@@ -12,7 +12,7 @@
     <!-- Page Heading -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 text-gray-800">@ViewBag.Title</h1>
-        <a href="@Url.Action("Create", "Admin")" class="btn btn-primary">
+        <a href="@Url.Action("CreateTrain", "Admin")" class="btn btn-primary">
             <i class="fas fa-plus me-1"></i> Добавить тренера
         </a>
     </div>
@@ -71,7 +71,7 @@
                             foreach (var t in Model)
                             {
                                 <tr>
-                                    <td>@index++</td>
+                                    <td>@(index++)</td>
                                     <td style="width:75px;">
                                         <img src="@Url.Content(t.ImagePath ?? "~/Images/no-avatar.png")"
                                              class="img-thumbnail" style="height:50px; width:50px;" />
@@ -84,9 +84,8 @@
                                            class="btn btn-sm btn-primary me-1">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="@Url.Action("Delete", "Admin", new { id = t.ID })"
-                                           class="btn btn-sm btn-danger"
-                                           onclick="return confirm('Вы уверены, что хотите удалить этого тренера?');">
+                                        <a href='@Url.Action("DeleteTrain","Admin", new { id = t.ID })'
+                                           class="btn btn-sm btn-danger me-1">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>

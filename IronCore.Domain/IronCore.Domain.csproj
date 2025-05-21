@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Entities\Cart\Cart.cs" />
     <Compile Include="Entities\Cart\CartLine.cs" />
+    <Compile Include="Entities\Coach\CModel\Class1.cs" />
     <Compile Include="Entities\Coach\Coach.cs" />
     <Compile Include="Entities\Order\OrderDbModel.cs" />
     <Compile Include="Entities\Order\OrderItemDbModel.cs" />

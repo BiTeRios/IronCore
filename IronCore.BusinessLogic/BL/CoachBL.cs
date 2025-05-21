@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using IronCore.BusinessLogic.Core;
 using IronCore.BusinessLogic.DBModel;
 using IronCore.Domain.Entities.Product;
+using System.IO;
 
 namespace IronCore.BusinessLogic.BL
 {
@@ -24,6 +25,37 @@ namespace IronCore.BusinessLogic.BL
             ctx.Coaches.Remove(c);
             ctx.SaveChanges();
             return true;
+        }
+
+        public void SaveFromViewModel(CoachViewModel vm, Stream photoStream, string fileName)
+        {
+            // 1) Сохраняем файл, если он есть
+            if (photoStream != null && photoStream.Length > 0)
+            {
+                var folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images/Trainers");
+                Directory.CreateDirectory(folder);
+                var path = Path.Combine(folder, fileName);
+                using (var fs = File.Create(path))
+                    photoStream.CopyTo(fs);
+                vm.ImagePath = "/Images/Trainers/" + fileName;
+            }
+
+            // 2) Маппим ViewModel → доменную сущность
+            var coach = new CoachCl
+            {
+                ID = vm.ID,
+                FullName = vm.FullName,
+                Qualification = vm.Qualification,
+                Specialization = vm.Specialization,
+                ExperienceTime = vm.ExperienceTime,
+                Bio = vm.Bio,
+                Testimonials = vm.Testimonials,
+                TelegramUrl = vm.TelegramUrl,
+                InstagramUrl = vm.InstagramUrl,
+                SteamUrl = vm.SteamUrl,
+                RegistrationDate = vm.RegistrationDate,
+                ImagePath = vm.ImagePath
+            };
         }
 
         public void addCoach(CoachCl coach)

@@ -10,7 +10,6 @@ namespace IronCore.Controllers
     public class CoachController : Controller
     {
         private readonly CoachBL _bl = new CoachBL();
-
         public ActionResult Index() => View(_bl.getAllCoaches());
 
         public ActionResult Details(int id)
