@@ -25,7 +25,6 @@ namespace IronCore
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ViewEngines.Engines.Add(new AdminViewEngine());
 
 
             var config = new MapperConfiguration(cfg =>

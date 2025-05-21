@@ -11,6 +11,7 @@ using IronCore.Models;
 using IronCore.BusinessLogic.DBModel;
 using IronCore.Domain.Entities.User;
 using IronCore.Domain.Enums.User;
+using IronCore.Filters;
 
 namespace IronCore.Controllers
 {
@@ -45,7 +46,6 @@ namespace IronCore.Controllers
             if (!ModelState.IsValid)
                 return View(m);
 
-            // Ищем пользователя по UserName или Email
             var user = db.Users
                 .FirstOrDefault(u =>
                     u.UserName.Equals(m.Credential, StringComparison.OrdinalIgnoreCase)
@@ -87,12 +87,10 @@ namespace IronCore.Controllers
         }
         private static bool VerifyHash(string inputPassword, string storedHash)
         {
-            // Хешируем введённый пароль тем же алгоритмом
             using (var sha = System.Security.Cryptography.SHA256.Create())
             {
                 var bytes = System.Text.Encoding.UTF8.GetBytes(inputPassword);
                 var computedHash = Convert.ToBase64String(sha.ComputeHash(bytes));
-                // Сравниваем строки
                 return String.Equals(computedHash, storedHash, StringComparison.Ordinal);
             }
         }

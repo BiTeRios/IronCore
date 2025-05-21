@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 
-namespace IronCore.Filters
+namespace IronCore.Filters          
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class AdminModAttribute : ActionFilterAttribute
+    public sealed class AdminModAttribute : AuthorizeAttribute
     {
-        public override void OnActionExecuting(ActionExecutingContext ctx)
+        public AdminModAttribute() => Roles = "Admin";
+
+        protected override void HandleUnauthorizedRequest(AuthorizationContext ctx)
         {
-            if (!(ctx.HttpContext.Session["IsAdminMode"] as bool? ?? false))
-            {
-                ctx.Result = new RedirectResult("~/Home/Index");
-                return;
-            }
-            base.OnActionExecuting(ctx);
+            if (ctx.HttpContext.User.Identity.IsAuthenticated)
+                ctx.Result = new HttpStatusCodeResult(403);  
+            else
+                base.HandleUnauthorizedRequest(ctx);        
         }
     }
-
 }

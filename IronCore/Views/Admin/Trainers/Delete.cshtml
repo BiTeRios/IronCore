@@ -1,0 +1,16 @@
+﻿@model IronCore.Domain.Entities.Coach.CoachCl
+@{
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Удалить тренера";
+}
+
+<h2>Вы уверены, что хотите удалить тренера «@Model.FullName»?</h2>
+
+@using (Html.BeginForm("DeleteConfirmed", "Trainers",
+                       new { id = Model.ID }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    @Html.ActionLink("Отмена", "Index", null,
+                     new { @class = "btn btn-secondary ms-2" })
+}

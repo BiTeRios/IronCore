@@ -123,22 +123,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\AdminViewEngine.cs" />
-    <Compile Include="Controllers\Admin\AdminController.cs" />
-    <Compile Include="Controllers\Admin\BadsController.cs" />
-    <Compile Include="Controllers\Admin\BaseAdminController.cs" />
-    <Compile Include="Controllers\Admin\ProductsController.cs" />
-    <Compile Include="Controllers\Admin\ProgramsController.cs" />
-    <Compile Include="Controllers\Admin\TrainersController.cs" />
-    <Compile Include="Controllers\Admin\UsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Filters\AdminModAttribute.cs" />
-    <Compile Include="Filters\AdminModeAttribute.cs" />
+    <Compile Include="Filters\UserModAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,9 +227,9 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Views\Admin\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Users\Index.cshtml" />
-    <Content Include="Views\Admin\Shared\_AdminHeader.cshtml" />
+    <Content Include="Views\Shared\_AdminHeader.cshtml" />
     <Content Include="Views\Admin\Trainers\Index.cshtml" />
     <Content Include="Views\Admin\Bads\Index.cshtml" />
     <Content Include="Views\Admin\Programs\Index.cshtml" />
@@ -279,6 +272,10 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shared\_CartBadge.cshtml" />
+    <Content Include="Views\Admin\Trainers\Create.cshtml" />
+    <Content Include="Views\Admin\Trainers\Edit.cshtml" />
+    <Content Include="Views\Admin\Trainers\Delete.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -288,6 +285,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\Shared\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

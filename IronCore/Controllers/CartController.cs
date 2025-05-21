@@ -20,35 +20,31 @@ namespace IronCore.Controllers
 
         private readonly ProductBL _products = new ProductBL();
 
-        /* ------ страница корзины ------ */
         public ActionResult Index() => View(Cart);
 
-        /* ------ добавить позицию ------ */
+
         [HttpPost]
         public ActionResult Add(int id, int qty = 1)
         {
             ProductDbModel p = _products.GetProductById(id);
             if (p == null) return HttpNotFound();
 
-            Cart.AddToCart(p);                 // qty всегда 1 внутри BL
+            Cart.AddToCart(p);                 
             return RedirectToAction("Index");
         }
 
-        /* ------ изменить / удалить ------ */
         [HttpPost] public ActionResult Plus(int id) { Cart.IncrementQuantity(id); return RedirectToAction("Index"); }
         [HttpPost] public ActionResult Minus(int id) { Cart.DecrementQuantity(id); return RedirectToAction("Index"); }
         [HttpPost] public ActionResult Remove(int id) { Cart.RemoveFromCart(id); return RedirectToAction("Index"); }
         [HttpPost] public ActionResult Clear() { Cart.ClearCart(); return RedirectToAction("Index"); }
         private readonly OrderBL _orders = new OrderBL();
 
-        /* … существующие методы … */
 
-        /* ---------- оформить заказ ---------- */
         [HttpPost]
         public ActionResult Checkout()
         {
             var orderId = _orders.CreateOrder(Cart.GetCurrentCart());
-            Cart.ClearCart();                                // очищаем после сохранения
+            Cart.ClearCart();                                
 
             TempData["OrderSuccess"] = $"Заказ №{orderId} оформлен!";
             return RedirectToAction("Index", "Cart");

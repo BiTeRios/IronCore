@@ -1,5 +1,6 @@
 ﻿using IronCore.BusinessLogic.BL;
 using IronCore.Domain.Entities.Product;
+using IronCore.Filters;
 using IronCore.Models;
 using System.Linq;
 using System.Web.Mvc;
@@ -10,11 +11,10 @@ namespace IronCore.Controllers
     {
         private readonly ProductBL _bl = new ProductBL();
 
-        /* ---------- каталог для всех ---------- */
 
         public ActionResult Index()
         {
-            var vm = _bl.GetAll()                   // ← было GetAllProducts()
+            var vm = _bl.GetAll()                   
                          .Select(ToVm)
                          .ToList();
             return View(vm);
@@ -28,12 +28,11 @@ namespace IronCore.Controllers
             return View(ToVm(entity));
         }
 
-        /* ---------- CRUD только для админов ---------- */
 
-        [Authorize(Roles = "Admin")]
+        [AdminMod]
         public ActionResult Create() => View();
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, AdminMod, ValidateAntiForgeryToken]
         public ActionResult Create(ProductViewModel vm)
         {
             if (!ModelState.IsValid) return View(vm);
@@ -42,7 +41,7 @@ namespace IronCore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Admin")]
+        [AdminMod]
         public ActionResult Edit(int id)
         {
             var entity = _bl.GetProductById(id);
@@ -51,7 +50,7 @@ namespace IronCore.Controllers
             return View(ToVm(entity));
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, AdminMod, ValidateAntiForgeryToken]
         public ActionResult Edit(ProductViewModel vm)
         {
             if (!ModelState.IsValid) return View(vm);
@@ -60,7 +59,7 @@ namespace IronCore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Admin")]
+        [AdminMod]
         public ActionResult Delete(int id)
         {
             var entity = _bl.GetProductById(id);
@@ -70,14 +69,13 @@ namespace IronCore.Controllers
         }
 
         [HttpPost, ActionName("Delete"),
-         Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+         AdminMod, ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             _bl.DeleteProduct(id);
             return RedirectToAction(nameof(Index));
         }
 
-        /* ---------- helpers ---------- */
 
         private static ProductViewModel ToVm(ProductDbModel p) => p == null ? null :
             new ProductViewModel
