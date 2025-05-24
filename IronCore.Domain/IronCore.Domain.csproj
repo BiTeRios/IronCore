@@ -45,6 +45,8 @@
     <Compile Include="Entities\Cart\CartDbModel.cs" />
     <Compile Include="Entities\Cart\CartLine.cs" />
     <Compile Include="Entities\Coach\CoachDbModel.cs" />
+    <Compile Include="Entities\Contact\ContactDbModel.cs" />
+    <Compile Include="Entities\Contact\ContactDTO.cs" />
     <Compile Include="Entities\Order\OrderDbModel.cs" />
     <Compile Include="Entities\Order\OrderItemDbModel.cs" />
     <Compile Include="Entities\Product\ProductDbModel.cs" />

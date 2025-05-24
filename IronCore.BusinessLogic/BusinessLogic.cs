@@ -14,5 +14,9 @@ namespace IronCore.BusinessLogic
         {
             return new SessionBL();
         }
+        public IContact GetContactBL()
+        {
+            return new ContactBL();
+        }
     }
 }
