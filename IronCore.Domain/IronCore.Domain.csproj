@@ -52,6 +52,7 @@
     <Compile Include="Entities\Product\ProductDbModel.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />
     <Compile Include="Entities\User\UserDbModel.cs" />
+    <Compile Include="Entities\User\UserDTO.cs" />
     <Compile Include="Enums\User\URole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

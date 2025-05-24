@@ -1,54 +1,75 @@
-﻿using IronCore.BusinessLogic.Core;
-using IronCore.BusinessLogic.DBModel;
-using IronCore.BusinessLogic.Interfaces;
-using IronCore.Domain.Entities.User;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web.UI;
+using IronCore.BusinessLogic.Core;
+using IronCore.BusinessLogic.Interfaces;
+using IronCore.Domain.Entities.Contact;
+using IronCore.Domain.Entities.User;
 
 namespace IronCore.BusinessLogic.BL
 {
-    public class UserBL : UserApi
+    public class UserBL : UserApi, IUser
     {
-        private readonly UserContext ctx;
-
-        public UserBL()
+        public UserDTO GetById(int id)
         {
-            ctx = new UserContext();
-        }
-        public IEnumerable<UserDbModel> GetAllUsers() => ctx.Users.ToList();
-
-        public UserDbModel GetById(int id) => ctx.Users.Find(id);
-
-        public void Update(UserDbModel incoming)
-        {
-            var existing = ctx.Users.Find(incoming.Id);          
-            if (existing == null) return;
-
-            ctx.Entry(existing).CurrentValues.SetValues(incoming);
-            ctx.SaveChanges();
+            var userId = GetByIdAPI(id);
+            return userId != null ? MapToUser(userId) : null;
         }
 
-        public void Delete(int id)
+        public bool Update(UserDTO user)
         {
-            var u = ctx.Users.Find(id);
-            if (u != null)
+            var dbUser = GetByIdAPI(user.Id);
+            if (dbUser == null) return false;
+            var mappedUser = MapToDb(user);
+            var result = UpdateAPI(dbUser);
+            return true;
+
+        }
+        public bool Delete(int id)
+        {
+            var dbUser = GetByIdAPI(id);
+            if (dbUser == null) return false;
+            DeleteAPI(id);
+            return true;
+        }
+        private UserDTO MapToUser(UserDbModel db)
+        {
+            return new UserDTO
             {
-                ctx.Users.Remove(u);
-                ctx.SaveChanges();
-            }
+                Id = db.Id,
+                Credential = db.Credential,
+                UserName = db.UserName,
+                Password = db.Password,
+                Email = db.Email,
+                LastLogin = db.LastLogin,
+                Level = db.Level,
+                FirstName = db.FirstName,
+                LastName = db.LastName,
+                BirthDate = db.BirthDate,
+                PhoneNumber = db.PhoneNumber,
+                RegistrationDate = db.RegistrationDate,
+                Balance = db.Balance
+            };
         }
-        public bool UserExists(int id) =>
-            ctx.Users.Any(u => u.Id == id);
-
-        public bool ValidateCredentials(string credential, string password)
+        private UserDbModel MapToDb(UserDTO user)
         {
-            return ctx.Users.Any(u =>
-                   (u.Credential == credential || u.UserName == credential)
-                   && u.Password == password);
+            return new UserDbModel
+            {
+                Id = user.Id,
+                Credential = user.Credential,
+                UserName = user.UserName,
+                Password = user.Password,
+                Email = user.Email,
+                LastLogin = user.LastLogin,
+                Level = user.Level,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                BirthDate = user.BirthDate,
+                PhoneNumber = user.PhoneNumber,
+                RegistrationDate = user.RegistrationDate,
+                Balance = user.Balance
+            };
         }
     }
 }

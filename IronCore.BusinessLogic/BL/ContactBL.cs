@@ -66,7 +66,6 @@ namespace IronCore.BusinessLogic.BL
                 PhoneNumber = db.PhoneNumber,
                 Message = db.Message
             };
-
         }
     }
 }
