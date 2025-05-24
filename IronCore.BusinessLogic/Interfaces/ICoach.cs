@@ -9,9 +9,9 @@ namespace IronCore.BusinessLogic.Interfaces
 {
     interface ICoach
     {
-        CoachCl getInfoAboutCoach(int CoachID);
+        CoachDbModel getInfoAboutCoach(int CoachID);
         bool deleteCoach(int CoachID);
-        void addCoach(CoachCl coach);
-        void modifyCoach(CoachCl coach);
+        void addCoach(CoachDbModel coach);
+        void modifyCoach(CoachDbModel coach);
     }
 }

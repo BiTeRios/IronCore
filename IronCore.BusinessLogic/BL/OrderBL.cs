@@ -7,11 +7,11 @@ namespace IronCore.BusinessLogic.BL
 {
     public class OrderBL
     {
-        public int CreateOrder(CartItem cart)
+        public int CreateOrder(CartDbModel cart)
         {
             if (cart == null || !cart.ProductsInCart.Any()) return 0;
 
-            var ctx = new UserContext();
+            var ctx = new OrderContext();
 
             var order = new OrderDbModel
             {
@@ -22,7 +22,7 @@ namespace IronCore.BusinessLogic.BL
             {
                 order.Items.Add(new OrderItemDbModel
                 {
-                    ProductID = p.ProductID,
+                    ProductID = p.Id,
                     Title = p.ProductName,
                     Price = p.Price,
                     Quantity = p.Quantity
@@ -31,7 +31,7 @@ namespace IronCore.BusinessLogic.BL
 
             ctx.Orders.Add(order);
             ctx.SaveChanges();
-            return order.OrderID;                 
+            return order.Id;                 
         }
     }
 }

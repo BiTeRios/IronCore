@@ -14,8 +14,5 @@ namespace IronCore.BusinessLogic.DBModel
     {
         public UserContext() : base("name=IronCore") { }
         public DbSet<UserDbModel> Users { get; set; }
-        public DbSet<ProductDbModel> Products { get; set; }
-        public DbSet<OrderDbModel> Orders { get; set; }
-        public DbSet<OrderItemDbModel> OrderItems { get; set; }
     }
 }

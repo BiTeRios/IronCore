@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IronCore.BusinessLogic.BL
 {
-    public class UserBL
+    public class UserBL : UserApi
     {
         private readonly UserContext ctx;
 

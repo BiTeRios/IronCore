@@ -37,16 +37,16 @@ else
                     <td>@String.Format("{0:C}", line.Price)</td>
                     <td class="text-nowrap">
                         @using (Html.BeginForm("Minus", "Cart"))
-                        {@Html.Hidden("id", line.ProductID) <button class="btn btn-sm btn-light">−</button>}
+                        {@Html.Hidden("id", line.Id) <button class="btn btn-sm btn-light">−</button>}
                         <strong>@line.Quantity</strong>
                         @using (Html.BeginForm("Plus", "Cart"))
-                        {@Html.Hidden("id", line.ProductID) <button class="btn btn-sm btn-light">+</button>}
+                        {@Html.Hidden("id", line.Id) <button class="btn btn-sm btn-light">+</button>}
                     </td>
                     <td>@String.Format("{0:C}", line.Price * line.Quantity)</td>
                     <td>
                         @using (Html.BeginForm("Remove", "Cart"))
                         {
-                            @Html.Hidden("id", line.ProductID)
+                            @Html.Hidden("id", line.Id)
                             <button class="btn btn-sm btn-danger">×</button>
                         }
                     </td>

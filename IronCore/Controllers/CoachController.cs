@@ -9,13 +9,14 @@ namespace IronCore.Controllers
 {
     public class CoachController : Controller
     {
-        private readonly CoachBL _bl = new CoachBL();
-        public ActionResult Index() => View(_bl.getAllCoaches());
-
-        public ActionResult Details(int id)
+        public ActionResult Coach()
         {
-            var coach = _bl.getInfoAboutCoach(id);
-            return coach == null ? (ActionResult)HttpNotFound() : View(coach);
+            return View();
+        }
+        public ActionResult Trainers()
+        {
+            ViewBag.ActivePage = "Trainers";
+            return View();
         }
     }
 }

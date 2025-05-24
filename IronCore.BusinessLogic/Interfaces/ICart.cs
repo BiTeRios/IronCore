@@ -13,12 +13,12 @@ namespace IronCore.BusinessLogic.Interfaces
         void AddToCart(ProductDbModel product);
         void RemoveFromCart(int productId);
         void UpdateQuantity(int productId, int newQuantity);
-        IEnumerable<CartItem> GetCartItems();
+        IEnumerable<CartDbModel> GetCartItems();
         void ClearCart();
         decimal CalculateTotal();
         bool IsProductInCart(int productId);
-        CartItem GetCurrentCart();
-        void SetCurrentCart(CartItem cart);
+        CartDbModel GetCurrentCart();
+        void SetCurrentCart(CartDbModel cart);
         void IncrementQuantity(int productId);
         void DecrementQuantity(int productId);
     }

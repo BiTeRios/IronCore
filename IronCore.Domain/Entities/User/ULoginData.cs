@@ -9,9 +9,8 @@ namespace IronCore.Domain.Entities.User
 {
     public class ULoginData
     {
-        public int Id { get; set; }
         public string Credential { get; set; }
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
         public string LoginIp { get; set; }
         public DateTime LoginDateTime { get; set; }
     }

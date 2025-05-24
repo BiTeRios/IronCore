@@ -9,28 +9,28 @@ namespace IronCore.BusinessLogic.BL
 {
     public sealed class CartBL : ICart
     {
-        private CartItem _current;
+        private CartDbModel _current;
         public CartBL()
         {
-            _current = new CartItem
+            _current = new CartDbModel
             {
                 ID = Guid.NewGuid().GetHashCode(),
                 ProductsInCart = new List<ProductDbModel>(),
                 Discount = 0m
             };
         }
-        public CartItem GetCurrentCart() => _current;
-        public void SetCurrentCart(CartItem c) => _current = c ?? _current;
-        public IEnumerable<CartItem> GetCartItems() => new[] { _current };
+        public CartDbModel GetCurrentCart() => _current;
+        public void SetCurrentCart(CartDbModel c) => _current = c ?? _current;
+        public IEnumerable<CartDbModel> GetCartItems() => new[] { _current };
         public bool IsProductInCart(int productId) =>
-            _current.ProductsInCart.Any(p => p.ProductID == productId);
+            _current.ProductsInCart.Any(p => p.Id == productId);
         public void AddToCart(ProductDbModel product)
         {
             if (product == null) return;
 
             var item = new ProductDbModel
             {
-                ProductID = product.ProductID,
+                Id = product.Id,
                 ProductName = product.ProductName,   
                 ImageUrl = product.ImageUrl,
                 Description = product.Description,
@@ -39,7 +39,7 @@ namespace IronCore.BusinessLogic.BL
             };
 
             var existing = _current.ProductsInCart
-                                   .FirstOrDefault(p => p.ProductID == item.ProductID);
+                                   .FirstOrDefault(p => p.Id == item.Id);
 
             if (existing == null)
                 _current.ProductsInCart.Add(item);
@@ -47,17 +47,17 @@ namespace IronCore.BusinessLogic.BL
                 existing.Quantity++;
         }
         public void RemoveFromCart(int productId) =>
-            _current.ProductsInCart.RemoveAll(p => p.ProductID == productId);
+            _current.ProductsInCart.RemoveAll(p => p.Id == productId);
 
         public void IncrementQuantity(int productId)
         {
-            var p = _current.ProductsInCart.FirstOrDefault(x => x.ProductID == productId);
+            var p = _current.ProductsInCart.FirstOrDefault(x => x.Id == productId);
             if (p != null) p.Quantity++;
         }
 
         public void DecrementQuantity(int productId)
         {
-            var p = _current.ProductsInCart.FirstOrDefault(x => x.ProductID == productId);
+            var p = _current.ProductsInCart.FirstOrDefault(x => x.Id == productId);
             if (p == null) return;
 
             if (--p.Quantity <= 0) RemoveFromCart(productId);
@@ -67,7 +67,7 @@ namespace IronCore.BusinessLogic.BL
         {
             if (newQuantity <= 0) { RemoveFromCart(productId); return; }
 
-            var p = _current.ProductsInCart.FirstOrDefault(x => x.ProductID == productId);
+            var p = _current.ProductsInCart.FirstOrDefault(x => x.Id == productId);
             if (p != null) p.Quantity = newQuantity;
         }
         public decimal CalculateTotal() =>

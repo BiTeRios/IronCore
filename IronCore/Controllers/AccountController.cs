@@ -35,6 +35,7 @@ namespace IronCore.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            ViewBag.ActivePage = "Login";
             return View(new LoginViewModel());
         }
         // POST: /Account/Login
@@ -104,7 +105,7 @@ namespace IronCore.Controllers
         // GET /Account/Register
         public ActionResult Register()
         {
-            ViewBag.ActivePage = "Registration";
+            ViewBag.ActivePage = "Register";
             return View();
         }
 

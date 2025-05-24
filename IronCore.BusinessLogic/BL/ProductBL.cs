@@ -16,20 +16,20 @@ namespace IronCore.BusinessLogic.BL
 
         public IEnumerable<ProductDbModel> GetAll()          // каталог
         {
-            var ctx = new UserContext();
+            var ctx = new ProductContext();
             return ctx.Products.AsNoTracking().ToList();
         }
 
         public ProductDbModel GetProductById(int id)                // один товар
         {
-            var ctx = new UserContext();
+            var ctx = new ProductContext();
             return ctx.Products.AsNoTracking()
-                               .FirstOrDefault(p => p.ProductID == id);
+                               .FirstOrDefault(p => p.Id == id);
         }
 
         public void CreateProduct(ProductDbModel m)                 // админ
         {
-            var ctx = new UserContext();
+            var ctx = new ProductContext();
             ctx.Products.Add(m);
             ctx.SaveChanges();
         }
@@ -45,7 +45,7 @@ namespace IronCore.BusinessLogic.BL
 
         public void UpdateProduct(ProductDbModel product)
         {
-            var current = ctx.Products.Find(product.ProductID);
+            var current = ctx.Products.Find(product.Id);
             if (current is null) return;
             ctx.Entry(current).CurrentValues.SetValues(product);
             ctx.SaveChanges();

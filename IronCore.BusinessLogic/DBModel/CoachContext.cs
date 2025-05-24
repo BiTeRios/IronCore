@@ -7,6 +7,6 @@ namespace IronCore.BusinessLogic.DBModel
     {
         public CoachContext() : base("name=IronCore") { }
 
-        public DbSet<CoachCl> Coaches { get; set; }
+        public DbSet<CoachDbModel> Coaches { get; set; }
     }
 }

@@ -7,26 +7,26 @@ namespace IronCore.BusinessLogic.Core
 {
     internal class CoachApi
     {
-        internal List<CoachCl> GetAllCoachesAction()
+        internal List<CoachDbModel> GetAllCoachesAction()
         {
             var ctx = new CoachContext();
             return ctx.Coaches.OrderBy(c => c.FullName).ToList();
         }
 
-        internal CoachCl GetCoachByIdAction(int id)
+        internal CoachDbModel GetCoachByIdAction(int id)
         {
             var ctx = new CoachContext();
             return ctx.Coaches.Find(id);
         }
 
-        internal void AddCoachAction(CoachCl coach)
+        internal void AddCoachAction(CoachDbModel coach)
         {
             var ctx = new CoachContext();
             ctx.Coaches.Add(coach);
             ctx.SaveChanges();
         }
 
-        internal void UpdateCoachAction(CoachCl coach)
+        internal void UpdateCoachAction(CoachDbModel coach)
         {
             var ctx = new CoachContext();
             ctx.Entry(coach).State = System.Data.Entity.EntityState.Modified;

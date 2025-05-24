@@ -5,13 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IronCore.Domain.Entities.Order
 {
-    [Table("Orders")]
     public class OrderDbModel
     {
-        [Key] public int OrderID { get; set; }
+        [Key] 
+        public int Id { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public decimal Total { get; set; }
-
         public virtual ICollection<OrderItemDbModel> Items { get; set; } =
             new List<OrderItemDbModel>();
     }

@@ -80,6 +80,7 @@
     <Compile Include="Core\CoachApi.cs" />
     <Compile Include="Core\UserApi.cs" />
     <Compile Include="DBModel\CoachContext.cs" />
+    <Compile Include="DBModel\OrderContext.cs" />
     <Compile Include="DBModel\ProductContext.cs" />
     <Compile Include="DBModel\UserContext.cs" />
     <Compile Include="Interfaces\ICart.cs" />
@@ -110,6 +111,22 @@
     <Compile Include="Migrations\202505151435479_AddOrders.cs" />
     <Compile Include="Migrations\202505151435479_AddOrders.Designer.cs">
       <DependentUpon>202505151435479_AddOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505241132404_UserDbChanges.cs" />
+    <Compile Include="Migrations\202505241132404_UserDbChanges.Designer.cs">
+      <DependentUpon>202505241132404_UserDbChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505241154163_DbChanges.cs" />
+    <Compile Include="Migrations\202505241154163_DbChanges.Designer.cs">
+      <DependentUpon>202505241154163_DbChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505241201079_DbChanges1.cs" />
+    <Compile Include="Migrations\202505241201079_DbChanges1.Designer.cs">
+      <DependentUpon>202505241201079_DbChanges1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505241201574_DbChangeses.cs" />
+    <Compile Include="Migrations\202505241201574_DbChangeses.Designer.cs">
+      <DependentUpon>202505241201574_DbChangeses.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,6 +167,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505151435479_AddOrders.resx">
       <DependentUpon>202505151435479_AddOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505241132404_UserDbChanges.resx">
+      <DependentUpon>202505241132404_UserDbChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505241154163_DbChanges.resx">
+      <DependentUpon>202505241154163_DbChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505241201079_DbChanges1.resx">
+      <DependentUpon>202505241201079_DbChanges1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505241201574_DbChangeses.resx">
+      <DependentUpon>202505241201574_DbChangeses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

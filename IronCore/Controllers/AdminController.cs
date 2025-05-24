@@ -27,7 +27,7 @@ namespace IronCore.Controllers
             var list = _bl.getAllCoaches()
                       .Select(c => new CoachViewModel
                       {
-                          ID = c.ID,
+                          ID = c.Id,
                           FullName = c.FullName,
                           Specialization = c.Specialization,
                           ExperienceTime = c.ExperienceTime,
@@ -68,9 +68,9 @@ namespace IronCore.Controllers
                 photo.SaveAs(path);
                 model.ImagePath = VirtualPathUtility.Combine(folder, fileName);
             }
-            var coach = new Domain.Entities.Coach.CoachCl
+            var coach = new Domain.Entities.Coach.CoachDbModel
             {
-                ID = model.ID,
+                Id = model.ID,
                 FullName = model.FullName,
                 Specialization = model.Specialization,
                 ExperienceTime = model.ExperienceTime,
@@ -91,7 +91,7 @@ namespace IronCore.Controllers
 
             var vm = new CoachViewModel
             {
-                ID = coach.ID,
+                ID = coach.Id,
                 FullName = coach.FullName,
                 Specialization = coach.Specialization,
                 ExperienceTime = coach.ExperienceTime,
@@ -147,7 +147,7 @@ namespace IronCore.Controllers
             Stream stream = photo?.InputStream;
             string fileName = photo == null ? null : Path.GetFileName(photo.FileName);
 
-            _bl.SaveFromViewModel(model, stream, fileName);
+            //_bl.SaveFromViewModel(model, stream, fileName);
 
             return RedirectToAction("Trainers");
         }

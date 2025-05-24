@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IronCore.Domain.Entities.Product
 {
-    [Table("Products")]
     public class ProductDbModel
     {
         [Key]
-        public int ProductID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [Required, StringLength(120)]
         public string Title { get; set; }
@@ -21,7 +21,6 @@ namespace IronCore.Domain.Entities.Product
         public int Quantity { get; set; } = 1;
         [NotMapped] 
         public string ProductName { get => Title; set => Title = value; }
-        // Относительный URL до картинки (~/Content/Uploads/…)
         [StringLength(260)]
         public string ImageUrl { get; set; }
     }
