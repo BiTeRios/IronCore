@@ -10,8 +10,6 @@ namespace IronCore.Domain.Entities.User.Registration
     public class UserRegistrationData
     {
         [Required] 
-        public string Credential { get; set; }
-        [Required] 
         public string UserName { get; set; }
         [Required] 
         public string Password { get; set; }
@@ -22,5 +20,6 @@ namespace IronCore.Domain.Entities.User.Registration
         [DataType(DataType.Date)] 
         public DateTime BirthDate { get; set; }
         public string PhoneNumber { get; set; }
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
     }
 }

@@ -7,7 +7,6 @@ namespace IronCore.BusinessLogic.DBModel
     public class ProductContext : DbContext
     {
         public ProductContext() : base("name=IronCore") { }
-
         public DbSet<ProductDbModel> Products { get; set; }
     }
 }

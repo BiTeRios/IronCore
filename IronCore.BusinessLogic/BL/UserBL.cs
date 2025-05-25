@@ -38,7 +38,6 @@ namespace IronCore.BusinessLogic.BL
             return new UserDTO
             {
                 Id = db.Id,
-                Credential = db.Credential,
                 UserName = db.UserName,
                 Password = db.Password,
                 Email = db.Email,
@@ -57,7 +56,6 @@ namespace IronCore.BusinessLogic.BL
             return new UserDbModel
             {
                 Id = user.Id,
-                Credential = user.Credential,
                 UserName = user.UserName,
                 Password = user.Password,
                 Email = user.Email,

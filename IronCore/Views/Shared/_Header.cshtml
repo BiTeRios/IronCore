@@ -69,20 +69,22 @@
                 @if (!User.IsInRole("Admin") & !User.IsInRole("User"))
                 {
                     <li class="nav-item">
-                        @Html.ActionLink("Login", "Login", "Account",
+                        @Html.ActionLink("Login", "Login", "Login",
                             new { area = "" },
                             new { @class = $"nav-link {(active == "Login" ? "active" : "")}" })
                     </li>
 
                     <li class="nav-item">
-                        @Html.ActionLink("Registration", "Register", "Account",
+                        @Html.ActionLink("Registration", "Register", "Registration",
                             new { area = "" },
                             new { @class = $"nav-link {(active == "Register" ? "active" : "")}" })
                     </li>
                 }
             </ul>
-
-            @Html.Partial("_CartBadge")  
+            @if (User.IsInRole("Admin") || User.IsInRole("User")) 
+            { 
+                @Html.Partial("_CartBadge")  
+            }
         </div>
     </nav>
 </header>

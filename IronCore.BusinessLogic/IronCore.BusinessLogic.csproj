@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -47,6 +50,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -86,6 +92,7 @@
     <Compile Include="DBModel\ContactContext.cs" />
     <Compile Include="DBModel\OrderContext.cs" />
     <Compile Include="DBModel\ProductContext.cs" />
+    <Compile Include="DBModel\SessionContext.cs" />
     <Compile Include="DBModel\UserContext.cs" />
     <Compile Include="Interfaces\ICart.cs" />
     <Compile Include="Interfaces\IContact.cs" />
@@ -132,6 +139,18 @@
     <Compile Include="Migrations\202505241201574_DbChangeses.cs" />
     <Compile Include="Migrations\202505241201574_DbChangeses.Designer.cs">
       <DependentUpon>202505241201574_DbChangeses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505251032367_Changesese.cs" />
+    <Compile Include="Migrations\202505251032367_Changesese.Designer.cs">
+      <DependentUpon>202505251032367_Changesese.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505251125104_Changesesed.cs" />
+    <Compile Include="Migrations\202505251125104_Changesesed.Designer.cs">
+      <DependentUpon>202505251125104_Changesesed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505251232243_soososo.cs" />
+    <Compile Include="Migrations\202505251232243_soososo.Designer.cs">
+      <DependentUpon>202505251232243_soososo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -184,6 +203,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505241201574_DbChangeses.resx">
       <DependentUpon>202505241201574_DbChangeses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505251032367_Changesese.resx">
+      <DependentUpon>202505251032367_Changesese.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505251125104_Changesesed.resx">
+      <DependentUpon>202505251125104_Changesesed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505251232243_soososo.resx">
+      <DependentUpon>202505251232243_soososo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

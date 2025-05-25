@@ -50,6 +50,7 @@
     <Compile Include="Entities\Order\OrderDbModel.cs" />
     <Compile Include="Entities\Order\OrderItemDbModel.cs" />
     <Compile Include="Entities\Product\ProductDbModel.cs" />
+    <Compile Include="Entities\Session\Session.cs" />
     <Compile Include="Entities\User\Login\UserLoginData.cs" />
     <Compile Include="Entities\User\Registration\UserRegistrationResult.cs" />
     <Compile Include="Entities\User\UserDbModel.cs" />

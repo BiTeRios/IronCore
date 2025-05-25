@@ -9,6 +9,12 @@ using IronCore.Domain.Enums.User;
 using System.Security.Cryptography;
 using System.Text;
 using IronCore.Domain.Entities.User.Registration;
+using System.ComponentModel.DataAnnotations;
+using System.Web;
+using IronCore.Domain.Entities.Session;
+using IronCore.Helpers;
+using IronCore.Helpers.LoginRegisterHelper;
+using AutoMapper;
 
 namespace IronCore.BusinessLogic.Core
 {
@@ -72,8 +78,7 @@ namespace IronCore.BusinessLogic.Core
                 {
                     var user = db.Users
                                  .FirstOrDefault(u =>
-                                     u.Credential == data.Credential ||
-                                     u.Email == data.Credential);
+                                     u.UserName == data.UserName);
 
                     if (user == null)
                         return new UserLoginResult
@@ -82,8 +87,8 @@ namespace IronCore.BusinessLogic.Core
                             Message = "UserNotFound"
                         };
 
-                    var passwordHash = HashPassword(data.Password);
-                    if (user.Password != passwordHash)
+                    var encPassword = LoginRegisterHelper.HashGen(data.Password);
+                    if (user.Password != encPassword)
                         return new UserLoginResult
                         {
                             Status = false,
@@ -98,7 +103,6 @@ namespace IronCore.BusinessLogic.Core
                         UserDTO = new UserDTO
                         {
                             Id = user.Id,
-                            Credential = user.Credential,
                             UserName = user.UserName,
                             Password = user.Password,
                             Email = user.Email,
@@ -129,19 +133,20 @@ namespace IronCore.BusinessLogic.Core
             {
                 using (var db = new UserContext())
                 {
-                    if (db.Users.Any(u => u.Credential == data.Credential))
+                    if (db.Users.Any(u => u.UserName == data.UserName))
                         return new UserRegistrationResult
                         {
                             Status = false,
                             Message = "SuchCredentialsIsExist"
                         };
 
+                    var encPassword = LoginRegisterHelper.HashGen(data.Password);
                     var user = new UserDbModel
                     {
-                        Credential = data.Credential,
                         UserName = data.UserName,
-                        Password = HashPassword(data.Password),
+                        Password = encPassword,
                         Email = data.Email,
+                        LastLogin = DateTime.Now,
                         Level = URole.User,
                         FirstName = data.FirstName,
                         LastName = data.LastName,
@@ -173,14 +178,79 @@ namespace IronCore.BusinessLogic.Core
             }
         }
 
-        private static string HashPassword(string password)
+        internal HttpCookie Cookie(string loginCredential)
         {
-            using (var sha = SHA256.Create())
+            var apiCookie = new HttpCookie("X-KEY")
             {
-                var bytes = Encoding.UTF8.GetBytes(password);
-                var hash = sha.ComputeHash(bytes);
-                return Convert.ToBase64String(hash);
+                Value = CookieGenerator.Create(loginCredential)
+            };
+
+            using (var db = new SessionContext())
+            {
+                Session curent;
+                var validate = new EmailAddressAttribute();
+                if (validate.IsValid(loginCredential))
+                {
+                    curent = (from e in db.Sessions where e.Username == loginCredential select e).FirstOrDefault();
+                }
+                else
+                {
+                    curent = (from e in db.Sessions where e.Username == loginCredential select e).FirstOrDefault();
+                }
+
+                if (curent != null)
+                {
+                    curent.CookieString = apiCookie.Value;
+                    curent.ExpireTime = DateTime.Now.AddMinutes(60);
+                    using (var todo = new SessionContext())
+                    {
+                        todo.Entry(curent).State = EntityState.Modified;
+                        todo.SaveChanges();
+                    }
+                }
+                else
+                {
+                    db.Sessions.Add(new Session
+                    {
+                        Username = loginCredential,
+                        CookieString = apiCookie.Value,
+                        ExpireTime = DateTime.Now.AddMinutes(60)
+                    });
+                    db.SaveChanges();
+                }
             }
+
+            return apiCookie;
+        }
+        internal UserDTO UserCookie(string cookie)
+        {
+            Session session;
+            UserDbModel curentUser;
+
+            using (var db = new SessionContext())
+            {
+                session = db.Sessions.FirstOrDefault(s => s.CookieString == cookie && s.ExpireTime > DateTime.Now);
+            }
+
+            if (session == null) return null;
+            using (var db = new UserContext())
+            {
+                var validate = new EmailAddressAttribute();
+                if (validate.IsValid(session.Username))
+                {
+                    curentUser = db.Users.FirstOrDefault(u => u.Email == session.Username);
+                }
+                else
+                {
+                    curentUser = db.Users.FirstOrDefault(u => u.UserName == session.Username);
+                }
+            }
+
+            if (curentUser == null) return null;
+            Mapper.Initialize(cfg => cfg.CreateMap<UserDbModel, UserDTO>());
+            var userminimal = Mapper.Map<UserDTO>(curentUser);
+
+            return userminimal;
         }
     }
 }

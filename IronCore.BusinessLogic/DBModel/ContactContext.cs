@@ -11,7 +11,6 @@ namespace IronCore.BusinessLogic.DBModel
     class ContactContext : DbContext
     {
         public ContactContext() : base("name=IronCore") { }
-
         public DbSet<ContactDbModel> Contacts { get; set; }
     }
 }

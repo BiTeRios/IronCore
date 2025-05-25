@@ -10,8 +10,10 @@ namespace IronCore.Domain.Entities.User.Login
     public class UserLoginData
     {
         [Required] 
-        public string Credential { get; set; }
+        public string UserName { get; set; }
         [Required] 
         public string Password { get; set; }
+        public string LoginIp { get; set; }
+        public DateTime LoginDateTime { get; set; }
     }
 }

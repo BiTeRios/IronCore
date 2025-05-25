@@ -1,18 +1,26 @@
-﻿using System.Web;
+﻿using IronCore.Domain.Entities.User;
+using System.Web;
 using System.Web.Mvc;
 
 namespace IronCore.Filters          
 {
-    public sealed class AdminModAttribute : AuthorizeAttribute
+    public class AdminModAttribute : AuthorizeAttribute
     {
-        public AdminModAttribute() => Roles = "Admin";
-
-        protected override void HandleUnauthorizedRequest(AuthorizationContext ctx)
+        public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (ctx.HttpContext.User.Identity.IsAuthenticated)
-                ctx.Result = new HttpStatusCodeResult(403);  
-            else
-                base.HandleUnauthorizedRequest(ctx);        
+            var userRole = "Guest";
+            if (SessionHelper.User is UserDTO UserDTO && UserDTO.Level != null)
+            {
+                userRole = UserDTO.Level;
+            }
+            else filterContext.Result = new RedirectResult("~/Error/AccessDenied");
+
+            if (userRole != "Admin")
+            {
+                filterContext.Result = new RedirectResult("~/Error/AccessDenied");
+            }
+
+            base.OnActionExecuting(filterContext);
         }
     }
 }
