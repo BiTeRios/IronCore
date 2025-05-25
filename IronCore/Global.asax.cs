@@ -17,11 +17,23 @@ namespace IronCore
     {
         protected void Application_Start()
         {
-            UnityConfig.RegisterComponents();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
+            {
+                var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                string[] roles = authTicket.UserData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var identity = new FormsIdentity(authTicket);
+                var principal = new GenericPrincipal(identity, roles);
+                HttpContext.Current.User = principal;
+            }
+        }
+
     }
 }

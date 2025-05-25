@@ -18,5 +18,9 @@ namespace IronCore.BusinessLogic
         {
             return new ContactBL();
         }
+        public IUser GetUserBL()
+        {
+            return new UserBL();
+        }
     }
 }

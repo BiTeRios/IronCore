@@ -8,7 +8,7 @@ using IronCore.Domain.Entities.User;
 
 namespace IronCore.BusinessLogic.Interfaces
 {
-    interface IUser
+    public interface IUser
     {
         UserDTO GetById(int id);
         bool Update(UserDTO User);

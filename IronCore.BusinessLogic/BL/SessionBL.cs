@@ -13,6 +13,4 @@ public class SessionBL : UserApi, ISession
     public UserLoginResult UserLogin(UserLoginData data) => LoginAPI(data);
     public UserRegistrationResult UserRegistration(UserRegistrationData data)
                                                              => RegisterAPI(data);
-    public void SaveLastLogin(string userName, DateTime whenUtc, string ip)
-    => SaveLastLoginInternal(userName, whenUtc, ip);
 }

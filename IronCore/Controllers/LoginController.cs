@@ -13,9 +13,6 @@ namespace IronCore.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly ISession _session;
-        public LoginController(ISession session) { _session = session; }
-
         [HttpGet]
         public ActionResult Login()
         {
@@ -27,24 +24,46 @@ namespace IronCore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel login)
         {
-            if (!ModelState.IsValid) return View(login);
-
-            var res = _session.UserLogin(new UserLoginData
+            if (!ModelState.IsValid)
+            {
+                return View(login);
+            }
+            var sessionBL = new SessionBL();
+            var loginData = new UserLoginData
             {
                 UserName = login.UserName,
                 Password = login.Password,
-                LastLogin = DateTime.UtcNow,
                 LoginIp = Request.UserHostAddress
-            });
+            };
+            var result = sessionBL.UserLogin(loginData);
 
-            if (!res.Status)
+            if (result.Status)
             {
-                ModelState.AddModelError("", res.Message);
+                string roles = result.UserDTO.Role ?? "User";
+
+                var authTicket = new FormsAuthenticationTicket(
+                    1,
+                    result.UserDTO.UserName,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    roles 
+                );
+
+                string encTicket = FormsAuthentication.Encrypt(authTicket);
+                var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                Response.Cookies.Add(faCookie);
+
+                Session["UserId"] = result.UserDTO.Id;
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", result.Message ?? "Ошибка входа");
                 return View(login);
             }
-
-            FormsAuthentication.SetAuthCookie(login.UserName, false);
-            return RedirectToAction("Index", "Home");
         }
+
     }
 }

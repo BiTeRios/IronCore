@@ -75,48 +75,49 @@ namespace IronCore.BusinessLogic.Core
             {
                 using (var db = new UserContext())
                 {
-                    UserDbModel user = db.Users
-                                 .FirstOrDefault(u =>
-                                     u.UserName == data.UserName);
-
+                    var user = db.Users.FirstOrDefault(u => u.UserName == data.UserName);
                     if (user == null)
+                    {
                         return new UserLoginResult
                         {
                             Status = false,
-                            Message = "UserNotFound"
+                            Message = "Пользователь не найден"
                         };
+                    }
 
-                    var encPassword = LoginRegisterHelper.HashGen(data.Password);
-                    if (user.Password != encPassword)
+                    var hash = LoginRegisterHelper.HashGen(data.Password);
+                    if (user.Password != hash)
+                    {
                         return new UserLoginResult
                         {
                             Status = false,
-                            Message = "PasswordIsWrong"
+                            Message = "Неверный пароль"
                         };
+                    }
 
-                    user.LastLogin = data.LastLogin; 
-                    db.Entry(user).Property(u => u.LastLogin).IsModified = true;
+                    user.LastLogin = DateTime.Now;
                     db.SaveChanges();
+
+                    var dto = new UserDTO
+                    {
+                        Id = user.Id,
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        LastLogin = user.LastLogin,
+                        Role = user.Level.ToString(),
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        BirthDate = user.BirthDate,
+                        PhoneNumber = user.PhoneNumber,
+                        RegistrationDate = user.RegistrationDate,
+                        Balance = user.Balance
+                    };
 
                     return new UserLoginResult
                     {
                         Status = true,
-                        Message = "UserExist",
-                        UserDTO = new UserDTO
-                        {
-                            Id = user.Id,
-                            UserName = user.UserName,
-                            Password = user.Password,
-                            Email = user.Email,
-                            LastLogin = user.LastLogin,
-                            Role = user.Level.ToString(),
-                            FirstName = user.FirstName,
-                            LastName = user.LastName,
-                            BirthDate = user.BirthDate,
-                            PhoneNumber = user.PhoneNumber,
-                            RegistrationDate = user.RegistrationDate,
-                            Balance = user.Balance
-                        }
+                        Message = "Успешный вход",
+                        UserDTO = dto
                     };
                 }
             }
@@ -129,6 +130,7 @@ namespace IronCore.BusinessLogic.Core
                 };
             }
         }
+
         public UserRegistrationResult RegisterAPI(UserRegistrationData data)
         {
             try
@@ -179,16 +181,5 @@ namespace IronCore.BusinessLogic.Core
                 };
             }
         }
-        protected void SaveLastLoginInternal(string userName, DateTime whenUtc, string ip)
-        {
-            var db = new UserContext();
-            var u = db.Users.FirstOrDefault(x => x.UserName == userName);
-            if (u == null) return;
-
-            u.LastLogin = whenUtc;
-            db.Entry(u).Property(x => x.LastLogin).IsModified = true;
-            db.SaveChanges();
-        }
-
     }
 }

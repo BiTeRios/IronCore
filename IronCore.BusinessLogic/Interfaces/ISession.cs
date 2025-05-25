@@ -14,6 +14,5 @@ namespace IronCore.BusinessLogic.Interfaces
     {
         UserLoginResult UserLogin(UserLoginData data);
         UserRegistrationResult UserRegistration(UserRegistrationData data);
-        void SaveLastLogin(string userName, DateTime whenUtc, string ip);
     }
 }
