@@ -64,9 +64,8 @@ namespace IronCore.Controllers
                     BirthDate = user.BirthDate,
                     Balance = user.Balance,
                     PhoneNumber = user.PhoneNumber,
-                    Level = user.Level,
+                    Role = user.Level.ToString(),
                 };
-                SessionHelper.User = userForSession;
                 return RedirectToAction("Index", "Home");
             }
             else

@@ -11,7 +11,6 @@ using System.Text;
 using IronCore.Domain.Entities.User.Registration;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
-using IronCore.Domain.Entities.Session;
 using IronCore.Helpers;
 using IronCore.Helpers.LoginRegisterHelper;
 using AutoMapper;
@@ -76,7 +75,7 @@ namespace IronCore.BusinessLogic.Core
             {
                 using (var db = new UserContext())
                 {
-                    var user = db.Users
+                    UserDbModel user = db.Users
                                  .FirstOrDefault(u =>
                                      u.UserName == data.UserName);
 
@@ -95,7 +94,10 @@ namespace IronCore.BusinessLogic.Core
                             Message = "PasswordIsWrong"
                         };
 
-                    user.LastLogin = DateTime.UtcNow;
+                    user.LastLogin = data.LastLogin; 
+                    db.Entry(user).Property(u => u.LastLogin).IsModified = true;
+                    db.SaveChanges();
+
                     return new UserLoginResult
                     {
                         Status = true,
@@ -107,7 +109,7 @@ namespace IronCore.BusinessLogic.Core
                             Password = user.Password,
                             Email = user.Email,
                             LastLogin = user.LastLogin,
-                            Level = user.Level,
+                            Role = user.Level.ToString(),
                             FirstName = user.FirstName,
                             LastName = user.LastName,
                             BirthDate = user.BirthDate,
@@ -177,80 +179,16 @@ namespace IronCore.BusinessLogic.Core
                 };
             }
         }
-
-        internal HttpCookie Cookie(string loginCredential)
+        protected void SaveLastLoginInternal(string userName, DateTime whenUtc, string ip)
         {
-            var apiCookie = new HttpCookie("X-KEY")
-            {
-                Value = CookieGenerator.Create(loginCredential)
-            };
+            var db = new UserContext();
+            var u = db.Users.FirstOrDefault(x => x.UserName == userName);
+            if (u == null) return;
 
-            using (var db = new SessionContext())
-            {
-                Session curent;
-                var validate = new EmailAddressAttribute();
-                if (validate.IsValid(loginCredential))
-                {
-                    curent = (from e in db.Sessions where e.Username == loginCredential select e).FirstOrDefault();
-                }
-                else
-                {
-                    curent = (from e in db.Sessions where e.Username == loginCredential select e).FirstOrDefault();
-                }
-
-                if (curent != null)
-                {
-                    curent.CookieString = apiCookie.Value;
-                    curent.ExpireTime = DateTime.Now.AddMinutes(60);
-                    using (var todo = new SessionContext())
-                    {
-                        todo.Entry(curent).State = EntityState.Modified;
-                        todo.SaveChanges();
-                    }
-                }
-                else
-                {
-                    db.Sessions.Add(new Session
-                    {
-                        Username = loginCredential,
-                        CookieString = apiCookie.Value,
-                        ExpireTime = DateTime.Now.AddMinutes(60)
-                    });
-                    db.SaveChanges();
-                }
-            }
-
-            return apiCookie;
+            u.LastLogin = whenUtc;
+            db.Entry(u).Property(x => x.LastLogin).IsModified = true;
+            db.SaveChanges();
         }
-        internal UserDTO UserCookie(string cookie)
-        {
-            Session session;
-            UserDbModel curentUser;
 
-            using (var db = new SessionContext())
-            {
-                session = db.Sessions.FirstOrDefault(s => s.CookieString == cookie && s.ExpireTime > DateTime.Now);
-            }
-
-            if (session == null) return null;
-            using (var db = new UserContext())
-            {
-                var validate = new EmailAddressAttribute();
-                if (validate.IsValid(session.Username))
-                {
-                    curentUser = db.Users.FirstOrDefault(u => u.Email == session.Username);
-                }
-                else
-                {
-                    curentUser = db.Users.FirstOrDefault(u => u.UserName == session.Username);
-                }
-            }
-
-            if (curentUser == null) return null;
-            Mapper.Initialize(cfg => cfg.CreateMap<UserDbModel, UserDTO>());
-            var userminimal = Mapper.Map<UserDTO>(curentUser);
-
-            return userminimal;
-        }
     }
 }

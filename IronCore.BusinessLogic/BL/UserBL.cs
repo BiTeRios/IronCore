@@ -6,6 +6,7 @@ using IronCore.BusinessLogic.Core;
 using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Contact;
 using IronCore.Domain.Entities.User;
+using IronCore.Domain.Enums.User;
 
 namespace IronCore.BusinessLogic.BL
 {
@@ -22,7 +23,7 @@ namespace IronCore.BusinessLogic.BL
             var dbUser = GetByIdAPI(user.Id);
             if (dbUser == null) return false;
             var mappedUser = MapToDb(user);
-            var result = UpdateAPI(dbUser);
+            var result = UpdateAPI(mappedUser);
             return true;
 
         }
@@ -42,7 +43,7 @@ namespace IronCore.BusinessLogic.BL
                 Password = db.Password,
                 Email = db.Email,
                 LastLogin = db.LastLogin,
-                Level = db.Level,
+                Role = db.Level.ToString(),
                 FirstName = db.FirstName,
                 LastName = db.LastName,
                 BirthDate = db.BirthDate,
@@ -60,7 +61,7 @@ namespace IronCore.BusinessLogic.BL
                 Password = user.Password,
                 Email = user.Email,
                 LastLogin = user.LastLogin,
-                Level = user.Level,
+                Level = (URole)Enum.Parse(typeof(URole), user.Role),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 BirthDate = user.BirthDate,

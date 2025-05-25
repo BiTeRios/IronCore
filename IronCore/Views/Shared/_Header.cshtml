@@ -66,7 +66,7 @@
                             new { @class = "nav-link text-warning fw-semibold" })
                     </li>
                 }
-                @if (!User.IsInRole("Admin") & !User.IsInRole("User"))
+                @if (!User.IsInRole("Admin") || !User.IsInRole("User"))
                 {
                     <li class="nav-item">
                         @Html.ActionLink("Login", "Login", "Login",

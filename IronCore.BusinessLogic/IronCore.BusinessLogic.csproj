@@ -92,7 +92,6 @@
     <Compile Include="DBModel\ContactContext.cs" />
     <Compile Include="DBModel\OrderContext.cs" />
     <Compile Include="DBModel\ProductContext.cs" />
-    <Compile Include="DBModel\SessionContext.cs" />
     <Compile Include="DBModel\UserContext.cs" />
     <Compile Include="Interfaces\ICart.cs" />
     <Compile Include="Interfaces\IContact.cs" />
@@ -151,6 +150,14 @@
     <Compile Include="Migrations\202505251232243_soososo.cs" />
     <Compile Include="Migrations\202505251232243_soososo.Designer.cs">
       <DependentUpon>202505251232243_soososo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505251541047_soososodd.cs" />
+    <Compile Include="Migrations\202505251541047_soososodd.Designer.cs">
+      <DependentUpon>202505251541047_soososodd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505251607580_soososoddf.cs" />
+    <Compile Include="Migrations\202505251607580_soososoddf.Designer.cs">
+      <DependentUpon>202505251607580_soososoddf.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -212,6 +219,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505251232243_soososo.resx">
       <DependentUpon>202505251232243_soososo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505251541047_soososodd.resx">
+      <DependentUpon>202505251541047_soososodd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505251607580_soososoddf.resx">
+      <DependentUpon>202505251607580_soososoddf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

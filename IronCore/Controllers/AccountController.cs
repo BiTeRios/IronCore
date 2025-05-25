@@ -30,10 +30,11 @@ namespace IronCore.Controllers
         {
             _authService = new UserApi();
         }
-        public ActionResult LogOut()
+        public ActionResult Logout()
         {
-            Session.Clear();
-            return RedirectToAction("Index", "Home");
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Login", "Login");
         }
     }
 }

@@ -29,10 +29,10 @@ namespace IronCore.Controllers
         }
 
 
-        [AdminMod]
+        [AdminOnly]
         public ActionResult Create() => View();
 
-        [HttpPost, AdminMod, ValidateAntiForgeryToken]
+        [HttpPost, AdminOnly, ValidateAntiForgeryToken]
         public ActionResult Create(ProductViewModel vm)
         {
             if (!ModelState.IsValid) return View(vm);
@@ -41,7 +41,7 @@ namespace IronCore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [AdminMod]
+        [AdminOnly]
         public ActionResult Edit(int id)
         {
             var entity = _bl.GetProductById(id);
@@ -50,7 +50,7 @@ namespace IronCore.Controllers
             return View(ToVm(entity));
         }
 
-        [HttpPost, AdminMod, ValidateAntiForgeryToken]
+        [HttpPost, AdminOnly, ValidateAntiForgeryToken]
         public ActionResult Edit(ProductViewModel vm)
         {
             if (!ModelState.IsValid) return View(vm);
@@ -59,7 +59,7 @@ namespace IronCore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [AdminMod]
+        [AdminOnly]
         public ActionResult Delete(int id)
         {
             var entity = _bl.GetProductById(id);
@@ -69,7 +69,7 @@ namespace IronCore.Controllers
         }
 
         [HttpPost, ActionName("Delete"),
-         AdminMod, ValidateAntiForgeryToken]
+         AdminOnly, ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             _bl.DeleteProduct(id);

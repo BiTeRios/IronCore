@@ -41,8 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cookie.cs" />
-    <Compile Include="CookieGen.cs" />
     <Compile Include="LoginRegisterActions\LoginRegisterHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

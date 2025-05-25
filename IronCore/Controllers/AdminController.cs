@@ -9,18 +9,18 @@ using System.Web;
 
 namespace IronCore.Controllers
 {
-    [AdminMod]
+    [AdminOnly]
     public class AdminController : Controller
     {
         private readonly CoachBL _bl = new CoachBL();
-        [AdminMod]
+        [AdminOnly]
         public ActionResult Index()
         {
             ViewBag.ActivePage = "Index";
             return View();                   // Views/Admin/Index.cshtml
         }
 
-        [AdminMod]
+        [AdminOnly]
         public ActionResult Trainers()
         {
             ViewBag.ActivePage = "Trainers";
@@ -38,7 +38,7 @@ namespace IronCore.Controllers
         }
 
         // ───── GET: /Admin/Create ────────────────────────────────────────────────────
-        [AdminMod]
+        [AdminOnly]
         public ActionResult CreateTrain()
         {
             ViewBag.ActivePage = "Trainers";
@@ -48,7 +48,7 @@ namespace IronCore.Controllers
 
         // ───── POST: /Admin/Create ───────────────────────────────────────────────────
         [HttpPost, ValidateAntiForgeryToken]
-        [AdminMod]
+        [AdminOnly]
         public ActionResult CreateTrain(CoachViewModel model, HttpPostedFileBase photo)
         {
             ViewBag.ActivePage = "Trainers";
@@ -82,7 +82,7 @@ namespace IronCore.Controllers
         }
 
         // GET: /Admin/Delete/5
-        [AdminMod]
+        [AdminOnly]
         public ActionResult DeleteTrain(int id)
         {
             var coach = _bl.getInfoAboutCoach(id);
@@ -103,7 +103,7 @@ namespace IronCore.Controllers
 
         // POST: /Admin/Delete/5
         [HttpPost, ValidateAntiForgeryToken]
-        [AdminMod]
+        [AdminOnly]
         public ActionResult DeleteConfirmed(int id)
         {
             _bl.deleteCoach(id);
@@ -111,7 +111,7 @@ namespace IronCore.Controllers
         }
 
         // GET: /Admin/Edit/5
-        [AdminMod]
+        [AdminOnly]
         public ActionResult Edit(int id)
         {
             ViewBag.ActivePage = "Trainers";
@@ -135,7 +135,7 @@ namespace IronCore.Controllers
         }
 
         // POST: /Admin/Edit/5
-        [AdminMod]
+        [AdminOnly]
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult EditTrain(CoachViewModel model, HttpPostedFileBase photo)
         {

@@ -16,7 +16,7 @@ namespace IronCore.Domain.Entities.User
         public string Password { get; set; }
         public string Email { get; set; }
         public DateTime LastLogin { get; set; }
-        public URole Level { get; set; }
+        public string Role { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }

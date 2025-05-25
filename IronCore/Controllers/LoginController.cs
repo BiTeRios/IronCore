@@ -6,17 +6,16 @@ using AutoMapper;
 using IronCore.Domain.Entities.User.Login;
 using IronCore.Models;
 using IronCore.Domain.Entities.User;
+using System.Web.Security;
+using System.Web.UI.WebControls;
 
 namespace IronCore.Controllers
 {
     public class LoginController : Controller
     {
         private readonly ISession _session;
-        public LoginController()
-        {
-            var bl = new BusinessLogic.BusinessLogic();
-            _session = bl.GetSessionBl();
-        }
+        public LoginController(ISession session) { _session = session; }
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -28,38 +27,24 @@ namespace IronCore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel login)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(login);
+
+            var res = _session.UserLogin(new UserLoginData
             {
-                UserLoginData data = new UserLoginData
-                {
-                    UserName = login.UserName,
-                    Password = login.Password,
-                    LoginDateTime = DateTime.Now,
-                    LoginIp = Request.UserHostAddress
-                };
-                var userLoginResult = _session.UserLogin(data);
-                if (userLoginResult.Status == true)
-                {
-                    HttpCookie cookie = _session.GenCookie(login.UserName);
-                    ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+                UserName = login.UserName,
+                Password = login.Password,
+                LastLogin = DateTime.UtcNow,
+                LoginIp = Request.UserHostAddress
+            });
 
-
-                    StoreUserInSession(userLoginResult.UserDTO);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    TempData["Message"] = userLoginResult.Message;
-                    return View("Login");
-                }
+            if (!res.Status)
+            {
+                ModelState.AddModelError("", res.Message);
+                return View(login);
             }
-            TempData["Message"] = "Something went wrong";
-            return View("Login");
-        }
-        public void StoreUserInSession(UserDTO user)
-        {
-            SessionHelper.User = user;
-        }
 
+            FormsAuthentication.SetAuthCookie(login.UserName, false);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

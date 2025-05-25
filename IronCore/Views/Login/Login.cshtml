@@ -5,14 +5,6 @@
 
 <h2>Вход</h2>
 
-@if (TempData["Message"] != null)
-{
-
-    <div class="alert alert-success" role="alert" style="color:red">
-        @TempData["Message"]
-    </div>
-}
-
 @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()

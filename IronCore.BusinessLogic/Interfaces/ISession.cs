@@ -14,7 +14,6 @@ namespace IronCore.BusinessLogic.Interfaces
     {
         UserLoginResult UserLogin(UserLoginData data);
         UserRegistrationResult UserRegistration(UserRegistrationData data);
-        HttpCookie GenCookie(string loginCredential);
-        UserDTO GetUserByCookie(string apiCookieValue);
+        void SaveLastLogin(string userName, DateTime whenUtc, string ip);
     }
 }

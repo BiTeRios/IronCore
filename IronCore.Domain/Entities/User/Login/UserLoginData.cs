@@ -14,6 +14,6 @@ namespace IronCore.Domain.Entities.User.Login
         [Required] 
         public string Password { get; set; }
         public string LoginIp { get; set; }
-        public DateTime LoginDateTime { get; set; }
+        public DateTime LastLogin { get; set; } = DateTime.Now;
     }
 }

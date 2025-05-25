@@ -8,7 +8,10 @@ namespace IronCore.Domain.Enums.User
 {
     public enum URole
     {
-        User = 0,
-        Admin = 1
+        Anonym = 0,
+        Guest = 5,
+        User = 15,
+        Admin = 200,
+        Banned = 500
     }
 }
