@@ -8,7 +8,7 @@ using IronCore.Domain.Entities.Product;
 
 namespace IronCore.BusinessLogic.Interfaces
 {
-    interface ICart
+     public interface ICart
     {
         void AddToCart(ProductDbModel product);
         void RemoveFromCart(int productId);

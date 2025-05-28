@@ -10,7 +10,7 @@ using IronCore.Domain.Entities.Contact;
 
 namespace IronCore.BusinessLogic.BL
 {
-    internal class ContactBL : ContactApi, IContact
+    public class ContactBL : ContactApi, IContact
     {
         public List<ContactDTO> GetAllContacts()
         {

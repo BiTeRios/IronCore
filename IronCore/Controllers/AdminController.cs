@@ -9,6 +9,7 @@ using System.Web;
 using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Product;
 using IronCore.Domain.Enums.Order;
+using System;
 
 namespace IronCore.Controllers
 {
@@ -18,13 +19,50 @@ namespace IronCore.Controllers
         private readonly IUser _user;
         private readonly IOrder _order;
         private readonly IProduct _product;
+        private readonly IContact _contact;
         public AdminController()
         {
             var bl = new BusinessLogic.BusinessLogic();
             _user = bl.GetUserBL();
             _order = bl.GetOrderBL();
             _product = bl.GetProductBL();
+            _contact = bl.GetContactBL();
         }
+
+        [AdminOnly]
+        public ActionResult Index()
+        {
+            ViewBag.ActivePage = "Index";
+
+            var userCount = _user.GetAllUsers().Count;
+            var productCount = _product.GetAll().Count();
+            var orderCount = _order.GetAllOrders().Count;
+            var contactCount = _contact.GetAllContacts().Count;
+
+            var recentOrders = _order.GetAllOrders()
+                .OrderByDescending(o => o.Created)
+                .Take(5)
+                .ToList();
+            var userDict = _user.GetAllUsers().ToDictionary(u => u.Id, u => $"{u.FirstName} {u.LastName}");
+
+            var recentOrderVMs = recentOrders.Select(o => new RecentOrderViewModel
+            {
+                Id = o.Id,
+                Buyer = o.Id > 0 && userDict.ContainsKey(o.Id) ? userDict[o.Id] : "Гость",
+                Created = o.Created,
+                Total = o.Total,
+                State = o.State
+            }).ToList();
+
+            ViewBag.UserCount = userCount;
+            ViewBag.ProductCount = productCount;
+            ViewBag.OrderCount = orderCount;
+            ViewBag.contactCount = contactCount;
+            ViewBag.RecentOrders = recentOrderVMs;
+
+            return View();
+        }
+
 
         [AdminOnly]
         public ActionResult Users()
@@ -114,13 +152,6 @@ namespace IronCore.Controllers
         {
             _user.Delete(id);
             return RedirectToAction("Users");
-        }
-
-        [AdminOnly]
-        public ActionResult Index()
-        {
-            ViewBag.ActivePage = "Index";
-            return View();                   
         }
 
         // Список заказов
