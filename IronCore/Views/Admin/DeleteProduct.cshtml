@@ -1,0 +1,13 @@
+@model IronCore.Models.ProductViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Удалить товар";
+}
+<h2>Удалить товар "@Model.Title"?</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a href="@Url.Action("Products")" class="btn btn-secondary">Отмена</a>
+}

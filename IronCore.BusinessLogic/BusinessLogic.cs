@@ -26,5 +26,9 @@ namespace IronCore.BusinessLogic
         {
             return new OrderBL();
         }
+        public IProduct GetProductBL()
+        {
+            return new ProductBL();
+        }
     }
 }

@@ -1,55 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IronCore.BusinessLogic.Core;
-using IronCore.BusinessLogic.DBModel;
+﻿using IronCore.BusinessLogic.Core;
 using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Product;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IronCore.BusinessLogic.BL
 {
-    public class ProductBL : IProduct
+    public class ProductBL : ProductApi, IProduct
     {
-        private readonly ProductContext ctx = new ProductContext();
-
-        public IEnumerable<ProductDbModel> GetAll()          // каталог
+        public ProductDTO GetProductById(int id)
         {
-            var ctx = new ProductContext();
-            return ctx.Products.AsNoTracking().ToList();
+            var prod = GetProductByIdAPI(id);
+            return prod != null ? MapToDTO(prod) : null;
         }
 
-        public ProductDbModel GetProductById(int id)                // один товар
+        public IEnumerable<ProductDTO> GetAll()
         {
-            var ctx = new ProductContext();
-            return ctx.Products.AsNoTracking()
-                               .FirstOrDefault(p => p.Id == id);
+            return GetAllProductsAPI().Select(MapToDTO).ToList();
         }
 
-        public void CreateProduct(ProductDbModel m)                 // админ
+        public void CreateProduct(ProductDTO product)
         {
-            var ctx = new ProductContext();
-            ctx.Products.Add(m);
-            ctx.SaveChanges();
+            if (string.IsNullOrWhiteSpace(product.Title) || product.Price < 0)
+                return;
+            CreateProductAPI(MapToDb(product));
         }
 
-        public bool DeleteProduct(int id)
+        public bool DeleteProduct(int productId)
         {
-            var p = ctx.Products.Find(id);
-            if (p is null) return false;
-            ctx.Products.Remove(p);
-            ctx.SaveChanges();
-            return true;
+            if (productId <= 0) return false;
+            return DeleteProductAPI(productId);
         }
 
-        public void UpdateProduct(ProductDbModel product)
+        public void UpdateProduct(ProductDTO product)
         {
-            var current = ctx.Products.Find(product.Id);
-            if (current is null) return;
-            ctx.Entry(current).CurrentValues.SetValues(product);
-            ctx.SaveChanges();
+            var dbProduct = MapToDb(product);
+            UpdateProductAPI(dbProduct);
+        }
+
+        private ProductDTO MapToDTO(ProductDbModel db)
+        {
+            return new ProductDTO
+            {
+                Id = db.Id,
+                Title = db.Title,
+                Description = db.Description,
+                Price = db.Price,
+                Quantity = db.Quantity,
+                ImageUrl = db.ImageUrl
+            };
+        }
+
+        private ProductDbModel MapToDb(ProductDTO dto)
+        {
+            return new ProductDbModel
+            {
+                Id = dto.Id,
+                Title = dto.Title,
+                Description = dto.Description,
+                Price = dto.Price,
+                Quantity = dto.Quantity,
+                ImageUrl = dto.ImageUrl
+            };
         }
     }
-
 }

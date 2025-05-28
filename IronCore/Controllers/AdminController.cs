@@ -17,11 +17,13 @@ namespace IronCore.Controllers
     {
         private readonly IUser _user;
         private readonly IOrder _order;
+        private readonly IProduct _product;
         public AdminController()
         {
             var bl = new BusinessLogic.BusinessLogic();
             _user = bl.GetUserBL();
             _order = bl.GetOrderBL();
+            _product = bl.GetProductBL();
         }
 
         [AdminOnly]
@@ -240,10 +242,143 @@ namespace IronCore.Controllers
             return RedirectToAction("Orders");
         }
 
+        // Список товаров
+        [AdminOnly]
         public ActionResult Products()
         {
             ViewBag.ActivePage = "Products";
-            return View();                   
+            var products = _product.GetAll()
+                .Select(p => new ProductViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Price = p.Price,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Quantity = p.Quantity
+                }).ToList();
+
+            return View(products);
+        }
+
+        // Детали товара
+        [AdminOnly]
+        public ActionResult ProductDetails(int id)
+        {
+            ViewBag.ActivePage = "Products";
+            var p = _product.GetProductById(id);
+            if (p == null) return HttpNotFound();
+
+            var model = new ProductViewModel
+            {
+                Id = p.Id,
+                Title = p.Title,
+                Price = p.Price,
+                Description = p.Description,
+                ImageUrl = p.ImageUrl,
+                Quantity = p.Quantity
+            };
+            return View(model);
+        }
+
+        // Добавление товара - GET
+        [AdminOnly]
+        public ActionResult CreateProduct()
+        {
+            ViewBag.ActivePage = "Products";
+            return View(new ProductViewModel());
+        }
+
+        // Добавление товара - POST
+        [HttpPost, ValidateAntiForgeryToken]
+        [AdminOnly]
+        public ActionResult CreateProduct(ProductViewModel model)
+        {
+            ViewBag.ActivePage = "Products";
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var dto = new ProductDTO
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Price = model.Price,
+                ImageUrl = model.ImageUrl,
+                Quantity = model.Quantity
+            };
+            _product.CreateProduct(dto);
+            return RedirectToAction("Products");
+        }
+
+        // Редактирование товара - GET
+        [AdminOnly]
+        public ActionResult EditProduct(int id)
+        {
+            ViewBag.ActivePage = "Products";
+            var p = _product.GetProductById(id);
+            if (p == null) return HttpNotFound();
+
+            var model = new ProductViewModel
+            {
+                Id = p.Id,
+                Title = p.Title,
+                Price = p.Price,
+                Description = p.Description,
+                ImageUrl = p.ImageUrl,
+                Quantity = p.Quantity
+            };
+            return View(model);
+        }
+
+        // Редактирование товара - POST
+        [HttpPost, ValidateAntiForgeryToken]
+        [AdminOnly]
+        public ActionResult EditProduct(ProductViewModel model)
+        {
+            ViewBag.ActivePage = "Products";
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var dto = new ProductDTO
+            {
+                Id = model.Id,
+                Title = model.Title,
+                Description = model.Description,
+                Price = model.Price,
+                ImageUrl = model.ImageUrl,
+                Quantity = model.Quantity
+            };
+            _product.UpdateProduct(dto);
+            return RedirectToAction("Products");
+        }
+
+        // Удаление товара - GET
+        [AdminOnly]
+        public ActionResult DeleteProduct(int id)
+        {
+            ViewBag.ActivePage = "Products";
+            var p = _product.GetProductById(id);
+            if (p == null) return HttpNotFound();
+
+            var model = new ProductViewModel
+            {
+                Id = p.Id,
+                Title = p.Title,
+                Price = p.Price,
+                Description = p.Description,
+                ImageUrl = p.ImageUrl,
+                Quantity = p.Quantity
+            };
+            return View(model);
+        }
+
+        // Удаление товара - POST
+        [HttpPost, ActionName("DeleteProduct"), ValidateAntiForgeryToken]
+        [AdminOnly]
+        public ActionResult DeleteProductConfirmed(int id)
+        {
+            _product.DeleteProduct(id);
+            return RedirectToAction("Products");
         }
     }
 }

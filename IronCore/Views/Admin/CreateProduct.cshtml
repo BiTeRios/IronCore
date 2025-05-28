@@ -1,0 +1,33 @@
+@model IronCore.Models.ProductViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Товар";
+}
+<h2>@(Model.Id == 0 ? "Добавить товар" : "Редактировать товар")</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+    </div>
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+    </div>
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Price)
+        @Html.TextBoxFor(m => m.Price, new { @class = "form-control", type = "number", step = "0.01" })
+    </div>
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.ImageUrl)
+        @Html.TextBoxFor(m => m.ImageUrl, new { @class = "form-control" })
+    </div>
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Quantity)
+        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", type = "number" })
+    </div>
+    <button type="submit" class="btn btn-success">Сохранить</button>
+    <a href="@Url.Action("Products")" class="btn btn-secondary">Назад</a>
+}
