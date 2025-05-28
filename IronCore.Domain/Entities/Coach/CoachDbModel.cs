@@ -14,7 +14,6 @@ namespace IronCore.Domain.Entities.Coach
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         [Display(Name = "Image")]
         public string ImagePath { get; set; }
         [Required]

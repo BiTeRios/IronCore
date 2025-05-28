@@ -12,6 +12,10 @@ namespace IronCore.BusinessLogic.BL
 {
     public class UserBL : UserApi, IUser
     {
+        public List<UserDTO> GetAllUsers()
+        {
+            return GetAllUsersAPI().Select(MapToUser).ToList();
+        }
         public UserDTO GetById(int id)
         {
             var userId = GetByIdAPI(id);
@@ -25,7 +29,6 @@ namespace IronCore.BusinessLogic.BL
             var mappedUser = MapToDb(user);
             var result = UpdateAPI(mappedUser);
             return true;
-
         }
         public bool Delete(int id)
         {

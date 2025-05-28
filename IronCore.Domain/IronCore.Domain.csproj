@@ -43,19 +43,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Cart\CartDbModel.cs" />
-    <Compile Include="Entities\Cart\CartLine.cs" />
+    <Compile Include="Entities\Cart\CartDTO.cs" />
     <Compile Include="Entities\Coach\CoachDbModel.cs" />
+    <Compile Include="Entities\Coach\CoachDTO.cs" />
     <Compile Include="Entities\Contact\ContactDbModel.cs" />
     <Compile Include="Entities\Contact\ContactDTO.cs" />
     <Compile Include="Entities\Order\OrderDbModel.cs" />
-    <Compile Include="Entities\Order\OrderItemDbModel.cs" />
+    <Compile Include="Entities\Order\OrderDTO.cs" />
     <Compile Include="Entities\Product\ProductDbModel.cs" />
+    <Compile Include="Entities\Product\ProductDTO.cs" />
     <Compile Include="Entities\User\Login\UserLoginData.cs" />
     <Compile Include="Entities\User\Registration\UserRegistrationResult.cs" />
     <Compile Include="Entities\User\UserDbModel.cs" />
     <Compile Include="Entities\User\UserDTO.cs" />
     <Compile Include="Entities\User\Login\UserLoginResult.cs" />
     <Compile Include="Entities\User\Registration\UserRegistrationData.cs" />
+    <Compile Include="Enums\Order\UState.cs" />
     <Compile Include="Enums\User\URole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

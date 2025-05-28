@@ -14,13 +14,20 @@ using System.Web;
 using IronCore.Helpers;
 using IronCore.Helpers.LoginRegisterHelper;
 using AutoMapper;
+using IronCore.Domain.Entities.Contact;
 
 namespace IronCore.BusinessLogic.Core
 {
     public class UserApi
     {
         public UserApi() { }
-
+        public List<UserDbModel> GetAllUsersAPI()
+        {
+            using (var context = new UserContext())
+            {
+                return context.Users.ToList();
+            }
+        }
         public UserDbModel GetByIdAPI(int id)
         {
             try

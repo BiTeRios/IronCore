@@ -50,6 +50,7 @@ namespace IronCore.Controllers
                 BirthDate = model.BirthDate,
                 PhoneNumber = model.PhoneNumber
             };
+
             var result = _session.UserRegistration(data);
             if (result.Status == true)
             {

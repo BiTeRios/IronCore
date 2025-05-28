@@ -10,6 +10,7 @@ namespace IronCore.BusinessLogic.Interfaces
 {
     public interface IUser
     {
+        List<UserDTO> GetAllUsers();
         UserDTO GetById(int id);
         bool Update(UserDTO User);
         bool Delete(int id);

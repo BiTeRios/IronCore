@@ -1,8 +1,60 @@
-﻿
+﻿@model List<IronCore.Models.OrderViewModel>
+@using IronCore.Domain.Enums.Order
+
 @{
-    ViewBag.Title = "Orders";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Заказы";
 }
 
-<h2>Orders</h2>
+<div id="content">
+    <h1 class="h3 mb-4">Список заказов</h1>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Дата</th>
+                            <th>Сумма</th>
+                            <th>Статус</th>
+                            <th>Товары</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+                                <td>@order.Id</td>
+                                <td>@order.Created.ToString("yyyy-MM-dd")</td>
+                                <td>₽@order.Total</td>
+                                <td>
+                                    @{
+                                        var badge = order.State == UState.Done ? "bg-success" :
+                                                    order.State == UState.Waiting ? "bg-warning text-dark" :
+                                                    "bg-danger";
+                                        var status = order.State == UState.Done ? "Завершён" :
+                                                     order.State == UState.Waiting ? "В ожидании" :
+                                                     "Отменён";
+                                    }
+                                    <span class="badge @badge">@status</span>
+                                </td>
+                                <td>
+                                    @string.Join(", ", order.Products.Select(p => p.Title))
+                                </td>
 
+
+                                <td>
+                                    <a href="@Url.Action("OrderDetails", "Admin", new { id = order.Id })" class="btn btn-sm btn-outline-primary">Просмотр</a>
+                                    <a href="@Url.Action("ChangeOrderState", "Admin", new { id = order.Id })" class="btn btn-sm btn-outline-warning">Изменить статус</a>
+                                    <a href="@Url.Action("DeleteOrder", "Admin", new { id = order.Id })" class="btn btn-sm btn-outline-danger">Удалить</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

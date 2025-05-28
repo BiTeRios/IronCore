@@ -64,6 +64,11 @@
                             new { area = "" },
                             new { @class = "nav-link text-warning fw-semibold" })
                     </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Admin Panel", "Index", "Admin",
+                            new { area = "" },
+                            new { @class = "nav-link text-warning fw-semibold" })
+                    </li>
                 }
                 @if (!User.Identity.IsAuthenticated)
                 {

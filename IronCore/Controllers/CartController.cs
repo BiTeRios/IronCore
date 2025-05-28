@@ -43,10 +43,10 @@ namespace IronCore.Controllers
         [HttpPost]
         public ActionResult Checkout()
         {
-            var orderId = _orders.CreateOrder(Cart.GetCurrentCart());
-            Cart.ClearCart();                                
+            //var orderId = _orders.CreateOrder(Cart.GetCurrentCart());
+            //Cart.ClearCart();                                
 
-            TempData["OrderSuccess"] = $"Заказ №{orderId} оформлен!";
+            //TempData["OrderSuccess"] = $"Заказ №{orderId} оформлен!";
             return RedirectToAction("Index", "Cart");
         }
 

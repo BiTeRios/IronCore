@@ -6,165 +6,243 @@ using IronCore.BusinessLogic.BL;
 using System.Linq;
 using System.IO;
 using System.Web;
+using IronCore.BusinessLogic.Interfaces;
+using IronCore.Domain.Entities.Product;
+using IronCore.Domain.Enums.Order;
 
 namespace IronCore.Controllers
 {
     [AdminOnly]
     public class AdminController : Controller
     {
-        private readonly CoachBL _bl = new CoachBL();
+        private readonly IUser _user;
+        private readonly IOrder _order;
+        public AdminController()
+        {
+            var bl = new BusinessLogic.BusinessLogic();
+            _user = bl.GetUserBL();
+            _order = bl.GetOrderBL();
+        }
+
+        [AdminOnly]
+        public ActionResult Users()
+        {
+            ViewBag.ActivePage = "Users";
+            var users = _user.GetAllUsers()
+                .Select(u => new EditUserViewModel
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    PhoneNumber = u.PhoneNumber
+                }).ToList();
+
+            return View(users);
+        }
+
+        // GET: /Admin/EditUser/5
+        [AdminOnly]
+        public ActionResult EditUser(int id)
+        {
+            ViewBag.ActivePage = "Users";
+            var user = _user.GetById(id);
+            if (user == null)
+                return HttpNotFound();
+
+            var model = new EditUserViewModel
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber
+            };
+            return View(model);
+        }
+
+        // POST: /Admin/EditUser/5
+        [HttpPost, ValidateAntiForgeryToken]
+        [AdminOnly]
+        public ActionResult EditUser(EditUserViewModel model)
+        {
+            ViewBag.ActivePage = "Users";
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var userDTO = _user.GetById(model.Id);
+            if (userDTO == null) return HttpNotFound();
+
+            userDTO.UserName = model.UserName;
+            userDTO.Email = model.Email;
+            userDTO.FirstName = model.FirstName;
+            userDTO.LastName = model.LastName;
+            userDTO.PhoneNumber = model.PhoneNumber;
+            _user.Update(userDTO);
+
+            return RedirectToAction("Users");
+        }
+
+        // GET: /Admin/DeleteUser/5
+        [AdminOnly]
+        public ActionResult DeleteUser(int id)
+        {
+            ViewBag.ActivePage = "Users";
+            var user = _user.GetById(id);
+            if (user == null) return HttpNotFound();
+
+            var model = new EditUserViewModel
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber
+            };
+            return View(model);
+        }
+
+        // POST: /Admin/DeleteUser/5
+        [HttpPost, ActionName("DeleteUser"), ValidateAntiForgeryToken]
+        [AdminOnly]
+        public ActionResult DeleteUserConfirmed(int id)
+        {
+            _user.Delete(id);
+            return RedirectToAction("Users");
+        }
+
         [AdminOnly]
         public ActionResult Index()
         {
             ViewBag.ActivePage = "Index";
-            return View();                   // Views/Admin/Index.cshtml
+            return View();                   
         }
 
+        // Список заказов
         [AdminOnly]
-        public ActionResult Trainers()
+        public ActionResult Orders()
         {
-            ViewBag.ActivePage = "Trainers";
-            var list = _bl.getAllCoaches()
-                      .Select(c => new CoachViewModel
-                      {
-                          ID = c.Id,
-                          FullName = c.FullName,
-                          Specialization = c.Specialization,
-                          ExperienceTime = c.ExperienceTime,
-                          ImagePath = c.ImagePath
-                      })
-                      .ToList();
-            return View(list);
+            ViewBag.ActivePage = "Orders";
+            var orders = _order.GetAllOrders()
+                .Select(o => new OrderViewModel
+                {
+                    Id = o.Id,
+                    Created = o.Created,
+                    State = o.State,
+                    Total = o.Total,
+                    Products = o.Products.Select(p => new ProductViewModel
+                    {
+                        Id = p.Id,
+                        Title = p.Title,
+                        Price = p.Price,
+                        Description = p.Description,
+                        ImageUrl = p.ImageUrl,
+                        Quantity = p.Quantity
+                    }).ToList()
+                }).ToList();
+
+            return View(orders);
         }
 
-        // ───── GET: /Admin/Create ────────────────────────────────────────────────────
+        // Детали заказа
         [AdminOnly]
-        public ActionResult CreateTrain()
+        public ActionResult OrderDetails(int id)
         {
-            ViewBag.ActivePage = "Trainers";
-            var model = new CoachViewModel();
+            ViewBag.ActivePage = "Orders";
+            var o = _order.GetOrderById(id);
+            if (o == null) return HttpNotFound();
+            var order = new OrderViewModel
+            {
+                Id = o.Id,
+                Created = o.Created,
+                State = o.State,
+                Total = o.Total,
+                Products = o.Products.Select(p => new ProductViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Price = p.Price,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Quantity = p.Quantity
+                }).ToList()
+            };
+            return View(order);
+        }
+
+        // Изменение статуса заказа
+        [AdminOnly]
+        public ActionResult ChangeOrderState(int id)
+        {
+            ViewBag.ActivePage = "Orders";
+            var o = _order.GetOrderById(id);
+            if (o == null) return HttpNotFound();
+            var model = new OrderViewModel
+            {
+                Id = o.Id,
+                Created = o.Created,
+                State = o.State,
+                Total = o.Total,
+                Products = o.Products.Select(p => new ProductViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Price = p.Price,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Quantity = p.Quantity
+                }).ToList()
+            };
             return View(model);
         }
 
-        // ───── POST: /Admin/Create ───────────────────────────────────────────────────
         [HttpPost, ValidateAntiForgeryToken]
         [AdminOnly]
-        public ActionResult CreateTrain(CoachViewModel model, HttpPostedFileBase photo)
+        public ActionResult ChangeOrderState(int id, UState newState)
         {
-            ViewBag.ActivePage = "Trainers";
+            _order.ChangeOrderState(id, newState);
+            return RedirectToAction("Orders");
+        }
 
-            if (!ModelState.IsValid)
-                return View(model);
-
-            if (photo != null && photo.ContentLength > 0)
+        [AdminOnly]
+        public ActionResult DeleteOrder(int id)
+        {
+            ViewBag.ActivePage = "Orders";
+            var o = _order.GetOrderById(id);
+            if (o == null) return HttpNotFound();
+            var order = new OrderViewModel
             {
-                var folder = "~/Images/Trainers";
-                var serverPath = Server.MapPath(folder);
-                if (!Directory.Exists(serverPath))
-                    Directory.CreateDirectory(serverPath);
-
-                var fileName = Path.GetFileName(photo.FileName);
-                var path = Path.Combine(serverPath, fileName);
-                photo.SaveAs(path);
-                model.ImagePath = VirtualPathUtility.Combine(folder, fileName);
-            }
-            var coach = new Domain.Entities.Coach.CoachDbModel
-            {
-                Id = model.ID,
-                FullName = model.FullName,
-                Specialization = model.Specialization,
-                ExperienceTime = model.ExperienceTime,
-                ImagePath = model.ImagePath
+                Id = o.Id,
+                Created = o.Created,
+                State = o.State,
+                Total = o.Total,
+                Products = o.Products.Select(p => new ProductViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Price = p.Price,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Quantity = p.Quantity
+                }).ToList()
             };
-            _bl.addCoach(coach);
-
-            return RedirectToAction("Trainers");
+            return View(order);
         }
 
-        // GET: /Admin/Delete/5
+        [HttpPost, ActionName("DeleteOrder"), ValidateAntiForgeryToken]
         [AdminOnly]
-        public ActionResult DeleteTrain(int id)
+        public ActionResult DeleteOrderConfirmed(int id)
         {
-            var coach = _bl.getInfoAboutCoach(id);
-            if (coach == null)
-                return HttpNotFound();
-
-            var vm = new CoachViewModel
-            {
-                ID = coach.Id,
-                FullName = coach.FullName,
-                Specialization = coach.Specialization,
-                ExperienceTime = coach.ExperienceTime,
-                ImagePath = coach.ImagePath
-            };
-            ViewBag.ActivePage = "Trainers";
-            return View(vm);
-        }
-
-        // POST: /Admin/Delete/5
-        [HttpPost, ValidateAntiForgeryToken]
-        [AdminOnly]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            _bl.deleteCoach(id);
-            return RedirectToAction("Trainers");
-        }
-
-        // GET: /Admin/Edit/5
-        [AdminOnly]
-        public ActionResult Edit(int id)
-        {
-            ViewBag.ActivePage = "Trainers";
-            var c = _bl.getInfoAboutCoach(id);
-            if (c == null) return HttpNotFound();
-
-            var vm = new CoachViewModel
-            {
-                FullName = c.FullName,
-                Qualification = c.Qualification,
-                Specialization = c.Specialization,
-                ExperienceTime = c.ExperienceTime,
-                Bio = c.Bio,
-                Testimonials = c.Testimonials,
-                TelegramUrl = c.TelegramUrl,
-                InstagramUrl = c.InstagramUrl,
-                SteamUrl = c.SteamUrl,
-                ImagePath = c.ImagePath
-            };
-            return View(vm);
-        }
-
-        // POST: /Admin/Edit/5
-        [AdminOnly]
-        [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult EditTrain(CoachViewModel model, HttpPostedFileBase photo)
-        {
-            ViewBag.ActivePage = "Trainers";
-            if (!ModelState.IsValid)
-                return View(model);
-
-            // Передаём BL поток и имя файла, не трогаем Domain
-            Stream stream = photo?.InputStream;
-            string fileName = photo == null ? null : Path.GetFileName(photo.FileName);
-
-            //_bl.SaveFromViewModel(model, stream, fileName);
-
-            return RedirectToAction("Trainers");
+            _order.DeleteOrder(id);
+            return RedirectToAction("Orders");
         }
 
         public ActionResult Products()
         {
             ViewBag.ActivePage = "Products";
-            return View();                   
-        }
-        public ActionResult Users()
-        {
-            ViewBag.ActivePage = "Users";
-            return View();                   
-        }
-        public ActionResult Orders()
-        {
-            ViewBag.ActivePage = "Orders";
             return View();                   
         }
     }

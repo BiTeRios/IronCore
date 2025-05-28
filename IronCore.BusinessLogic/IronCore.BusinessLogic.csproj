@@ -87,6 +87,8 @@
     <Compile Include="Core\AdminApi.cs" />
     <Compile Include="Core\CoachApi.cs" />
     <Compile Include="Core\ContactApi.cs" />
+    <Compile Include="Core\OrderApi.cs" />
+    <Compile Include="Core\ProductApi.cs" />
     <Compile Include="Core\UserApi.cs" />
     <Compile Include="DBModel\CoachContext.cs" />
     <Compile Include="DBModel\ContactContext.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="DBModel\UserContext.cs" />
     <Compile Include="Interfaces\ICart.cs" />
     <Compile Include="Interfaces\IContact.cs" />
+    <Compile Include="Interfaces\IOrder.cs" />
     <Compile Include="Interfaces\IProduct.cs" />
     <Compile Include="Interfaces\ICoach.cs" />
     <Compile Include="Interfaces\ISession.cs" />
@@ -158,6 +161,14 @@
     <Compile Include="Migrations\202505251607580_soososoddf.cs" />
     <Compile Include="Migrations\202505251607580_soososoddf.Designer.cs">
       <DependentUpon>202505251607580_soososoddf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505281356409_damn.cs" />
+    <Compile Include="Migrations\202505281356409_damn.Designer.cs">
+      <DependentUpon>202505281356409_damn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505281440225_damned.cs" />
+    <Compile Include="Migrations\202505281440225_damned.Designer.cs">
+      <DependentUpon>202505281440225_damned.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -225,6 +236,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505251607580_soososoddf.resx">
       <DependentUpon>202505251607580_soososoddf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505281356409_damn.resx">
+      <DependentUpon>202505281356409_damn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505281440225_damned.resx">
+      <DependentUpon>202505281440225_damned.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -80,8 +80,8 @@ namespace IronCore.Controllers
         private static ProductViewModel ToVm(ProductDbModel p) => p == null ? null :
             new ProductViewModel
             {
-                ProductID = p.Id,
-                ProductName = p.ProductName,   // alias к Title (см. partial ProductDbModel)
+                Id = p.Id,
+                Title = p.Title,   // alias к Title (см. partial ProductDbModel)
                 Description = p.Description,
                 ImageUrl = p.ImageUrl,
                 Price = p.Price,
@@ -90,8 +90,8 @@ namespace IronCore.Controllers
 
         private static ProductDbModel ToEntity(ProductViewModel vm) => new ProductDbModel
         {
-            Id = vm.ProductID,
-            ProductName = vm.ProductName,
+            Id = vm.Id,
+            Title = vm.Title,
             Description = vm.Description,
             ImageUrl = vm.ImageUrl,
             Price = vm.Price,

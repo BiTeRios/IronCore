@@ -1,0 +1,39 @@
+@model IronCore.Models.OrderViewModel
+@using IronCore.Domain.Enums.Order
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Изменить статус заказа";
+}
+
+<div id="content">
+    <h2>Изменить статус заказа #@Model.Id</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group mb-3">
+            @Html.Label("Текущий статус")
+            <p>
+                @{
+                    var status = Model.State == UState.Done ? "Завершён" :
+                                 Model.State == UState.Waiting ? "В ожидании" :
+                                 "Отменён";
+                }
+                <b>@status</b>
+            </p>
+        </div>
+        <div class="form-group mb-3">
+            @Html.Label("Новый статус")
+            @Html.DropDownList("newState",
+                new SelectList(new[]
+                {
+                    new { Value = UState.Waiting, Text = "В ожидании" },
+                    new { Value = UState.Done, Text = "Завершён" },
+                    new { Value = UState.Canceled, Text = "Отменён" }
+                }, "Value", "Text", Model.State),
+                "Выберите...", new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-success">Сохранить</button>
+        <a href="@Url.Action("Orders")" class="btn btn-secondary">Назад</a>
+    }
+</div>

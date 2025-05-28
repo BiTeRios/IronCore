@@ -1,37 +1,83 @@
-﻿using IronCore.BusinessLogic.DBModel;
-using IronCore.Domain.Entities.Cart;
+﻿using IronCore.BusinessLogic.Core;
+using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Order;
+using IronCore.Domain.Entities.Product;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace IronCore.BusinessLogic.BL
 {
-    public class OrderBL
+    public class OrderBL : OrderApi, IOrder
     {
-        public int CreateOrder(CartDbModel cart)
+        public List<OrderDTO> GetAllOrders()
         {
-            if (cart == null || !cart.ProductsInCart.Any()) return 0;
+            return GetAllOrdersAPI().Select(MapToOrder).ToList();
+        }
 
-            var ctx = new OrderContext();
+        public OrderDTO GetOrderById(int id)
+        {
+            var dbOrder = GetOrderByIdAPI(id);
+            return dbOrder != null ? MapToOrder(dbOrder) : null;
+        }
 
-            var order = new OrderDbModel
+        public bool CreateOrder(OrderDTO newOrder)
+        {
+            if (newOrder == null || newOrder.Products == null || !newOrder.Products.Any())
+                return false;
+
+            var dbOrder = MapToDb(newOrder);
+            CreateOrderAPI(dbOrder);
+            return true;
+        }
+
+        public bool DeleteOrder(int id)
+        {
+            if (id <= 0) return false;
+            try
             {
-                Total = cart.ProductsInCart.Sum(p => p.Price * p.Quantity)
-            };
-
-            foreach (var p in cart.ProductsInCart)
-            {
-                order.Items.Add(new OrderItemDbModel
-                {
-                    ProductID = p.Id,
-                    Title = p.ProductName,
-                    Price = p.Price,
-                    Quantity = p.Quantity
-                });
+                DeleteOrderAPI(id);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool ChangeOrderState(int orderId, IronCore.Domain.Enums.Order.UState newState)
+        {
+            if (orderId <= 0) return false;
+            return ChangeOrderStateAPI(orderId, newState);
+        }
+        public List<OrderDTO> GetOrdersByDate(DateTime startDate, DateTime endDate)
+        {
+            return GetOrdersByDateAPI(startDate, endDate)
+                .Select(MapToOrder)
+                .ToList();
+        }
 
-            ctx.Orders.Add(order);
-            ctx.SaveChanges();
-            return order.Id;                 
+        private OrderDTO MapToOrder(OrderDbModel db)
+        {
+            return new OrderDTO
+            {
+                Id = db.Id,
+                Created = db.Created,
+                State = db.State,
+                Total = db.Total,
+                Products = db.Products // Если нужен глубокий маппинг продуктов — используйте маппинг отдельно
+            };
+        }
+
+        private OrderDbModel MapToDb(OrderDTO order)
+        {
+            return new OrderDbModel
+            {
+                Id = order.Id,
+                Created = order.Created,
+                State = order.State,
+                Total = order.Total,
+                Products = order.Products // Аналогично, для создания можно присваивать продукты напрямую если они отслеживаются EF
+            };
         }
     }
 }

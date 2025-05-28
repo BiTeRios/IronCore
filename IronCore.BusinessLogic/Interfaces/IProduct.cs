@@ -9,10 +9,10 @@ namespace IronCore.BusinessLogic.Interfaces
 {
     public interface IProduct
     {
-        ProductDbModel GetProductById(int id);
-        IEnumerable<ProductDbModel> GetAll();
-        void CreateProduct(ProductDbModel product);
+        ProductDTO GetProductById(int id);
+        IEnumerable<ProductDTO> GetAll();
+        void CreateProduct(ProductDTO product);
         bool DeleteProduct(int productId);
-        void UpdateProduct(ProductDbModel product);
+        void UpdateProduct(ProductDTO product);
     }
 }

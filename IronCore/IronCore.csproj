@@ -160,6 +160,7 @@
     <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\EditUserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -297,6 +298,10 @@
     <Content Include="Views\Catalog\NutritionsDetail.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Registration\Register.cshtml" />
+    <Content Include="Views\Admin\EditUser.cshtml" />
+    <Content Include="Views\Admin\DeleteUser.cshtml" />
+    <Content Include="Views\Admin\OrderDetails.cshtml" />
+    <Content Include="Views\Admin\ChangeOrderState.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

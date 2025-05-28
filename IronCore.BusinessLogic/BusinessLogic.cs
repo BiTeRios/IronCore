@@ -22,5 +22,9 @@ namespace IronCore.BusinessLogic
         {
             return new UserBL();
         }
+        public IOrder GetOrderBL()
+        {
+            return new OrderBL();
+        }
     }
 }

@@ -365,3 +365,4 @@ FodyWeavers.xsd
 # Config file because different databases
 IronCore/Web.config
 /IronCore.BusinessLogic.zip
+/IronCore.BusinessLogic/Migrations

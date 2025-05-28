@@ -14,7 +14,7 @@ namespace IronCore.BusinessLogic.BL
         {
             _current = new CartDbModel
             {
-                ID = Guid.NewGuid().GetHashCode(),
+                Id = Guid.NewGuid().GetHashCode(),
                 ProductsInCart = new List<ProductDbModel>(),
                 Discount = 0m
             };

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace IronCore.Areas.Admin.Models
+namespace IronCore.Models
 {
     public class EditUserViewModel
     {
@@ -18,5 +18,4 @@ namespace IronCore.Areas.Admin.Models
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
     }
-
 }
