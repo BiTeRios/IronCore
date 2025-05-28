@@ -283,6 +283,7 @@ namespace IronCore.Controllers
 
         // Добавление товара - GET
         [AdminOnly]
+        [HttpGet]
         public ActionResult CreateProduct()
         {
             ViewBag.ActivePage = "Products";
@@ -292,11 +293,24 @@ namespace IronCore.Controllers
         // Добавление товара - POST
         [HttpPost, ValidateAntiForgeryToken]
         [AdminOnly]
-        public ActionResult CreateProduct(ProductViewModel model)
+        public ActionResult CreateProduct(ProductViewModel model, HttpPostedFileBase photo)
         {
             ViewBag.ActivePage = "Products";
             if (!ModelState.IsValid)
                 return View(model);
+
+            if (photo != null && photo.ContentLength > 0)
+            {
+                var folder = "~/Images/Products";
+                var serverPath = Server.MapPath(folder);
+                if (!Directory.Exists(serverPath))
+                    Directory.CreateDirectory(serverPath);
+
+                var fileName = Path.GetFileName(photo.FileName);
+                var path = Path.Combine(serverPath, fileName);
+                photo.SaveAs(path);
+                model.ImageUrl = VirtualPathUtility.Combine(folder, fileName);
+            }
 
             var dto = new ProductDTO
             {
@@ -309,6 +323,7 @@ namespace IronCore.Controllers
             _product.CreateProduct(dto);
             return RedirectToAction("Products");
         }
+
 
         // Редактирование товара - GET
         [AdminOnly]
@@ -333,11 +348,24 @@ namespace IronCore.Controllers
         // Редактирование товара - POST
         [HttpPost, ValidateAntiForgeryToken]
         [AdminOnly]
-        public ActionResult EditProduct(ProductViewModel model)
+        public ActionResult EditProduct(ProductViewModel model, HttpPostedFileBase photo)
         {
             ViewBag.ActivePage = "Products";
             if (!ModelState.IsValid)
                 return View(model);
+
+            if (photo != null && photo.ContentLength > 0)
+            {
+                var folder = "~/Images/Products";
+                var serverPath = Server.MapPath(folder);
+                if (!Directory.Exists(serverPath))
+                    Directory.CreateDirectory(serverPath);
+
+                var fileName = Path.GetFileName(photo.FileName);
+                var path = Path.Combine(serverPath, fileName);
+                photo.SaveAs(path);
+                model.ImageUrl = VirtualPathUtility.Combine(folder, fileName);
+            }
 
             var dto = new ProductDTO
             {
@@ -351,6 +379,7 @@ namespace IronCore.Controllers
             _product.UpdateProduct(dto);
             return RedirectToAction("Products");
         }
+
 
         // Удаление товара - GET
         [AdminOnly]

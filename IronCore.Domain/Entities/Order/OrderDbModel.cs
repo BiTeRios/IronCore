@@ -21,7 +21,7 @@ namespace IronCore.Domain.Entities.Order
         [Display(Name = "Total")]
         public decimal Total { get; set; }
         [Display(Name = "Products")]
-        public virtual ICollection<ProductDbModel> Products { get; set; } =
-            new List<ProductDbModel>();
+        public virtual ICollection<ProductDbModel> Products { get; set; }
+
     }
 }

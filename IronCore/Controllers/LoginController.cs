@@ -13,6 +13,12 @@ namespace IronCore.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly ISession _session;
+        public LoginController()
+        {
+            var bl = new BusinessLogic.BusinessLogic();
+            _session = bl.GetSessionBl();
+        }
         [HttpGet]
         public ActionResult Login()
         {
@@ -28,14 +34,15 @@ namespace IronCore.Controllers
             {
                 return View(login);
             }
-            var sessionBL = new SessionBL();
+
             var loginData = new UserLoginData
             {
                 UserName = login.UserName,
                 Password = login.Password,
                 LoginIp = Request.UserHostAddress
             };
-            var result = sessionBL.UserLogin(loginData);
+
+            var result = _session.UserLogin(loginData);
 
             if (result.Status)
             {
@@ -47,7 +54,7 @@ namespace IronCore.Controllers
                     DateTime.Now,
                     DateTime.Now.AddMinutes(30),
                     false,
-                    roles 
+                    roles
                 );
 
                 string encTicket = FormsAuthentication.Encrypt(authTicket);
@@ -64,6 +71,5 @@ namespace IronCore.Controllers
                 return View(login);
             }
         }
-
     }
 }
