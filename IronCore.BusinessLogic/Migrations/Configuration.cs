@@ -13,7 +13,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "IronCore.BusinessLogic.DBModel.UserContext";
         }
 

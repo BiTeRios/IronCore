@@ -14,5 +14,7 @@ namespace IronCore.BusinessLogic.Interfaces
         UserDTO GetById(int id);
         bool Update(UserDTO User);
         bool Delete(int id);
+        bool ChangePassword(int userId, string oldPassword, string newPassword, out string message);
+
     }
 }

@@ -22,6 +22,7 @@ namespace IronCore.Domain.Entities.Order
         public decimal Total { get; set; }
         [Display(Name = "Products")]
         public virtual ICollection<ProductDbModel> Products { get; set; }
-
+        [Display(Name = "Owner")]
+        public int UserId { get; set; }
     }
 }

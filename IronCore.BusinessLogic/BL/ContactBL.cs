@@ -44,7 +44,6 @@ namespace IronCore.BusinessLogic.BL
                 return false;
             }
         }
-
         private ContactDbModel MapToDB(ContactDTO contact)
         {
             return new ContactDbModel

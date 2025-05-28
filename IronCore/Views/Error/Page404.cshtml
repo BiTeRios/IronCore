@@ -1,27 +1,13 @@
-﻿
-@{
-    ViewBag.Title = "Page404";
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Страница не найдена";
 }
 
-<section class="heathy_section layout_padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mx-auto text-center">
-                <div class="detail-box">
-                    <h1 style="font-size: 6rem; margin-bottom: 20px;">404</h1>
-                    <h2>PAGE NOT FOUND</h2>
-                    <p>
-                        The page you're looking for doesn't exist or has been moved.
-                        Don't worry, even the strongest athletes sometimes miss a rep.
-                    </p>
-                    <div class="btn-box" style="margin-top: 30px;">
-                        <a href="@Url.Action("Index", "Home")">
-                            BACK TO HOMEPAGE
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section style="min-height:70vh;display:flex;align-items:center;justify-content:center;">
+    <div class="text-center">
+        <h1 class="display-1" style="font-size:5rem;color:#dc3545;">404</h1>
+        <h2 class="mb-4">Страница не найдена</h2>
+        <p class="lead mb-4">Извините, запрошенная страница не существует или была удалена.</p>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Вернуться на главную</a>
     </div>
 </section>

@@ -1,24 +1,16 @@
-﻿using System;
+﻿using IronCore.Domain.Entities.Product;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IronCore.Domain.Entities.Product;
 
-namespace IronCore.Domain.Entities.Cart
+public class CartDbModel
 {
-    public class CartDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        [Display(Name = "ProductsInCart")]
-        public List<ProductDbModel> ProductsInCart { get; set; }
-        [Display(Name = "Price")]
-        public decimal Price { get; set; } = 0;
-        [Display(Name = "Discount")]
-        public decimal Discount { get; set; } = 0;
-    }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+    public int? UserId { get; set; }
+    public string SessionId { get; set; } 
+    public virtual ICollection<ProductDbModel> ProductsInCart { get; set; } = new List<ProductDbModel>();
+    public decimal Price { get; set; } = 0;
+    public decimal Discount { get; set; } = 0;
 }

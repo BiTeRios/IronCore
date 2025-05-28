@@ -19,6 +19,11 @@ namespace IronCore
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] { "IronCore.Controllers" } 
             );
+            //routes.MapRoute(
+            //    name: "404-PageNotFound",
+            //    url: "{*url}",
+            //    defaults: new { controller = "Error", action = "Page404"}
+            //);
         }
     }
 

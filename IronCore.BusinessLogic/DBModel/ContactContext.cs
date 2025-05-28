@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IronCore.BusinessLogic.DBModel
 {
-    class ContactContext : DbContext
+    public class ContactContext : DbContext
     {
         public ContactContext() : base("name=IronCore") { }
         public DbSet<ContactDbModel> Contacts { get; set; }

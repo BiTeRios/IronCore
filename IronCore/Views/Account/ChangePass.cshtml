@@ -1,0 +1,50 @@
+﻿@model IronCore.Models.ChangePasswordViewModel
+@{
+    ViewBag.Title = "ChangePass";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="login_section layout_padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="form_container">
+                    <div class="heading_container text-center">
+                        <h2>Смена пароля</h2>
+                    </div>
+                    @using (Html.BeginForm("ChangePass", "Account", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.OldPassword)
+                            @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(m => m.OldPassword)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.NewPassword)
+                            @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(m => m.NewPassword)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword)
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success btn-block">Сменить пароль</button>
+                        </div>
+                    }
+                    <div class="text-center mt-4">
+                        <p>
+                            <a href="@Url.Action("User", "Account")" class="font-weight-bold">Вернуться в профиль</a>
+                        </p>
+                    </div>
+                    @if (TempData["PassResult"] != null)
+                    {
+                        <div class="alert alert-info mt-2">@TempData["PassResult"]</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

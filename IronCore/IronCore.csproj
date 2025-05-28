@@ -142,12 +142,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Filters\AdminOnlyAttribute.cs" />
@@ -156,6 +154,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CartViewModel.cs" />
+    <Compile Include="Models\ChangePasswordViewModel.cs" />
     <Compile Include="Models\CoachViewModel.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\EditUserViewModel.cs" />
@@ -164,6 +163,7 @@
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\RecentOrderViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\UserProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -280,15 +280,13 @@
     <Content Include="Views\Coach\Trainers.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Coach\Coach.cshtml" />
-    <Content Include="Views\Account\ForgotPass.cshtml" />
+    <Content Include="Views\Account\ChangePass.cshtml" />
     <Content Include="Views\Catalog\Programs.cshtml" />
     <Content Include="Views\Catalog\ProgramDetail.cshtml" />
     <Content Include="Views\Account\User.cshtml" />
     <Content Include="Views\Catalog\Nutritions.cshtml" />
     <Content Include="Views\Account\ShoppingCart.cshtml" />
     <Content Include="Web.config" />
-    <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shared\_CartBadge.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Products.cshtml" />
@@ -305,6 +303,8 @@
     <Content Include="Views\Admin\EditProduct.cshtml" />
     <Content Include="Views\Admin\DeleteProduct.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Account\Orders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

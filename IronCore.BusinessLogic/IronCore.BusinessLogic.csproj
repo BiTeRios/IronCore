@@ -84,10 +84,12 @@
     <Compile Include="BL\UserBL.cs" />
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\AdminApi.cs" />
+    <Compile Include="Core\CartApi.cs" />
     <Compile Include="Core\ContactApi.cs" />
     <Compile Include="Core\OrderApi.cs" />
     <Compile Include="Core\ProductApi.cs" />
     <Compile Include="Core\UserApi.cs" />
+    <Compile Include="DBModel\CartContext.cs" />
     <Compile Include="DBModel\CoachContext.cs" />
     <Compile Include="DBModel\ContactContext.cs" />
     <Compile Include="DBModel\OrderContext.cs" />
@@ -99,18 +101,19 @@
     <Compile Include="Interfaces\IProduct.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\IUser.cs" />
-    <Compile Include="Migrations\202505281714269_InitialCreate.cs" />
-    <Compile Include="Migrations\202505281714269_InitialCreate.Designer.cs">
-      <DependentUpon>202505281714269_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202505282211259_InitialOrder.cs" />
+    <Compile Include="Migrations\202505282211259_InitialOrder.Designer.cs">
+      <DependentUpon>202505282211259_InitialOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202505281716291_InitialCreateUser.cs" />
-    <Compile Include="Migrations\202505281716291_InitialCreateUser.Designer.cs">
-      <DependentUpon>202505281716291_InitialCreateUser.cs</DependentUpon>
+    <Compile Include="Migrations\202505282225020_InitialCart.cs" />
+    <Compile Include="Migrations\202505282225020_InitialCart.Designer.cs">
+      <DependentUpon>202505282225020_InitialCart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202505281719231_InitialCreate.cs" />
-    <Compile Include="Migrations\202505281719231_InitialCreate.Designer.cs">
-      <DependentUpon>202505281719231_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202505282231172_InitialProduct.cs" />
+    <Compile Include="Migrations\202505282231172_InitialProduct.Designer.cs">
+      <DependentUpon>202505282231172_InitialProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\CartConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\OrderMigrations.cs" />
     <Compile Include="Migrations\OrderMigrations\Configuration.cs" />
@@ -137,14 +140,14 @@
     <Folder Include="DBModel\Seed\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202505281714269_InitialCreate.resx">
-      <DependentUpon>202505281714269_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202505282211259_InitialOrder.resx">
+      <DependentUpon>202505282211259_InitialOrder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202505281716291_InitialCreateUser.resx">
-      <DependentUpon>202505281716291_InitialCreateUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202505282225020_InitialCart.resx">
+      <DependentUpon>202505282225020_InitialCart.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202505281719231_InitialCreate.resx">
-      <DependentUpon>202505281719231_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202505282231172_InitialProduct.resx">
+      <DependentUpon>202505282231172_InitialProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

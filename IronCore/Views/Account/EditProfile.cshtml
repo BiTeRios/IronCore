@@ -1,0 +1,40 @@
+@model IronCore.Models.EditUserViewModel
+@{
+    ViewBag.Title = "Редактировать профиль";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="max-width: 500px;">
+    <h2 class="mt-4 mb-3">Редактировать профиль</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+            @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        </div>
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        </div>
+        <div class="form-group mb-4">
+            @Html.LabelFor(m => m.PhoneNumber)
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        </div>
+
+        <button type="submit" class="btn btn-success">Сохранить</button>
+        <a href="@Url.Action("User", "Account")" class="btn btn-secondary">Назад</a>
+    }
+</div>

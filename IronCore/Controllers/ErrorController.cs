@@ -8,7 +8,6 @@ namespace IronCore.Controllers
 {
     public class ErrorController : Controller
     {
-        // GET: Error
         public ActionResult Page404()
         {
             return View();

@@ -7,6 +7,7 @@ using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Contact;
 using IronCore.Domain.Entities.User;
 using IronCore.Domain.Enums.User;
+using IronCore.Helpers.LoginRegisterHelper;
 
 namespace IronCore.BusinessLogic.BL
 {
@@ -37,6 +38,26 @@ namespace IronCore.BusinessLogic.BL
             DeleteAPI(id);
             return true;
         }
+        public bool ChangePassword(int userId, string oldPassword, string newPassword, out string message)
+        {
+            var user = GetById(userId);
+            if (user == null)
+            {
+                message = "Пользователь не найден";
+                return false;
+            }
+            var oldPasswordHash = LoginRegisterHelper.HashGen(oldPassword);
+            if (user.Password != oldPasswordHash)
+            {
+                message = "Старый пароль неверен";
+                return false;
+            }
+            user.Password = LoginRegisterHelper.HashGen(newPassword);
+            Update(user);
+            message = "Пароль успешно изменён!";
+            return true;
+        }
+
         private UserDTO MapToUser(UserDbModel db)
         {
             return new UserDTO
