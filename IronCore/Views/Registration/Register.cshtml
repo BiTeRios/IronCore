@@ -3,91 +3,75 @@
     ViewBag.Title = "Register";
 }
 
-<h2>Регистрация</h2>
+<h2 class="text-center mb-4">Регистрация</h2>
 
-@if (TempData["Message"] != null)
-{
+<div class="card shadow p-4 mb-4" style="max-width: 500px; margin: 0 auto">
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["Message"]
+        </div>
+    }
+    @using (Html.BeginForm("Register", "Registration", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger mb-4" })
 
-    <div class="alert alert-success" role="alert" style="color:red">
-        @TempData["Message"]
-    </div>
-}
-
-@using (Html.BeginForm("Register", "Registration", FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="mb-3">
+            @Html.LabelFor(m => m.FirstName, new { @class = "form-label" })
             @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Имя" })
             @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="mb-3">
+            @Html.LabelFor(m => m.LastName, new { @class = "form-label" })
             @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Фамилия" })
             @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="mb-3">
+            @Html.LabelFor(m => m.PhoneNumber, new { @class = "form-label" })
             @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "+____-__-__" })
             @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="mb-3">
+            @Html.LabelFor(m => m.UserName, new { @class = "form-label" })
             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Логин" })
             @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Email, new { @class = "form-label" })
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Password, new { @class = "form-label" })
             @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="mb-3">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Подтвердите пароль" })
             @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="mb-3">
+            @Html.LabelFor(m => m.BirthDate, new { @class = "form-label" })
             @Html.TextBoxFor(m => m.BirthDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control" })
             @Html.ValidationMessageFor(m => m.BirthDate, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">
+                Зарегистрироваться
+            </button>
         </div>
-    </div>
-}
+    }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

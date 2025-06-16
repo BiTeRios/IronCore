@@ -63,6 +63,49 @@ namespace IronCore.Controllers
             return View();
         }
 
+        [AdminOnly]
+        public ActionResult Contacts()
+        {
+            ViewBag.ActivePage = "Contacts";
+            var contacts = _contact.GetAllContacts()
+                .Select(u => new ContactViewModel
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Email = u.Email,
+                    PhoneNumber = u.PhoneNumber,
+                    Message = u.Message
+                }).ToList();
+
+            return View(contacts);
+        }
+
+        [AdminOnly]
+        public ActionResult DeleteСontact(int id)
+        {
+            ViewBag.ActivePage = "Contacts";
+            var contact = _contact.GetContactById(id);
+            if (contact == null) return HttpNotFound();
+
+            var model = new ContactViewModel
+            {
+                Id = contact.Id,
+                Name = contact.Name,
+                Email = contact.Email,
+                PhoneNumber = contact.PhoneNumber,
+                Message = contact.Message
+            };
+            return View(model);
+        }
+
+        // POST: /Admin/DeleteUser/5
+        [HttpPost, ActionName("DeleteСontact"), ValidateAntiForgeryToken]
+        [AdminOnly]
+        public ActionResult DeleteСontactConfirmed(int id)
+        {
+            _contact.DeleteContact(id);
+            return RedirectToAction("Contacts");
+        }
 
         [AdminOnly]
         public ActionResult Users()
