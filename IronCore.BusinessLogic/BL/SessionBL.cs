@@ -7,10 +7,12 @@ using System.Linq;
 using System;
 using System.Web;
 using IronCore.Domain.Entities.User;
+using IronCore.Domain.Entities.Cart;
 
 public class SessionBL : UserApi, ISession
 {
     public UserLoginResult UserLogin(UserLoginData data) => LoginAPI(data);
     public UserRegistrationResult UserRegistration(UserRegistrationData data)
                                                              => RegisterAPI(data);
+
 }

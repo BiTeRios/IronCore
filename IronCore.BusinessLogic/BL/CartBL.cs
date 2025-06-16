@@ -2,181 +2,138 @@
 using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Cart;
 using IronCore.Domain.Entities.Product;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace IronCore.BusinessLogic.BL
 {
-    public class CartBL : CartApi, ICart
+    public class CartBL : ICart
     {
+        private const string CartSessionKey = "SessionCart";
+
+        private CartDTO GetCartFromSession()
+        {
+            var session = HttpContext.Current.Session;
+            var json = session[CartSessionKey] as string;
+
+            if (string.IsNullOrEmpty(json))
+            {
+                return new CartDTO
+                {
+                    ProductsInCart = new List<ProductDTO>(),
+                    Price = 0,
+                    Discount = 0
+                };
+            }
+
+            return JsonConvert.DeserializeObject<CartDTO>(json);
+        }
+
+        private void SaveCartToSession(CartDTO cart)
+        {
+            var json = JsonConvert.SerializeObject(cart);
+            HttpContext.Current.Session[CartSessionKey] = json;
+        }
+
         public IEnumerable<CartDTO> GetCartItems()
         {
-            return GetAllCartsAPI().Select(MapToDTO).ToList();
+            return new List<CartDTO> { GetCartFromSession() };
         }
 
         public CartDTO GetCurrentCart()
         {
-            var carts = GetAllCartsAPI();
-            var cart = carts.FirstOrDefault();
-            return cart != null ? MapToDTO(cart) : null;
+            return GetCartFromSession();
         }
 
         public void SetCurrentCart(CartDTO cart)
         {
-            var dbCart = MapToDb(cart);
-            UpdateCartAPI(dbCart);
+            SaveCartToSession(cart);
         }
 
         public void AddToCart(ProductDTO product)
         {
-            var carts = GetAllCartsAPI();
-            var cart = carts.FirstOrDefault();
-            if (cart == null)
+            var cart = GetCartFromSession();
+            var existing = cart.ProductsInCart.FirstOrDefault(p => p.Id == product.Id);
+            if (existing != null)
             {
-                cart = new CartDbModel
-                {
-                    ProductsInCart = new List<ProductDbModel> { MapProductToDb(product) },
-                    Price = product.Price,
-                    Discount = 0
-                };
-                CreateCartAPI(cart);
+                existing.Quantity += 1;
             }
             else
             {
-                cart.ProductsInCart.Add(MapProductToDb(product));
-                cart.Price += product.Price;
-                UpdateCartAPI(cart);
+                product.Quantity = 1;
+                cart.ProductsInCart.Add(product);
             }
+            cart.Price += product.Price;
+            SaveCartToSession(cart);
         }
 
         public void RemoveFromCart(int productId)
         {
-            var cart = GetAllCartsAPI().FirstOrDefault();
-            if (cart != null)
+            var cart = GetCartFromSession();
+            var item = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
+            if (item != null)
             {
-                var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
-                if (prod != null)
-                {
-                    cart.ProductsInCart.Remove(prod);
-                    cart.Price -= prod.Price;
-                    UpdateCartAPI(cart);
-                }
+                cart.Price -= item.Price * item.Quantity;
+                cart.ProductsInCart.Remove(item);
             }
+            SaveCartToSession(cart);
         }
 
         public void ClearCart()
         {
-            var cart = GetAllCartsAPI().FirstOrDefault();
-            if (cart != null)
-            {
-                cart.ProductsInCart.Clear();
-                cart.Price = 0;
-                cart.Discount = 0;
-                UpdateCartAPI(cart);
-            }
+            HttpContext.Current.Session.Remove(CartSessionKey);
         }
 
         public void UpdateQuantity(int productId, int newQuantity)
         {
-            var cart = GetAllCartsAPI().FirstOrDefault();
-            if (cart != null)
+            var cart = GetCartFromSession();
+            var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
+            if (prod != null)
             {
-                var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
-                if (prod != null)
-                {
-                    prod.Quantity = newQuantity;
-                    UpdateCartAPI(cart);
-                }
+                cart.Price -= prod.Price * prod.Quantity;
+                prod.Quantity = newQuantity;
+                cart.Price += prod.Price * prod.Quantity;
             }
+            SaveCartToSession(cart);
         }
 
         public decimal CalculateTotal()
         {
-            var cart = GetAllCartsAPI().FirstOrDefault();
-            return cart?.Price ?? 0;
+            var cart = GetCartFromSession();
+            return cart.Price;
         }
 
         public bool IsProductInCart(int productId)
         {
-            var cart = GetAllCartsAPI().FirstOrDefault();
-            return cart != null && cart.ProductsInCart.Any(p => p.Id == productId);
+            var cart = GetCartFromSession();
+            return cart.ProductsInCart.Any(p => p.Id == productId);
         }
 
         public void IncrementQuantity(int productId)
         {
-            var cart = GetAllCartsAPI().FirstOrDefault();
-            if (cart != null)
+            var cart = GetCartFromSession();
+            var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
+            if (prod != null)
             {
-                var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
-                if (prod != null)
-                {
-                    prod.Quantity += 1;
-                    UpdateCartAPI(cart);
-                }
+                prod.Quantity += 1;
+                cart.Price += prod.Price;
             }
+            SaveCartToSession(cart);
         }
 
         public void DecrementQuantity(int productId)
         {
-            var cart = GetAllCartsAPI().FirstOrDefault();
-            if (cart != null)
+            var cart = GetCartFromSession();
+            var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
+            if (prod != null && prod.Quantity > 1)
             {
-                var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
-                if (prod != null && prod.Quantity > 1)
-                {
-                    prod.Quantity -= 1;
-                    UpdateCartAPI(cart);
-                }
+                prod.Quantity -= 1;
+                cart.Price -= prod.Price;
             }
-        }
-
-        private CartDTO MapToDTO(CartDbModel db)
-        {
-            return new CartDTO
-            {
-                Id = db.Id,
-                Price = db.Price,
-                Discount = db.Discount,
-                ProductsInCart = db.ProductsInCart?.Select(MapProductToDTO).ToList() ?? new List<ProductDTO>()
-            };
-        }
-
-        private CartDbModel MapToDb(CartDTO dto)
-        {
-            return new CartDbModel
-            {
-                Id = dto.Id,
-                Price = dto.Price,
-                Discount = dto.Discount,
-                ProductsInCart = dto.ProductsInCart?.Select(MapProductToDb).ToList() ?? new List<ProductDbModel>()
-            };
-        }
-
-        private ProductDTO MapProductToDTO(ProductDbModel db)
-        {
-            return new ProductDTO
-            {
-                Id = db.Id,
-                Title = db.Title,
-                Description = db.Description,
-                Price = db.Price,
-                Quantity = db.Quantity,
-                ImageUrl = db.ImageUrl
-            };
-        }
-
-        private ProductDbModel MapProductToDb(ProductDTO dto)
-        {
-            return new ProductDbModel
-            {
-                Id = dto.Id,
-                Title = dto.Title,
-                Description = dto.Description,
-                Price = dto.Price,
-                Quantity = dto.Quantity,
-                ImageUrl = dto.ImageUrl
-            };
+            SaveCartToSession(cart);
         }
     }
 }

@@ -81,7 +81,7 @@ namespace IronCore.Controllers
         }
 
         [AdminOnly]
-        public ActionResult DeleteСontact(int id)
+        public ActionResult DeleteContact(int id)
         {
             ViewBag.ActivePage = "Contacts";
             var contact = _contact.GetContactById(id);
@@ -98,10 +98,9 @@ namespace IronCore.Controllers
             return View(model);
         }
 
-        // POST: /Admin/DeleteUser/5
-        [HttpPost, ActionName("DeleteСontact"), ValidateAntiForgeryToken]
+        [HttpPost, ActionName("DeleteContact"), ValidateAntiForgeryToken]
         [AdminOnly]
-        public ActionResult DeleteСontactConfirmed(int id)
+        public ActionResult DeleteContactConfirmed(int id)
         {
             _contact.DeleteContact(id);
             return RedirectToAction("Contacts");

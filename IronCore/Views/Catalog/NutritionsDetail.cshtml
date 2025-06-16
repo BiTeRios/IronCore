@@ -14,8 +14,9 @@
                 <h2>@Model.Title</h2>
                 <p class="text-muted">@Model.Description</p>
                 <h4 class="text-success mt-3">@Model.Price.ToString("C")</h4>
-                <a href="#" class="btn btn-primary mt-3">Add to Cart</a>
+                <a href="@Url.Action("AddToCart", "Account", new { id = Model.Id })" class="btn btn-primary mt-3">Добавить в корзину</a>
             </div>
         </div>
     </div>
 </section>
+

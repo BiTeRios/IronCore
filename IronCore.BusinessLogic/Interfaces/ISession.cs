@@ -1,4 +1,5 @@
-﻿using IronCore.Domain.Entities.User;
+﻿using IronCore.Domain.Entities.Cart;
+using IronCore.Domain.Entities.User;
 using IronCore.Domain.Entities.User.Login;
 using IronCore.Domain.Entities.User.Registration;
 using System;

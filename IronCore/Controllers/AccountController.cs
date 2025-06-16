@@ -16,12 +16,14 @@ namespace IronCore.Controllers
         private readonly IUser _user;
         private readonly IOrder _order;
         private readonly ICart _cart;
+        private readonly IProduct _product;
         public AccountController()
         {
             var bl = new BusinessLogic.BusinessLogic();
             _user = bl.GetUserBL();
             _order = bl.GetOrderBL();
             _cart = bl.GetCartBL();
+            _product = bl.GetProductBL();
         }
         [Authorize]
         public ActionResult User()
@@ -190,6 +192,20 @@ namespace IronCore.Controllers
 
             return View(model);
         }
+
+        [Authorize]
+        public ActionResult AddToCart(int id)
+        {
+            var product = _product.GetProductById(id); 
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            _cart.AddToCart(product);
+            return RedirectToAction("ShoppingCart");
+        }
+
 
         [Authorize]
         public ActionResult RemoveFromCart(int id)

@@ -208,6 +208,7 @@
     <Content Include="Images\product-5.bmp" />
     <Content Include="Images\product-6.bmp" />
     <Content Include="Images\Products\41g+XxD1TQL._AC_UF1000,1000_QL80_.jpg" />
+    <Content Include="Images\Products\picca-picca-s-pomidorami-salami-i-olivkami.jpg" />
     <Content Include="Images\Products\translated_image_ru.png" />
     <Content Include="Images\ronny.png" />
     <Content Include="Images\search-icon.png" />
@@ -316,6 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

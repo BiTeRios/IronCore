@@ -31,7 +31,7 @@
                                 <div class="cart-item p-3 border-bottom">
                                     <div class="row align-items-center">
                                         <div class="col-md-2 col-4">
-                                            <img src="@item.ImageUrl" alt="@item.Title" class="img-fluid rounded" style="background-color: #f1f1f1; padding: 10px;">
+                                            <img src="@Url.Content(item.ImageUrl ?? "~/Images/no-image.png")" alt="@item.Title" class="img-fluid rounded" style="background-color: #f1f1f1; padding: 10px;">
                                         </div>
                                         <div class="col-md-5 col-8">
                                             <h6 class="mb-1">@item.Title</h6>
