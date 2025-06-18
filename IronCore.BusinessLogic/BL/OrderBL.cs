@@ -61,10 +61,11 @@ namespace IronCore.BusinessLogic.BL
             return new OrderDTO
             {
                 Id = db.Id,
+                UserId = db.UserId,
                 Created = db.Created,
                 State = db.State,
                 Total = db.Total,
-                Products = db.Products // Если нужен глубокий маппинг продуктов — используйте маппинг отдельно
+                Products = db.Products 
             };
         }
 
@@ -73,10 +74,11 @@ namespace IronCore.BusinessLogic.BL
             return new OrderDbModel
             {
                 Id = order.Id,
+                UserId = order.UserId,
                 Created = order.Created,
                 State = order.State,
                 Total = order.Total,
-                Products = order.Products // Аналогично, для создания можно присваивать продукты напрямую если они отслеживаются EF
+                Products = order.Products
             };
         }
     }

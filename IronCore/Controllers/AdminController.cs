@@ -45,13 +45,22 @@ namespace IronCore.Controllers
                 .ToList();
             var userDict = _user.GetAllUsers().ToDictionary(u => u.Id, u => $"{u.FirstName} {u.LastName}");
 
-            var recentOrderVMs = recentOrders.Select(o => new RecentOrderViewModel
+            var recentOrderVMs = recentOrders.Select(order =>
             {
-                Id = o.Id,
-                Buyer = o.Id > 0 && userDict.ContainsKey(o.Id) ? userDict[o.Id] : "Гость",
-                Created = o.Created,
-                Total = o.Total,
-                State = o.State
+                var buyerName = "Гость";
+                if (userDict.ContainsKey(order.UserId))
+                {
+                    buyerName = userDict[order.UserId];
+                }
+
+                return new RecentOrderViewModel
+                {
+                    Id = order.Id,
+                    Buyer = buyerName,
+                    Created = order.Created,
+                    Total = order.Total,
+                    State = order.State
+                };
             }).ToList();
 
             ViewBag.UserCount = userCount;
@@ -205,6 +214,7 @@ namespace IronCore.Controllers
                 .Select(o => new OrderViewModel
                 {
                     Id = o.Id,
+                    UserId = o.UserId,
                     Created = o.Created,
                     State = o.State,
                     Total = o.Total,
@@ -231,7 +241,7 @@ namespace IronCore.Controllers
             if (o == null) return HttpNotFound();
             var order = new OrderViewModel
             {
-                Id = o.Id,
+                UserId = o.UserId,
                 Created = o.Created,
                 State = o.State,
                 Total = o.Total,
@@ -257,7 +267,7 @@ namespace IronCore.Controllers
             if (o == null) return HttpNotFound();
             var model = new OrderViewModel
             {
-                Id = o.Id,
+                UserId = o.UserId ,
                 Created = o.Created,
                 State = o.State,
                 Total = o.Total,
@@ -290,7 +300,7 @@ namespace IronCore.Controllers
             if (o == null) return HttpNotFound();
             var order = new OrderViewModel
             {
-                Id = o.Id,
+                UserId = o.UserId,
                 Created = o.Created,
                 State = o.State,
                 Total = o.Total,
@@ -311,9 +321,21 @@ namespace IronCore.Controllers
         [AdminOnly]
         public ActionResult DeleteOrderConfirmed(int id)
         {
+            var order = _order.GetOrderById(id);
+            if (order == null) return HttpNotFound();
+
+            // Удаление связанных продуктов
+            foreach (var product in order.Products.ToList())
+            {
+                _product.DeleteProduct(product.Id);
+            }
+
+            // Удаление самого заказа
             _order.DeleteOrder(id);
+
             return RedirectToAction("Orders");
         }
+
 
         // Список товаров
         [AdminOnly]
@@ -321,6 +343,7 @@ namespace IronCore.Controllers
         {
             ViewBag.ActivePage = "Products";
             var products = _product.GetAll()
+                .Where(p => p.IsVisibleInCatalog)
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
@@ -374,7 +397,7 @@ namespace IronCore.Controllers
 
             if (photo != null && photo.ContentLength > 0)
             {
-                var folder = "~/Images/Products";
+                var folder = "~/Images/";
                 var serverPath = Server.MapPath(folder);
                 if (!Directory.Exists(serverPath))
                     Directory.CreateDirectory(serverPath);
@@ -391,7 +414,8 @@ namespace IronCore.Controllers
                 Description = model.Description,
                 Price = model.Price,
                 ImageUrl = model.ImageUrl,
-                Quantity = model.Quantity
+                Quantity = model.Quantity,
+                IsVisibleInCatalog = true
             };
             _product.CreateProduct(dto);
             return RedirectToAction("Products");

@@ -1,5 +1,8 @@
-﻿using IronCore.BusinessLogic.Interfaces;
+﻿using IronCore.BusinessLogic.BL;
+using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Cart;
+using IronCore.Domain.Entities.Order;
+using IronCore.Domain.Entities.Product;
 using IronCore.Filters;
 using IronCore.Models;
 using System;
@@ -119,6 +122,7 @@ namespace IronCore.Controllers
             var model = orders.Select(o => new OrderViewModel
             {
                 Id = o.Id,
+                UserId = o.UserId,
                 Created = o.Created,
                 State = o.State,
                 Total = o.Total,
@@ -179,7 +183,7 @@ namespace IronCore.Controllers
                 Id = cartDTO?.Id ?? 0,
                 Price = cartDTO?.Price ?? 0,
                 Discount = cartDTO?.Discount ?? 0,
-                Products = cartDTO?.ProductsInCart?.Select(p => new ProductViewModel
+                Products = cartDTO?.Products?.Select(p => new ProductViewModel
                 {
                     Id = p.Id,
                     Title = p.Title,
@@ -243,10 +247,84 @@ namespace IronCore.Controllers
             return RedirectToAction("Login", "Login");
         }
 
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PlaceOrder()
+        {
+            int userId = (int)(Session["UserId"] ?? 0);
+            if (userId == 0)
+                return RedirectToAction("Login", "Login");
+
+            var user = _user.GetById(userId);
+            if (user == null)
+                return RedirectToAction("Login", "Login");
+            System.Diagnostics.Debug.WriteLine($"[PlaceOrder] UserId in session: {userId}");
+            var cart = _cart.GetCurrentCart();
+            if (cart == null || cart.Products == null || !cart.Products.Any())
+            {
+                TempData["OrderError"] = "Корзина пуста.";
+                return RedirectToAction("ShoppingCart");
+            }
+
+            var newOrder = new OrderViewModel
+            {
+                Id = cart.Id,
+                UserId = user.Id,
+                Created = DateTime.Now,
+                State = IronCore.Domain.Enums.Order.UState.Waiting,
+                Total = cart.Price,
+                Products = cart.Products.Select(p => new ProductViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Price = p.Price,
+                    Quantity = p.Quantity,
+                    ImageUrl = p.ImageUrl,
+                    IsVisibleInCatalog = false
+                }).ToList()
+            };
+
+            var orderDto = new OrderDTO
+            {
+                Id = newOrder.Id,
+                UserId = newOrder.UserId,
+                Created = newOrder.Created,
+                State = newOrder.State,
+                Total = newOrder.Total,
+                Products = newOrder.Products.Select(p => new ProductDbModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Price = p.Price,
+                    Quantity = p.Quantity,
+                    ImageUrl = p.ImageUrl,
+                    IsVisibleInCatalog = p.IsVisibleInCatalog
+                }).ToList()
+            };
+
+            bool success = _order.CreateOrder(orderDto);
+
+            if (success)
+            {
+                _cart.ClearCart();
+                TempData["OrderSuccess"] = "Заказ успешно оформлен!";
+                return RedirectToAction("Orders");
+            }
+            else
+            {
+                TempData["OrderError"] = "Не удалось оформить заказ. Попробуйте позже.";
+                return RedirectToAction("ShoppingCart");
+            }
+        }
+
+
         private void SetCartInfo()
         {
             var cart = _cart.GetCurrentCart();
-            ViewBag.CartCount = cart?.ProductsInCart.Count ?? 0;
+            ViewBag.CartCount = cart?.Products.Count ?? 0;
             ViewBag.CartTotal = cart?.Price ?? 0m;
         }
     }

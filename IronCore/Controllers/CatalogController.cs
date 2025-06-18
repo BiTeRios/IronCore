@@ -24,14 +24,17 @@ namespace IronCore.Controllers
 
             var products = _product.GetAll();
 
-            var model = products.Select(p => new ProductViewModel
+            var model = products
+                .Where(p => p.IsVisibleInCatalog)
+                .Select(p => new ProductViewModel
             {
                 Id = p.Id,
                 Title = p.Title,
                 ImageUrl = p.ImageUrl,
                 Description = p.Description,
                 Price = p.Price,
-                Quantity = p.Quantity
+                Quantity = p.Quantity,
+                IsVisibleInCatalog = p.IsVisibleInCatalog
             }).ToList();
 
             return View(model);

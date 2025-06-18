@@ -17,5 +17,6 @@ namespace IronCore.Domain.Entities.Product
         public int Quantity { get; set; } = 1;
         public string ProductName { get => Title; set => Title = value; }
         public string ImageUrl { get; set; }
+        public bool IsVisibleInCatalog { get; set; }
     }
 }

@@ -5,10 +5,15 @@
 }
 
 <nav id="sidebar" class="d-flex flex-column p-3">
-    <a href="@Url.Action("Index", "Admin")" class="d-flex align-items-center mb-3 text-black text-decoration-none">
-        <i class="fas fa-tools fa-lg me-2"></i>
-        <span class="fs-4">Admin Panel</span>
-    </a>
+    <div class="d-flex align-items-center mb-3">
+        <a href="@Url.Action("Index", "Admin")" class="text-black text-decoration-none me-3 d-flex align-items-center">
+            <i class="fas fa-tools fa-lg me-2"></i>
+            <span class="fs-4">Admin Panel</span>
+        </a>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-home me-1"></i> На главную
+        </a>
+    </div>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">

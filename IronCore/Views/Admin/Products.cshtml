@@ -23,7 +23,6 @@
                             <th>Описание</th>
                             <th>Цена</th>
                             <th>Картинка</th>
-                            <th>Количество</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -38,10 +37,9 @@
                                 <td>
                                     @if (!string.IsNullOrEmpty(product.ImageUrl))
                                     {
-                                        <img src="@Url.Content(product.ImageUrl ?? "~/Images/no-image.png")" alt="img" style="max-width:60px; max-height:60px;" />
+                                        <img src="@Url.Content(product.ImageUrl ?? "~/Images/no-image.png")" alt="img" style="max-width:100px; max-height:100px;" />
                                     }
                                 </td>
-                                <td>@product.Quantity</td>
                                 <td>
                                     <a href="@Url.Action("EditProduct", "Admin", new { id = product.Id })" class="btn btn-sm btn-outline-primary">Редактировать</a>
                                     <a href="@Url.Action("DeleteProduct", "Admin", new { id = product.Id })" class="btn btn-sm btn-outline-danger">Удалить</a>

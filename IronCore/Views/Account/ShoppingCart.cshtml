@@ -79,7 +79,11 @@
                             <p class="mb-0"><strong>Всего к оплате</strong></p>
                             <p class="mb-0"><strong>@Model.Total.ToString("C")</strong></p>
                         </div>
-                        <a href="#" class="btn btn-primary btn-block mt-3">Оформить заказ</a>
+                        @using (Html.BeginForm("PlaceOrder", "Account", FormMethod.Post))
+                         {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-primary btn-block mt-3">Оформить заказ</button>
+                         }
                     </div>
                 </div>
             </div>

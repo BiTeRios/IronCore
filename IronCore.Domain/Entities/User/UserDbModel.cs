@@ -1,4 +1,5 @@
-﻿using IronCore.Domain.Enums.User;
+﻿using IronCore.Domain.Entities.Order;
+using IronCore.Domain.Enums.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -55,5 +56,6 @@ namespace IronCore.Domain.Entities.User
 
         [Display(Name = "Balance")]
         public decimal Balance { get; set; }
+        public virtual ICollection<OrderDbModel> Orders { get; set; }
     }
 }

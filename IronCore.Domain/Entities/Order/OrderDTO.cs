@@ -18,6 +18,7 @@ namespace IronCore.Domain.Entities.Order
         public decimal Total { get; set; }
         public virtual ICollection<ProductDbModel> Products { get; set; } =
             new List<ProductDbModel>();
+
         public int UserId { get; set; }
     }
 }

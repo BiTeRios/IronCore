@@ -26,7 +26,7 @@
                         @foreach (var order in Model)
                         {
                             <tr>
-                                <td>@order.Id</td>
+                                <td>@order.UserId</td>
                                 <td>@order.Created.ToString("yyyy-MM-dd")</td>
                                 <td>@order.State</td>
                                 <td>@order.Total.ToString("C0")</td>

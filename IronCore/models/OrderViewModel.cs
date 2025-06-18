@@ -10,6 +10,7 @@ namespace IronCore.Models
 	public class OrderViewModel
 	{
         public int Id { get; set; }
+        public int UserId { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public UState State { get; set; }
         public decimal Total { get; set; }

@@ -34,5 +34,9 @@ namespace IronCore.BusinessLogic
         {
             return new CartBL();
         }
+        public ICoach GetCoachBL()
+        {
+            return new CoachBL();
+        }
     }
 }

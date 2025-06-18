@@ -105,12 +105,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\CartBL.cs" />
+    <Compile Include="BL\CoachBL.cs" />
     <Compile Include="BL\ContactBL.cs" />
     <Compile Include="BL\OrderBL.cs" />
     <Compile Include="BL\ProductBL.cs" />
     <Compile Include="BL\UserBL.cs" />
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\AdminApi.cs" />
+    <Compile Include="Core\CoachApi.cs" />
     <Compile Include="Core\ContactApi.cs" />
     <Compile Include="Core\OrderApi.cs" />
     <Compile Include="Core\ProductApi.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="DBModel\ProductContext.cs" />
     <Compile Include="DBModel\UserContext.cs" />
     <Compile Include="Interfaces\ICart.cs" />
+    <Compile Include="Interfaces\ICoach.cs" />
     <Compile Include="Interfaces\IContact.cs" />
     <Compile Include="Interfaces\IOrder.cs" />
     <Compile Include="Interfaces\IProduct.cs" />
@@ -137,6 +140,42 @@
     <Compile Include="Migrations\202505282231172_InitialProduct.cs" />
     <Compile Include="Migrations\202505282231172_InitialProduct.Designer.cs">
       <DependentUpon>202505282231172_InitialProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506181301093_lolololdsfaf.cs" />
+    <Compile Include="Migrations\202506181301093_lolololdsfaf.Designer.cs">
+      <DependentUpon>202506181301093_lolololdsfaf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506181311176_AddOrderKeys.cs" />
+    <Compile Include="Migrations\202506181311176_AddOrderKeys.Designer.cs">
+      <DependentUpon>202506181311176_AddOrderKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506181325015_lolololdsfafa.cs" />
+    <Compile Include="Migrations\202506181325015_lolololdsfafa.Designer.cs">
+      <DependentUpon>202506181325015_lolololdsfafa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506181356334_loasdfsda.cs" />
+    <Compile Include="Migrations\202506181356334_loasdfsda.Designer.cs">
+      <DependentUpon>202506181356334_loasdfsda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506181359009_lololodsfldsfafa.cs" />
+    <Compile Include="Migrations\202506181359009_lololodsfldsfafa.Designer.cs">
+      <DependentUpon>202506181359009_lololodsfldsfafa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506181405188_AddOrderKfdsgeys.cs" />
+    <Compile Include="Migrations\202506181405188_AddOrderKfdsgeys.Designer.cs">
+      <DependentUpon>202506181405188_AddOrderKfdsgeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506181449522_loasdasdffsda.cs" />
+    <Compile Include="Migrations\202506181449522_loasdasdffsda.Designer.cs">
+      <DependentUpon>202506181449522_loasdasdffsda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506181451277_AddOrderKfdsgyhgfheys.cs" />
+    <Compile Include="Migrations\202506181451277_AddOrderKfdsgyhgfheys.Designer.cs">
+      <DependentUpon>202506181451277_AddOrderKfdsgyhgfheys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506181452087_lololodsfldsfdgsfafa.cs" />
+    <Compile Include="Migrations\202506181452087_lololodsfldsfdgsfafa.Designer.cs">
+      <DependentUpon>202506181452087_lololodsfldsfdgsfafa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\OrderMigrations.cs" />
@@ -172,6 +211,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505282231172_InitialProduct.resx">
       <DependentUpon>202505282231172_InitialProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506181301093_lolololdsfaf.resx">
+      <DependentUpon>202506181301093_lolololdsfaf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506181311176_AddOrderKeys.resx">
+      <DependentUpon>202506181311176_AddOrderKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506181325015_lolololdsfafa.resx">
+      <DependentUpon>202506181325015_lolololdsfafa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506181356334_loasdfsda.resx">
+      <DependentUpon>202506181356334_loasdfsda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506181359009_lololodsfldsfafa.resx">
+      <DependentUpon>202506181359009_lololodsfldsfafa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506181405188_AddOrderKfdsgeys.resx">
+      <DependentUpon>202506181405188_AddOrderKfdsgeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506181449522_loasdasdffsda.resx">
+      <DependentUpon>202506181449522_loasdasdffsda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506181451277_AddOrderKfdsgyhgfheys.resx">
+      <DependentUpon>202506181451277_AddOrderKfdsgyhgfheys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506181452087_lololodsfldsfdgsfafa.resx">
+      <DependentUpon>202506181452087_lololodsfldsfdgsfafa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

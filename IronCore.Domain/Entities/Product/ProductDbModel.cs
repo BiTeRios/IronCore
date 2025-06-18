@@ -17,11 +17,12 @@ namespace IronCore.Domain.Entities.Product
 
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
-        [NotMapped] 
-        public int Quantity { get; set; } = 1;
+        public int Quantity { get; set; }
         [NotMapped] 
         public string ProductName { get => Title; set => Title = value; }
         [StringLength(260)]
         public string ImageUrl { get; set; }
+        public bool IsVisibleInCatalog { get; set; } = true;
+
     }
 }

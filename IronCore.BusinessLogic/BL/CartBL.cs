@@ -23,7 +23,7 @@ namespace IronCore.BusinessLogic.BL
             {
                 return new CartDTO
                 {
-                    ProductsInCart = new List<ProductDTO>(),
+                    Products = new List<ProductDTO>(),
                     Price = 0,
                     Discount = 0
                 };
@@ -56,7 +56,7 @@ namespace IronCore.BusinessLogic.BL
         public void AddToCart(ProductDTO product)
         {
             var cart = GetCartFromSession();
-            var existing = cart.ProductsInCart.FirstOrDefault(p => p.Id == product.Id);
+            var existing = cart.Products.FirstOrDefault(p => p.Id == product.Id);
             if (existing != null)
             {
                 existing.Quantity += 1;
@@ -64,7 +64,7 @@ namespace IronCore.BusinessLogic.BL
             else
             {
                 product.Quantity = 1;
-                cart.ProductsInCart.Add(product);
+                cart.Products.Add(product);
             }
             cart.Price += product.Price;
             SaveCartToSession(cart);
@@ -73,11 +73,11 @@ namespace IronCore.BusinessLogic.BL
         public void RemoveFromCart(int productId)
         {
             var cart = GetCartFromSession();
-            var item = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
+            var item = cart.Products.FirstOrDefault(p => p.Id == productId);
             if (item != null)
             {
                 cart.Price -= item.Price * item.Quantity;
-                cart.ProductsInCart.Remove(item);
+                cart.Products.Remove(item);
             }
             SaveCartToSession(cart);
         }
@@ -90,7 +90,7 @@ namespace IronCore.BusinessLogic.BL
         public void UpdateQuantity(int productId, int newQuantity)
         {
             var cart = GetCartFromSession();
-            var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
+            var prod = cart.Products.FirstOrDefault(p => p.Id == productId);
             if (prod != null)
             {
                 cart.Price -= prod.Price * prod.Quantity;
@@ -109,13 +109,13 @@ namespace IronCore.BusinessLogic.BL
         public bool IsProductInCart(int productId)
         {
             var cart = GetCartFromSession();
-            return cart.ProductsInCart.Any(p => p.Id == productId);
+            return cart.Products.Any(p => p.Id == productId);
         }
 
         public void IncrementQuantity(int productId)
         {
             var cart = GetCartFromSession();
-            var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
+            var prod = cart.Products.FirstOrDefault(p => p.Id == productId);
             if (prod != null)
             {
                 prod.Quantity += 1;
@@ -127,7 +127,7 @@ namespace IronCore.BusinessLogic.BL
         public void DecrementQuantity(int productId)
         {
             var cart = GetCartFromSession();
-            var prod = cart.ProductsInCart.FirstOrDefault(p => p.Id == productId);
+            var prod = cart.Products.FirstOrDefault(p => p.Id == productId);
             if (prod != null && prod.Quantity > 1)
             {
                 prod.Quantity -= 1;

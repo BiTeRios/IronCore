@@ -1,4 +1,5 @@
 ﻿using IronCore.Domain.Entities.Product;
+using IronCore.Domain.Entities.User;
 using IronCore.Domain.Enums.Order;
 using IronCore.Domain.Enums.User;
 using System;
@@ -23,6 +24,10 @@ namespace IronCore.Domain.Entities.Order
         [Display(Name = "Products")]
         public virtual ICollection<ProductDbModel> Products { get; set; }
         [Display(Name = "Owner")]
+        [ForeignKey("User")]
         public int UserId { get; set; }
+
+        public virtual UserDbModel User { get; set; }
+
     }
 }

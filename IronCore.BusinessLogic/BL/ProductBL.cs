@@ -47,7 +47,8 @@ namespace IronCore.BusinessLogic.BL
                 Description = db.Description,
                 Price = db.Price,
                 Quantity = db.Quantity,
-                ImageUrl = db.ImageUrl
+                ImageUrl = db.ImageUrl,
+                IsVisibleInCatalog = db.IsVisibleInCatalog
             };
         }
 
@@ -60,7 +61,8 @@ namespace IronCore.BusinessLogic.BL
                 Description = dto.Description,
                 Price = dto.Price,
                 Quantity = dto.Quantity,
-                ImageUrl = dto.ImageUrl
+                ImageUrl = dto.ImageUrl,
+                IsVisibleInCatalog = dto.IsVisibleInCatalog
             };
         }
     }
