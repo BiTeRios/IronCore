@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace IronCore.Controllers
 {
-    public class CoachController : Controller
+    public class CoachController : BaseController
     {
         private readonly ICoach _coach;
         public CoachController()

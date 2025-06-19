@@ -16,7 +16,7 @@ using IronCore.Domain.Entities.Program;
 namespace IronCore.Controllers
 {
     [AdminOnly]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         private readonly IUser _user;
         private readonly IOrder _order;

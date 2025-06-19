@@ -14,7 +14,7 @@ using System.Web.Security;
 
 namespace IronCore.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IUser _user;
         private readonly IOrder _order;

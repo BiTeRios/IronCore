@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace IronCore.Controllers
 {
-    public class CatalogController : Controller
+    public class CatalogController : BaseController
     {
         private readonly IProduct _product;
         private readonly IProgram _program;

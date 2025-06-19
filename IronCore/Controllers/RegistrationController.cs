@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace IronCore.Controllers
 {
-    public class RegistrationController : Controller
+    public class RegistrationController : BaseController
     {
         private readonly ISession _session;
 

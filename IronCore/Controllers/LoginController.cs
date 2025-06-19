@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace IronCore.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         private readonly ISession _session;
         public LoginController()

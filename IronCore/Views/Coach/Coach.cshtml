@@ -17,14 +17,11 @@
                                     Meet Our
                                 </h3>
                                 <h2>
-                                    Expert Trainer
+                                    @Model.Qualification
                                 </h2>
                                 <h1>
                                     @Model.FullName
                                 </h1>
-                                <p>
-                                    @Model.Qualification
-                                </p>
                                 <div class="">
                                     <a href="#trainer-profile">
                                         View Profile
@@ -39,60 +36,66 @@
     </section>
 </div>
 
-<section class="trainer_profile_section layout_padding" id="trainer-profile">
+<section class="py-5 bg-white" id="trainer-profile">
     <div class="container">
-        <div class="row">
+        <div class="row g-5 align-items-start">
+            <!-- Левая колонка: профиль тренера -->
             <div class="col-lg-4 col-md-6">
-                <div class="box">
-                    <div class="img-box">
-                        <img src="@Url.Content(Model.ImagePath ?? "~/Images/default-trainer.jpg")" alt="@Model.FullName" class="img-fluid rounded-circle">
+                <div class="card border-0 shadow rounded-4 text-center p-4">
+                    <img src="@Url.Content(Model.ImagePath ?? "~/Images/default-trainer.jpg")"
+                         alt="@Model.FullName"
+                         class="img-fluid rounded-circle mb-4" style="width: 180px; height: 220px; object-fit: cover; margin: 0 auto;">
+
+                    <h5 class="fw-semibold">@Model.FullName</h5>
+                    <p class="text-muted mb-2">@Model.Qualification</p>
+
+                    <div class="mt-3">
+                        <h6 class="text-primary">Specialization</h6>
+                        <p>@Model.Specialization</p>
                     </div>
-                    <div class="detail-box">
-                        <h5>@Model.FullName</h5>
-                        <p>@Model.Qualification</p>
-                        <div class="specialization">
-                            <h6>Specialization:</h6>
-                            <p>@Model.Specialization</p>
-                        </div>
-                        <div class="experience">
-                            <h6>Experience:</h6>
-                            <p>@Model.ExperienceTime+ Years</p>
-                        </div>
-                        <div class="social_box">
-                            @if (!string.IsNullOrEmpty(Model.TelegramUrl))
-                            {
-                                <a href="@Model.TelegramUrl" target="_blank">
-                                    <img src="@Url.Content("~/Images/telega.png")" alt="Telegram" />
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.SteamUrl))
-                            {
-                                <a href="@Model.SteamUrl" target="_blank">
-                                    <img src="@Url.Content("~/Images/steam.png")" alt="Steam" />
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.InstagramUrl))
-                            {
-                                <a href="@Model.InstagramUrl" target="_blank">
-                                    <img src="@Url.Content("~/Images/instagram.png")" alt="Instagram" />
-                                </a>
-                            }
-                        </div>
+
+                    <div class="mt-2">
+                        <h6 class="text-primary">Experience</h6>
+                        <p>@Model.ExperienceTime+ years</p>
+                    </div>
+
+                    <!-- Социальные иконки -->
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        @if (!string.IsNullOrEmpty(Model.TelegramUrl))
+                        {
+                            <a href="@Model.TelegramUrl" target="_blank">
+                                <img src="@Url.Content("~/Images/telega.png")" alt="Telegram" width="32" height="32" />
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.SteamUrl))
+                        {
+                            <a href="@Model.SteamUrl" target="_blank">
+                                <img src="@Url.Content("~/Images/steam.png")" alt="Steam" width="32" height="32" />
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.InstagramUrl))
+                        {
+                            <a href="@Model.InstagramUrl" target="_blank">
+                                <img src="@Url.Content("~/Images/instagram.png")" alt="Instagram" width="32" height="32" />
+                            </a>
+                        }
                     </div>
                 </div>
             </div>
+
+            <!-- Правая колонка: биография и отзывы -->
             <div class="col-lg-8 col-md-6">
-                <div class="bio-box">
-                    <h4>Bio</h4>
-                    <p>@Model.Bio</p>
+                <div class="card border-0 shadow-sm p-4 rounded-4 bg-light">
+                    <h4 class="mb-3 text-dark">Biography</h4>
+                    <p class="text-muted">@Model.Bio</p>
 
                     @if (!string.IsNullOrWhiteSpace(Model.Testimonials))
                     {
-                        <div class="testimonials">
-                            <h4>Testimonials</h4>
-                            <div class="testimonial-box">
-                                <p>@Model.Testimonials</p>
-                                <h6>- Client</h6>
+                        <hr />
+                        <div class="mt-4">
+                            <h4 class="text-dark">Testimonials</h4>
+                            <div class="bg-white p-3 rounded shadow-sm">
+                                <p class="fst-italic">"@Model.Testimonials"</p>
                             </div>
                         </div>
                     }
@@ -101,3 +104,4 @@
         </div>
     </div>
 </section>
+

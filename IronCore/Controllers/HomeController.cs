@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace IronCore.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IContact _contact;
         public HomeController()
