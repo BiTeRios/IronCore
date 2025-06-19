@@ -9,13 +9,13 @@ namespace IronCore.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Имя")]
+        [Display(Name = "First name")]
         public string FirstName { get; set; }
         [Required]
-        [Display(Name = "Фамилия")]
+        [Display(Name = "Last name")]
         public string LastName { get; set; }
         [Required]
-        [Display(Name = "Телефон")]
+        [Display(Name = "Phone number")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
         [Required, StringLength(30, MinimumLength = 5)]

@@ -1,0 +1,51 @@
+@model List<IronCore.Models.ProgramViewModel>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Программы";
+}
+
+<div id="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 text-gray-800">Программы</h1>
+        <a href="@Url.Action("CreateProgram", "Admin")" class="btn btn-primary">
+            <i class="fas fa-plus-circle me-1"></i> Добавить программу
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Название</th>
+                            <th>Описание</th>
+                            <th>Продолжительность</th>
+                            <th>Тренер</th>
+                            <th>Подходит для</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var program in Model)
+                        {
+                            <tr>
+                                <td>@program.Id</td>
+                                <td>@program.Title</td>
+                                <td>@program.Description</td>
+                                <td>@program.Duration</td>
+                                <td>@program.Trainer</td>
+                                <td>@program.SuitableFor</td>
+                                <td>
+                                    <a href="@Url.Action("EditProgram", "Admin", new { id = program.Id })" class="btn btn-sm btn-outline-primary">Редактировать</a>
+                                    <a href="@Url.Action("DeleteProgram", "Admin", new { id = program.Id })" class="btn btn-sm btn-outline-danger">Удалить</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

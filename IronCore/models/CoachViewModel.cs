@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IronCore.Web.ViewModels
+namespace IronCore.Models
 {
     public class CoachViewModel
     {

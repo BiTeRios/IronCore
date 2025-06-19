@@ -52,6 +52,8 @@
     <Compile Include="Entities\Order\OrderDTO.cs" />
     <Compile Include="Entities\Product\ProductDbModel.cs" />
     <Compile Include="Entities\Product\ProductDTO.cs" />
+    <Compile Include="Entities\Program\ProgramDbModel.cs" />
+    <Compile Include="Entities\Program\ProgramDTO.cs" />
     <Compile Include="Entities\User\Login\UserLoginData.cs" />
     <Compile Include="Entities\User\Registration\UserRegistrationResult.cs" />
     <Compile Include="Entities\User\UserDbModel.cs" />

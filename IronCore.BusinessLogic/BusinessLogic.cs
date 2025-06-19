@@ -38,5 +38,9 @@ namespace IronCore.BusinessLogic
         {
             return new CoachBL();
         }
+        public IProgram GetProgramBL()
+        {
+            return new ProgramBL();
+        }
     }
 }

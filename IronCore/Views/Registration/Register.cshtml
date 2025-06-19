@@ -3,7 +3,7 @@
     ViewBag.Title = "Register";
 }
 
-<h2 class="text-center mb-4">Регистрация</h2>
+<h2 class="text-center mb-4">Registration</h2>
 
 <div class="card shadow p-4 mb-4" style="max-width: 500px; margin: 0 auto">
     @if (TempData["Message"] != null)
@@ -19,13 +19,13 @@
 
         <div class="mb-3">
             @Html.LabelFor(m => m.FirstName, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Имя" })
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First name" })
             @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
             @Html.LabelFor(m => m.LastName, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Фамилия" })
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last name" })
             @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
         </div>
 
@@ -37,7 +37,7 @@
 
         <div class="mb-3">
             @Html.LabelFor(m => m.UserName, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Логин" })
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Login" })
             @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
         </div>
 
@@ -49,13 +49,13 @@
 
         <div class="mb-3">
             @Html.LabelFor(m => m.Password, new { @class = "form-label" })
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
             @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Подтвердите пароль" })
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm password" })
             @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
 
@@ -67,7 +67,7 @@
 
         <div class="d-grid">
             <button type="submit" class="btn btn-primary btn-lg">
-                Зарегистрироваться
+                Register
             </button>
         </div>
     }

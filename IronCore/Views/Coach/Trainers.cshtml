@@ -1,4 +1,5 @@
-﻿
+﻿@model List<IronCore.Models.CoachViewModel>
+
 @{
     ViewBag.Title = "Trainers";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,75 +11,41 @@
             <h2>Our Gym Trainers</h2>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 mx-auto">
-                <div class="box">
-                    <a href="@Url.Action("Coach", "Coach")" target="_blank">
-                        <div class="name">
-                            <h5>Meliuh Samir</h5>
+            @foreach (var coach in Model)
+            {
+                <div class="col-lg-4 col-md-6 mx-auto">
+                    <div class="box">
+                        <a href="@Url.Action("Coach", "Coach", new { id = coach.Id })" target="_blank">
+                            <div class="name">
+                                <h5>@coach.FullName</h5>
+                            </div>
+                            <div class="img-box">
+                                <img src="@Url.Content(coach.ImagePath ?? "~/Images/default-trainer.jpg")" alt="@coach.FullName" />
+                            </div>
+                        </a>
+                        <div class="social_box">
+                            @if (!string.IsNullOrEmpty(coach.TelegramUrl))
+                            {
+                                <a href="@coach.TelegramUrl" target="_blank">
+                                    <img src="@Url.Content("~/Images/telega.png")" alt="Telegram" />
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(coach.SteamUrl))
+                            {
+                                <a href="@coach.SteamUrl" target="_blank">
+                                    <img src="@Url.Content("~/Images/steam.png")" alt="Steam" />
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(coach.InstagramUrl))
+                            {
+                                <a href="@coach.InstagramUrl" target="_blank">
+                                    <img src="@Url.Content("~/Images/instagram.png")" alt="Instagram" />
+                                </a>
+                            }
                         </div>
-                        <div class="img-box">
-                            <img src="@Url.Content("~/Images/t1.jpg")" alt="Meliuh Samir">
-                        </div>
-                    </a>
-                    <div class="social_box">
-                        <a href="https://t.me/Samch0s" target="_blank">
-                            <img src="@Url.Content("~/Images/telega.png")" alt="Telegram">
-                        </a>
-                        <a href="https://steamcommunity.com/id/sam4ch/" target="_blank">
-                            <img src="@Url.Content("~/Images/steam.png")" alt="Steam">
-                        </a>
-                        <a href="https://www.instagram.com/sam_4ch/" target="_blank">
-                            <img src="@Url.Content("~/Images/instagram.png")" alt="Instagram">
-                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mx-auto">
-                <div class="box">
-                    <a href="@Url.Action("Coach", "Coach")" target="_blank">
-                        <div class="name">
-                            <h5>Liogchii Vitalii</h5>
-                        </div>
-                        <div class="img-box">
-                            <img src="@Url.Content("~/Images/t2.jpg")" alt="Liogchii Vitalii">
-                        </div>
-                    </a>
-                    <div class="social_box">
-                        <a href="https://t.me/Bitezp" target="_blank">
-                            <img src="@Url.Content("~/Images/telega.png")" alt="Telegram">
-                        </a>
-                        <a href="https://steamcommunity.com/profiles/76561198989588190" target="_blank">
-                            <img src="@Url.Content("~/Images/steam.png")" alt="Steam">
-                        </a>
-                        <a href="https://www.instagram.com/bite_rio/" target="_blank">
-                            <img src="@Url.Content("~/Images/instagram.png")" alt="Instagram">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mx-auto">
-                <div class="box">
-                    <a href="@Url.Action("Coach", "Coach")" target="_blank">
-                        <div class="name">
-                            <h5>Bagrin Constantin</h5>
-                        </div>
-                        <div class="img-box">
-                            <img src="@Url.Content("~/Images/t3.jpg")" alt="Bagrin Constantin">
-                        </div>
-                    </a>
-                    <div class="social_box">
-                        <a href="https://t.me/marsonskii" target="_blank">
-                            <img src="@Url.Content("~/Images/telega.png")" alt="Telegram">
-                        </a>
-                        <a href="https://steamcommunity.com/id/fanofichikanakano" target="_blank">
-                            <img src="@Url.Content("~/Images/steam.png")" alt="Steam">
-                        </a>
-                        <a href="https://www.instagram.com/hoetsuhigashihara/" target="_blank">
-                            <img src="@Url.Content("~/Images/instagram.png")" alt="Instagram">
-                        </a>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>

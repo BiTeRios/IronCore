@@ -1,0 +1,52 @@
+@model List<IronCore.Models.CoachViewModel>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Тренеры";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 text-gray-800">Тренеры</h1>
+    <a href="@Url.Action("CreateCoach", "Admin")" class="btn btn-primary">
+        <i class="fas fa-plus-circle me-1"></i> Добавить тренера
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Имя</th>
+                        <th>Опыт</th>
+                        <th>Квалификация</th>
+                        <th>Фото</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var coach in Model)
+                    {
+                        <tr>
+                            <td>@coach.Id</td>
+                            <td>@coach.FullName</td>
+                            <td>@coach.ExperienceTime лет</td>
+                            <td>@coach.Qualification</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(coach.ImagePath))
+                                {
+                                    <img src="@Url.Content(coach.ImagePath)" alt="img" style="max-width:100px; max-height:100px;" />
+                                }
+                            </td>
+                            <td>
+                                <a href="@Url.Action("EditCoach", "Admin", new { id = coach.Id })" class="btn btn-sm btn-outline-primary">Редактировать</a>
+                                <a href="@Url.Action("DeleteCoach", "Admin", new { id = coach.Id })" class="btn btn-sm btn-outline-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

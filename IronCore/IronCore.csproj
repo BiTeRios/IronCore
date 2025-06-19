@@ -161,6 +161,7 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\ProgramViewModel.cs" />
     <Compile Include="Models\RecentOrderViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\UserProfileViewModel.cs" />
@@ -308,6 +309,13 @@
     <Content Include="Views\Account\Orders.cshtml" />
     <Content Include="Views\Admin\Contacts.cshtml" />
     <Content Include="Views\Admin\DeleteContact.cshtml" />
+    <Content Include="Views\Admin\EditCreateCoach.cshtml" />
+    <Content Include="Views\Admin\DeleteCoach.cshtml" />
+    <Content Include="Views\Admin\Coaches.cshtml" />
+    <Content Include="Views\Admin\ProgramsList.cshtml" />
+    <Content Include="Views\Admin\EditCreateProgram.cshtml" />
+    <Content Include="Views\Admin\EditProgram.cshtml" />
+    <Content Include="Views\Admin\DeleteProgram.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

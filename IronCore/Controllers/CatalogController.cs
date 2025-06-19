@@ -12,10 +12,12 @@ namespace IronCore.Controllers
     public class CatalogController : Controller
     {
         private readonly IProduct _product;
+        private readonly IProgram _program;
         public CatalogController()
         {
             var bl = new BusinessLogic.BusinessLogic();
             _product = bl.GetProductBL();
+            _program = bl.GetProgramBL();
         }
 
         public ActionResult Nutritions()
@@ -56,29 +58,41 @@ namespace IronCore.Controllers
             };
             return View(model);
         }
-
         public ActionResult Programs()
         {
             ViewBag.ActivePage = "Programs";
-            var products = _product.GetAll()
-                .Select(p => new ProductViewModel
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    ImageUrl = p.ImageUrl,
-                    Description = p.Description,
-                    Price = p.Price,
-                    Quantity = p.Quantity
-                }).ToList();
-            return View(products);
+
+            var programs = _program.GetAllPrograms();
+
+            var model = programs.Select(p => new ProgramViewModel
+            {
+                Id = p.Id,
+                Title = p.Title,
+                Description = p.Description,
+                Duration = p.Duration,
+                Trainer = p.Trainer,
+                SuitableFor = p.SuitableFor
+            }).ToList();
+
+            return View(model);
         }
 
         public ActionResult ProgramDetail(int id)
         {
-            var product = _product.GetProductById(id);
-            if (product == null)
-                return HttpNotFound();
-            return View(product);
+            var program = _program.GetProgramById(id);
+            if (program == null) return HttpNotFound();
+
+            var model = new ProgramViewModel
+            {
+                Id = program.Id,
+                Title = program.Title,
+                Description = program.Description,
+                Duration = program.Duration,
+                Trainer = program.Trainer,
+                SuitableFor = program.SuitableFor
+            };
+
+            return View(model);
         }
     }
 }

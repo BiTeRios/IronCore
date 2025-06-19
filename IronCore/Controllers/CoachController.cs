@@ -1,7 +1,7 @@
 ﻿using IronCore.BusinessLogic.BL;
 using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Coach;
-using IronCore.Web.ViewModels;
+using IronCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,61 +34,6 @@ namespace IronCore.Controllers
             var coach = _coach.GetCoachById(id);
             if (coach == null) return HttpNotFound();
             return View(MapToViewModel(coach));
-        }
-
-        // GET: Coach/Create
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Coach/Create
-        [HttpPost]
-        public ActionResult Create(CoachViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var dto = MapToDTO(model);
-            _coach.CreateCoach(dto);
-            return RedirectToAction("Index");
-        }
-
-        // GET: Coach/Edit/5
-        public ActionResult Edit(int id)
-        {
-            var coach = _coach.GetCoachById(id);
-            if (coach == null) return HttpNotFound();
-            return View(MapToViewModel(coach));
-        }
-
-        // POST: Coach/Edit/5
-        [HttpPost]
-        public ActionResult Edit(CoachViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var dto = MapToDTO(model);
-            _coach.UpdateCoach(dto);
-            return RedirectToAction("Index");
-        }
-
-        // GET: Coach/Delete/5
-        public ActionResult Delete(int id)
-        {
-            var coach = _coach.GetCoachById(id);
-            if (coach == null) return HttpNotFound();
-            return View(MapToViewModel(coach));
-        }
-
-        // POST: Coach/Delete/5
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            _coach.DeleteCoach(id);
-            return RedirectToAction("Index");
         }
 
         private CoachViewModel MapToViewModel(CoachDTO dto)

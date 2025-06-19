@@ -41,6 +41,16 @@
                 <i class="fas fa-file-invoice-dollar me-2"></i> Контакты
             </a>
         </li>
+        <li>
+            <a href="@Url.Action("Coaches", "Admin")" class="nav-link @(active == "Coaches" ? "active" : "")">
+                <i class="fas fa-file-invoice-dollar me-2"></i> Тренеры
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("ProgramsList", "Admin")" class="nav-link @(active == "Programs" ? "active" : "")">
+                <i class="fas fa-file-invoice-dollar me-2"></i> Тренировочные программы
+            </a>
+        </li>
     </ul>
     <hr>
 </nav>

@@ -41,13 +41,13 @@
                             @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             @Html.TextBoxFor(m => m.PhoneNumber,
                                 new { @class = "form-control", placeholder = "Phone Number" })
                             @Html.ValidationMessageFor(m => m.PhoneNumber, null, new { @class = "text-danger" })
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             @Html.TextAreaFor(m => m.Message,
                                 new { @class = "form-control message-box", placeholder = "Message", rows = 4 })
                             @Html.ValidationMessageFor(m => m.Message, null, new { @class = "text-danger" })

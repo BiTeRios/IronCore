@@ -3,7 +3,7 @@
     ViewBag.Title = "Login";
 }
 
-<h2 class="text-center mb-4">Вход</h2>
+<h2 class="text-center mb-4">Login</h2>
 
 <div class="card shadow p-4 mb-4" style="max-width: 400px; margin: 0 auto">
     @using (Html.BeginForm("Login", "Login", FormMethod.Post))
@@ -13,19 +13,19 @@
 
         <div class="mb-3">
             @Html.LabelFor(m => m.UserName, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Введите логин" })
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Enter login" })
             @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
             @Html.LabelFor(m => m.Password, new { @class = "form-label" })
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Введите пароль" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter password" })
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
         </div>
 
         <div class="d-grid">
             <button type="submit" class="btn btn-primary btn-lg">
-                Войти
+                Login
             </button>
         </div>
     }

@@ -1,0 +1,66 @@
+﻿@model IronCore.Models.CoachViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Тренер";
+}
+
+<h2>@(Model.Id == 0 ? "Добавить тренера" : "Редактировать тренера")</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.FullName)
+        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.ExperienceTime)
+        @Html.TextBoxFor(m => m.ExperienceTime, new { @class = "form-control", type = "number" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Qualification)
+        @Html.TextBoxFor(m => m.Qualification, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Specialization)
+        @Html.TextBoxFor(m => m.Specialization, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Bio)
+        @Html.TextAreaFor(m => m.Bio, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Testimonials)
+        @Html.TextAreaFor(m => m.Testimonials, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.TelegramUrl)
+        @Html.TextBoxFor(m => m.TelegramUrl, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.SteamUrl)
+        @Html.TextBoxFor(m => m.SteamUrl, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.InstagramUrl)
+        @Html.TextBoxFor(m => m.InstagramUrl, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.Label("Фото")
+        <input type="file" name="photo" class="form-control" accept="image/*" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Сохранить</button>
+    <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Назад</a>
+}

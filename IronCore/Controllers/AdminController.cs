@@ -10,6 +10,8 @@ using IronCore.BusinessLogic.Interfaces;
 using IronCore.Domain.Entities.Product;
 using IronCore.Domain.Enums.Order;
 using System;
+using IronCore.Domain.Entities.Coach;
+using IronCore.Domain.Entities.Program;
 
 namespace IronCore.Controllers
 {
@@ -20,6 +22,8 @@ namespace IronCore.Controllers
         private readonly IOrder _order;
         private readonly IProduct _product;
         private readonly IContact _contact;
+        private readonly ICoach _coach;
+        private readonly IProgram _program;
         public AdminController()
         {
             var bl = new BusinessLogic.BusinessLogic();
@@ -27,6 +31,8 @@ namespace IronCore.Controllers
             _order = bl.GetOrderBL();
             _product = bl.GetProductBL();
             _contact = bl.GetContactBL();
+            _coach = bl.GetCoachBL();
+            _program = bl.GetProgramBL();
         }
 
         [AdminOnly]
@@ -336,7 +342,6 @@ namespace IronCore.Controllers
             return RedirectToAction("Orders");
         }
 
-
         // Список товаров
         [AdminOnly]
         public ActionResult Products()
@@ -421,7 +426,6 @@ namespace IronCore.Controllers
             return RedirectToAction("Products");
         }
 
-
         // Редактирование товара - GET
         [AdminOnly]
         public ActionResult EditProduct(int id)
@@ -477,7 +481,6 @@ namespace IronCore.Controllers
             return RedirectToAction("Products");
         }
 
-
         // Удаление товара - GET
         [AdminOnly]
         public ActionResult DeleteProduct(int id)
@@ -505,6 +508,241 @@ namespace IronCore.Controllers
         {
             _product.DeleteProduct(id);
             return RedirectToAction("Products");
+        }
+
+        [AdminOnly]
+        public ActionResult Coaches()
+        {
+            ViewBag.ActivePage = "Coaches";
+            var coaches = _coach.GetAllCoaches();
+            var viewModels = coaches.Select(MapToViewModel).ToList();
+            return View(viewModels);
+        }
+
+        // GET
+        [AdminOnly]
+        public ActionResult CreateCoach()
+        {
+            return View("EditCreateCoach", new CoachViewModel());
+        }
+
+        // POST
+        [AdminOnly]
+        [HttpPost]
+        public ActionResult CreateCoach(CoachViewModel model, HttpPostedFileBase photo)
+        {
+            if (!ModelState.IsValid)
+                return View("EditCreateCoach", model);
+            if (photo != null && photo.ContentLength > 0)
+            {
+                var folder = "~/Images/";
+                var serverPath = Server.MapPath(folder);
+                if (!Directory.Exists(serverPath))
+                    Directory.CreateDirectory(serverPath);
+
+                var fileName = Path.GetFileName(photo.FileName);
+                var path = Path.Combine(serverPath, fileName);
+                photo.SaveAs(path);
+                model.ImagePath = VirtualPathUtility.Combine(folder, fileName);
+            }
+
+            _coach.CreateCoach(MapToDTO(model));
+            return RedirectToAction("Index");
+        }
+
+        // GET
+        [AdminOnly]
+        public ActionResult EditCoach(int id)
+        {
+            var coach = _coach.GetCoachById(id);
+            if (coach == null) return HttpNotFound();
+            return View("EditCreateCoach", MapToViewModel(coach));
+        }
+
+        // POST
+        [AdminOnly]
+        [HttpPost]
+        public ActionResult EditCoach(CoachViewModel model, HttpPostedFileBase photo)
+        {
+            if (!ModelState.IsValid)
+                return View("EditCreateCoach", model);
+
+            if (photo != null && photo.ContentLength > 0)
+            {
+                var folder = "~/Images/";
+                var serverPath = Server.MapPath(folder);
+                if (!Directory.Exists(serverPath))
+                    Directory.CreateDirectory(serverPath);
+
+                var fileName = Path.GetFileName(photo.FileName);
+                var path = Path.Combine(serverPath, fileName);
+                photo.SaveAs(path);
+                model.ImagePath = VirtualPathUtility.Combine(folder, fileName);
+            }
+
+            _coach.UpdateCoach(MapToDTO(model));
+            return RedirectToAction("Index");
+        }
+
+        // GET: Coach/Delete/5
+        [AdminOnly]
+        public ActionResult DeleteCoach(int id)
+        {
+            var coach = _coach.GetCoachById(id);
+            if (coach == null) return HttpNotFound();
+            return View(MapToViewModel(coach));
+        }
+
+        // POST: Coach/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [AdminOnly]
+        public ActionResult DeleteCoachConfirmed(int id)
+        {
+            _coach.DeleteCoach(id);
+            return RedirectToAction("Index");
+        }
+
+        [AdminOnly]
+        public ActionResult ProgramsList()
+        {
+            ViewBag.ActivePage = "Programs";
+
+            var programs = _program.GetAllPrograms()
+                .Select(p => new ProgramViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Duration = p.Duration,
+                    Trainer = p.Trainer,
+                    SuitableFor = p.SuitableFor
+                }).ToList();
+
+            return View(programs);
+        }
+
+        [HttpGet]
+        [AdminOnly]
+        public ActionResult CreateProgram()
+        {
+            ViewBag.ActivePage = "Programs";
+            return View("EditCreateProgram", new ProgramViewModel());
+        }
+
+        [HttpGet]
+        [AdminOnly]
+        public ActionResult EditProgram(int id)
+        {
+            ViewBag.ActivePage = "Programs";
+            var program = _program.GetProgramById(id);
+            if (program == null) return HttpNotFound();
+
+            var model = new ProgramViewModel
+            {
+                Id = program.Id,
+                Title = program.Title,
+                Description = program.Description,
+                Duration = program.Duration,
+                Trainer = program.Trainer,
+                SuitableFor = program.SuitableFor
+            };
+
+            return View("EditCreateProgram", model);
+        }
+
+        [AdminOnly]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCreateProgram(ProgramViewModel model)
+        {
+            ViewBag.ActivePage = "Programs";
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var dto = new ProgramDTO
+            {
+                Id = model.Id,
+                Title = model.Title,
+                Description = model.Description,
+                Duration = model.Duration,
+                Trainer = model.Trainer,
+                SuitableFor = model.SuitableFor
+            };
+
+            if (model.Id == 0)
+            {
+                _program.CreateProgram(dto);
+            }
+            else
+            {
+                _program.UpdateProgram(dto);
+            }
+
+            return RedirectToAction("ProgramsList");
+        }
+
+        [HttpGet]
+        [AdminOnly]
+        public ActionResult DeleteProgram(int id)
+        {
+            ViewBag.ActivePage = "Programs";
+
+            var program = _program.GetProgramById(id);
+            if (program == null) return HttpNotFound();
+
+            var model = new ProgramViewModel
+            {
+                Id = program.Id,
+                Title = program.Title,
+                Description = program.Description
+            };
+
+            return View(model);
+        }
+
+        [HttpPost, ActionName("DeleteProgram")]
+        [ValidateAntiForgeryToken]
+        [AdminOnly]
+        public ActionResult DeleteProgramConfirmed(int id)
+        {
+            _program.DeleteProgram(id);
+            return RedirectToAction("ProgramsList");
+        }
+
+        private CoachViewModel MapToViewModel(CoachDTO dto)
+        {
+            return new CoachViewModel
+            {
+                Id = dto.Id,
+                ImagePath = dto.ImagePath,
+                FullName = dto.FullName,
+                ExperienceTime = dto.ExperienceTime,
+                Qualification = dto.Qualification,
+                Specialization = dto.Specialization,
+                Bio = dto.Bio,
+                Testimonials = dto.Testimonials,
+                TelegramUrl = dto.TelegramUrl,
+                SteamUrl = dto.SteamUrl,
+                InstagramUrl = dto.InstagramUrl
+            };
+        }
+
+        private CoachDTO MapToDTO(CoachViewModel model)
+        {
+            return new CoachDTO
+            {
+                Id = model.Id,
+                ImagePath = model.ImagePath,
+                FullName = model.FullName,
+                ExperienceTime = model.ExperienceTime,
+                Qualification = model.Qualification,
+                Specialization = model.Specialization,
+                Bio = model.Bio,
+                Testimonials = model.Testimonials,
+                TelegramUrl = model.TelegramUrl,
+                SteamUrl = model.SteamUrl,
+                InstagramUrl = model.InstagramUrl
+            };
         }
     }
 }

@@ -1,0 +1,13 @@
+@model IronCore.Models.ProgramViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Удалить программу";
+}
+<h2>Удалить программу "@Model.Title"?</h2>
+@using (Html.BeginForm("DeleteProgram", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a href="@Url.Action("Programs")" class="btn btn-secondary">Отмена</a>
+}
